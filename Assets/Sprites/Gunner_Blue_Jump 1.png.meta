@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 7ca9f1749b35c2a4aab6e99fef8f8b96
+guid: 991a13d1edeff2247a4e419b3b169626
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Gunner_Blue_Jump_0
-    21300002: Gunner_Blue_Jump_1
+    21300000: Gunner_Blue_Jump 1_0
+    21300002: Gunner_Blue_Jump 1_1
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -65,7 +65,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -76,7 +76,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -87,7 +87,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gunner_Blue_Jump_0
+      name: Gunner_Blue_Jump 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,13 +111,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6bbba0f33206254c9277f160ee53169
+      spriteID: 36bd4a655133d2544b0687d91bc6f14a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gunner_Blue_Jump_1
+      name: Gunner_Blue_Jump 1_1
       rect:
         serializedVersion: 2
         x: 48
@@ -131,7 +131,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3ddf0620375d3ac4691e5b86ff0f1e89
+      spriteID: c9e8b71a99dbcfb4884f3ec70930fbc6
       vertices: []
       indices: 
       edges: []
@@ -139,7 +139,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: aa07683d72f133840be4fd58a90faa1b
+    spriteID: cfabf7cfdc96c254b8f049a0a55e4f80
     vertices: []
     indices: 
     edges: []
