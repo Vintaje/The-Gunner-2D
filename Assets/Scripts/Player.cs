@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
      */
     private bool saltando;
     private bool atacando;
+    private bool agachado;
     public Animator animator;
     public int vidas;
     public float fireRate = 0.5f;
@@ -22,27 +23,31 @@ public class Player : MonoBehaviour
         vidas = 3;
         saltando = false;
         atacando = false;
+        agachado = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if (!agachado)
         {
-            transform.Translate(new Vector3(-0.03f, 0.0f));
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Translate(new Vector3(-0.03f, 0.0f));
 
-            transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
-            animator.SetBool("Running", true);
-        }
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.Translate(new Vector3(0.03f, 0.0f));
-            transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
-            animator.SetBool("Running", true);
-        }
-        else
-        {
-            animator.SetBool("Running", false);
+                transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
+                animator.SetBool("Running", true);
+            }
+            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Translate(new Vector3(0.03f, 0.0f));
+                transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
+                animator.SetBool("Running", true);
+            }
+            else
+            {
+                animator.SetBool("Running", false);
+            }
         }
 
 
@@ -59,14 +64,31 @@ public class Player : MonoBehaviour
         }
 
 
-        if(Input.GetKey(KeyCode.Space)){
+        if (Input.GetKey(KeyCode.Space))
+        {
             animator.SetBool("Death", true);
         }
 
-        if(Input.GetKey(KeyCode.F) && Time.time > nextFire){
+        if (Input.GetKey(KeyCode.F) && Time.time > nextFire)
+        {
             nextFire = Time.time + fireRate;
-            GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner);
+            GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
         }
+
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            if (!saltando)
+            {
+                agachado = true;
+                
+            }
+        }
+        else
+        {
+            agachado = false;
+        }
+        animator.SetBool("Crouch", agachado);
 
 
     }

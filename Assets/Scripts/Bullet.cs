@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 5;
+    public float speed = 500;
     public int damage = 1;
-    public float destroyTime = 1.5f;
+    public float destroyTime = 0.1f;
 
     // Start is called before the first frame update
     void Start()
