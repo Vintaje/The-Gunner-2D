@@ -11,8 +11,11 @@ public class Player : MonoBehaviour
     private bool saltando;
     private bool atacando;
     public Animator animator;
-    public GameObject muzzle;
     public int vidas;
+    public float fireRate = 0.5f;
+    public float nextFire;
+    public GameObject bulletPrefab;
+    public Transform shotSpawner;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,10 +63,9 @@ public class Player : MonoBehaviour
             animator.SetBool("Death", true);
         }
 
-        if(Input.GetKey(KeyCode.F)){
-            muzzle.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        }else{
-            muzzle.transform.localScale = new Vector3(0.0f, 1.0f, 1.0f);
+        if(Input.GetKey(KeyCode.F) && Time.time > nextFire){
+            nextFire = Time.time + fireRate;
+            GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner);
         }
 
 
