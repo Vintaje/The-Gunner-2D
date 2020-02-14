@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
             speed = 0;
         }
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || joystick.Horizontal < deadzone*-1 || Input.GetAxis("Horizontal") < deadzone*-1)
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || joystick.Horizontal < deadzone * -1 || Input.GetAxis("Horizontal") < deadzone * -1)
         {
             transform.Translate(new Vector3(speed * -1, 0.0f));
 
@@ -89,59 +89,22 @@ public class Player : MonoBehaviour
         }
 
 
-        if(Application.platform == RuntimePlatform.Android){
-
-        if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton"))
-        {
-
-            if (saltando == false && !agachado)
-            {
-                GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 175.0f));
-                saltando = true;
-                animator.SetBool("Running", false);
-                animator.SetBool("Jumping", saltando);
-            }
-
-        }
-        }else{
-            
-        if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButton("Jump"))
-        {
-
-            if (saltando == false && !agachado)
-            {
-                GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 175.0f));
-                saltando = true;
-                animator.SetBool("Running", false);
-                animator.SetBool("Jumping", saltando);
-            }
-
-        }
-        }
-
-
-        if (Input.GetKey(KeyCode.W) || joystick.Vertical > deadzone || Input.GetAxis("Vertical") > deadzone)
-        {
-                arriba = true;
-                speed = 0;
-        }
-        else
-        {
-            arriba = false;
-            speed = speednormal;
-        }
-        animator.SetBool("AimUp", arriba);
-
-
-        if (Input.GetKey(KeyCode.L))
-        {
-            gameObject.GetComponent<AudioSource>().time = 0.65f;
-            gameObject.GetComponent<AudioSource>().Play();
-            animator.SetBool("Death", true);
-
-        }
         if (Application.platform == RuntimePlatform.Android)
         {
+
+            if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton"))
+            {
+
+                if (saltando == false && !agachado)
+                {
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 175.0f));
+                    saltando = true;
+                    animator.SetBool("Running", false);
+                    animator.SetBool("Jumping", saltando);
+                }
+
+            }
+
             if ((fire.Pressed && fire.gameObject.tag == "FireButton") && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
@@ -164,7 +127,23 @@ public class Player : MonoBehaviour
             {
                 shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
             }
-        }else{
+        }
+        else
+        {
+
+            if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButton("Jump"))
+            {
+
+                if (saltando == false && !agachado)
+                {
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 175.0f));
+                    saltando = true;
+                    animator.SetBool("Running", false);
+                    animator.SetBool("Jumping", saltando);
+                }
+
+            }
+
             if ((Input.GetKey(KeyCode.F) || Input.GetButton("Fire1")) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
@@ -185,11 +164,36 @@ public class Player : MonoBehaviour
             }
             else
             {
-                shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
             }
+
+
+            if (Input.GetKey(KeyCode.W) || joystick.Vertical > deadzone-0.5 || Input.GetAxis("Vertical") > deadzone-0.5)
+            {
+                arriba = true;
+                speed = 0;
+            }
+            else
+            {
+                arriba = false;
+                speed = speednormal;
+            }
+            animator.SetBool("AimUp", arriba);
+
+
+            if (Input.GetKey(KeyCode.L))
+            {
+                gameObject.GetComponent<AudioSource>().time = 0.65f;
+                gameObject.GetComponent<AudioSource>().Play();
+                animator.SetBool("Death", true);
+
+            }
+
+
+            shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
         }
 
-        if (Input.GetAxis("Vertical") < deadzone*-1 || joystick.Vertical < deadzone*-1 || Input.GetKey(KeyCode.S))
+
+        if (Input.GetAxis("Vertical") < deadzone * -1 || joystick.Vertical < deadzone * -1 || Input.GetKey(KeyCode.S))
         {
             if (!saltando)
             {
