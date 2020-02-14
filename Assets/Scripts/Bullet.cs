@@ -22,7 +22,11 @@ public class Bullet : MonoBehaviour
 
 
 
-    private void OnTriggerEnter2d(Collider2D other){
-        Destroy(gameObject);
+    private void OnCollisionEnter2D(Collision2D other){
+       if (other.gameObject.tag != "Bullet")
+        {
+            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
+        }
     }
 }

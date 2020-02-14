@@ -8,6 +8,8 @@ TagManager:
   - MuzzleFlash
   - FireButton
   - JumpButton
+  - Bullet
+  - DangerObject
   layers:
   - Default
   - TransparentFX
