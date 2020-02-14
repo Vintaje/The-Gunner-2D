@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Floor
   - MuzzleFlash
+  - FireButton
+  - JumpButton
   layers:
   - Default
   - TransparentFX

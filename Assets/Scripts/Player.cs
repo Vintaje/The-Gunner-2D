@@ -5,27 +5,35 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    /*     public GameObject ataque_original;
-        public GameObject ataque_posicion;
-     */
+    public Animator animator;
+
+
+    //Parametros del jugador
+    public int vidas;
+    public float fireRate = 0.5f;
+    public float nextFire;
+    public float speed;
+    public float speedagachado;
+    public float speednormal;
+
+
+    //Disparos
+    public GameObject bulletPrefab;
+    public Transform shotSpawner;
+
+
+    //Boolean animaciones
     private bool saltando;
     private bool atacando;
     private bool agachado;
     private bool arriba;
     public bool derecha;
-    public Animator animator;
-    public int vidas;
-    public float fireRate = 0.5f;
-    public float nextFire;
-
-    public GameObject bulletPrefab;
-    public Transform shotSpawner;
-
-
 
     //Controles
     protected Joystick joystick;
-    protected Joybutton joybutton;
+    public Joybutton jump;
+    public Joybutton fire;
+    public float deadzone;
 
 
 
@@ -36,57 +44,44 @@ public class Player : MonoBehaviour
         saltando = false;
         atacando = false;
         agachado = false;
-        derecha = false;
+        derecha = true;
         arriba = false;
 
 
         //Buscamos los controles
         joystick = FindObjectOfType<Joystick>();
-        joybutton = FindObjectOfType<Joybutton>();
+
+
+        animator.SetBool("Running", false);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || joystick.Horizontal <  0 || Input.GetAxis("Horizontal") < 0)
+        if (arriba)
         {
-            if (!agachado)
-            {
-                transform.Translate(new Vector3(-0.03f, 0.0f));
+            speed = 0;
+        }
 
-                transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
-                animator.SetBool("Running", true);
-                derecha = false;
-            }
-            else
-            {
-                transform.Translate(new Vector3(-0.005f, 0.0f));
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || joystick.Horizontal < deadzone*-1 || Input.GetAxis("Horizontal") < deadzone*-1)
+        {
+            transform.Translate(new Vector3(speed * -1, 0.0f));
 
-                transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
-                animator.SetBool("Running", true);
-                derecha = false;
-            }
+            transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
+            animator.SetBool("Running", true);
+            derecha = false;
 
         }
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || joystick.Horizontal > 0 || Input.GetAxis("Horizontal") > 0)
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || joystick.Horizontal > deadzone || Input.GetAxis("Horizontal") > deadzone)
         {
-            if (!agachado)
-            {
-                transform.Translate(new Vector3(0.03f, 0.0f));
 
-                transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
-                animator.SetBool("Running", true);
-                derecha = true;
-            }
-            else
-            {
-                transform.Translate(new Vector3(0.005f, 0.0f));
+            transform.Translate(new Vector3(speed, 0.0f));
 
-                transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
-                animator.SetBool("Running", true);
-                derecha = true;
-            }
+            transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
+            animator.SetBool("Running", true);
+            derecha = true;
+
+
         }
         else
         {
@@ -95,7 +90,7 @@ public class Player : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) || joybutton.Pressed || Input.GetButton("Fire2"))
+        if (Input.GetKey(KeyCode.Space) || jump.Pressed || Input.GetButton("Fire2"))
         {
 
             if (saltando == false && !agachado)
@@ -105,63 +100,91 @@ public class Player : MonoBehaviour
                 animator.SetBool("Running", false);
                 animator.SetBool("Jumping", saltando);
             }
-            else if (agachado)
-            {
+
+        }
+
+
+        if (Input.GetKey(KeyCode.W) || joystick.Vertical > deadzone || Input.GetAxis("Vertical") > deadzone)
+        {
                 arriba = true;
-                animator.SetBool("AimUp", arriba);
-            }
+                speed = 0;
         }
         else
         {
             arriba = false;
-            animator.SetBool("AimUp", arriba);
-
+            speed = speednormal;
         }
+        animator.SetBool("AimUp", arriba);
 
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.L))
         {
             gameObject.GetComponent<AudioSource>().time = 0.65f;
             gameObject.GetComponent<AudioSource>().Play();
             animator.SetBool("Death", true);
 
         }
-
-        if (Input.GetKey(KeyCode.F) && Time.time > nextFire)
+        if (Application.platform == RuntimePlatform.Android)
         {
-            nextFire = Time.time + fireRate;
-            GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
-            shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
-            if (!derecha)
+            if ((fire.Pressed && fire.gameObject.tag.Equals("FireButton")) && Time.time > nextFire)
             {
-                tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
-                if (saltando)
+                nextFire = Time.time + fireRate;
+                GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
+                shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
+                if (!derecha)
                 {
-                    tempBullet.transform.eulerAngles = new Vector3(0, 0, 270);
-                }
-                if (arriba)
-                {
-                    tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
+                    tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
+                    if (saltando)
+                    {
+                        tempBullet.transform.eulerAngles = new Vector3(0, 0, 270);
+                    }
+                    if (arriba)
+                    {
+                        tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
+                    }
                 }
             }
-        }
-        else
-        {
-            shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
+            else
+            {
+                shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
+            }
+        }else{
+            if ((Input.GetKey(KeyCode.F) || Input.GetButton("Fire1")) && Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
+                shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
+                if (!derecha)
+                {
+                    tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
+                    if (saltando)
+                    {
+                        tempBullet.transform.eulerAngles = new Vector3(0, 0, 270);
+                    }
+                    if (arriba)
+                    {
+                        tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
+                    }
+                }
+            }
+            else
+            {
+                shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
+            }
         }
 
-
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetAxis("Vertical") < deadzone*-1 || joystick.Vertical < deadzone*-1 || Input.GetKey(KeyCode.S))
         {
             if (!saltando)
             {
                 agachado = true;
-
+                speed = speedagachado;
             }
         }
         else
         {
             agachado = false;
+            speed = speednormal;
         }
         animator.SetBool("Crouch", agachado);
 

@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class Joybutton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
 
-    public bool Pressed;
+    public bool Pressed = false;
 
     public void OnPointerDown(PointerEventData eventData)
     {
