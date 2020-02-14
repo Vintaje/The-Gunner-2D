@@ -20,6 +20,15 @@ public class Player : MonoBehaviour
 
     public GameObject bulletPrefab;
     public Transform shotSpawner;
+
+
+
+    //Controles
+    protected Joystick joystick;
+    protected Joybutton joybutton;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,13 +38,18 @@ public class Player : MonoBehaviour
         agachado = false;
         derecha = false;
         arriba = false;
+
+
+        //Buscamos los controles
+        joystick = FindObjectOfType<Joystick>();
+        joybutton = FindObjectOfType<Joybutton>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || joystick.Horizontal <  0 || Input.GetAxis("Horizontal") < 0)
         {
             if (!agachado)
             {
@@ -44,7 +58,9 @@ public class Player : MonoBehaviour
                 transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
                 animator.SetBool("Running", true);
                 derecha = false;
-            }else{
+            }
+            else
+            {
                 transform.Translate(new Vector3(-0.005f, 0.0f));
 
                 transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
@@ -53,7 +69,7 @@ public class Player : MonoBehaviour
             }
 
         }
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || joystick.Horizontal > 0 || Input.GetAxis("Horizontal") > 0)
         {
             if (!agachado)
             {
@@ -62,7 +78,9 @@ public class Player : MonoBehaviour
                 transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
                 animator.SetBool("Running", true);
                 derecha = true;
-            }else{
+            }
+            else
+            {
                 transform.Translate(new Vector3(0.005f, 0.0f));
 
                 transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
@@ -77,7 +95,7 @@ public class Player : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) || joybutton.Pressed || Input.GetButton("Fire2"))
         {
 
             if (saltando == false && !agachado)
@@ -106,7 +124,7 @@ public class Player : MonoBehaviour
             gameObject.GetComponent<AudioSource>().time = 0.65f;
             gameObject.GetComponent<AudioSource>().Play();
             animator.SetBool("Death", true);
-           
+
         }
 
         if (Input.GetKey(KeyCode.F) && Time.time > nextFire)
