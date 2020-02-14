@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Joybutton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
+public class FireJoybutton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
 
     public bool Pressed = false;

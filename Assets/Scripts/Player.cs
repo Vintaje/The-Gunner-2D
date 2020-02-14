@@ -31,8 +31,8 @@ public class Player : MonoBehaviour
 
     //Controles
     protected Joystick joystick;
-    public Joybutton jump;
-    public Joybutton fire;
+    public JumpJoybutton jump;
+    public FireJoybutton fire;
     public float deadzone;
 
 
@@ -89,8 +89,9 @@ public class Player : MonoBehaviour
         }
 
 
+        if(Application.platform == RuntimePlatform.Android){
 
-        if (Input.GetKey(KeyCode.Space) || jump.Pressed || Input.GetButton("Fire2"))
+        if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton"))
         {
 
             if (saltando == false && !agachado)
@@ -101,6 +102,21 @@ public class Player : MonoBehaviour
                 animator.SetBool("Jumping", saltando);
             }
 
+        }
+        }else{
+            
+        if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButton("Jump"))
+        {
+
+            if (saltando == false && !agachado)
+            {
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 175.0f));
+                saltando = true;
+                animator.SetBool("Running", false);
+                animator.SetBool("Jumping", saltando);
+            }
+
+        }
         }
 
 
@@ -126,7 +142,7 @@ public class Player : MonoBehaviour
         }
         if (Application.platform == RuntimePlatform.Android)
         {
-            if ((fire.Pressed && fire.gameObject.tag.Equals("FireButton")) && Time.time > nextFire)
+            if ((fire.Pressed && fire.gameObject.tag == "FireButton") && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
                 GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
