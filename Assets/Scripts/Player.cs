@@ -216,12 +216,14 @@ public class Player : MonoBehaviour
 
         if (_col.gameObject.tag == "DangerObject")
         {
-            muerto = true;
-            BlinkPlayer(3);
-           gameObject.GetComponent<AudioSource>().time = 0.65f;
-        gameObject.GetComponent<AudioSource>().Play();
-        animator.SetBool("Death", true);
-
+            if (!muerto)
+            {
+                muerto = true;
+                BlinkPlayer(3);
+                gameObject.GetComponent<AudioSource>().time = 0.65f;
+                gameObject.GetComponent<AudioSource>().Play();
+                animator.SetBool("Death", true);
+            }
         }
     }
 
