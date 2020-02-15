@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HorizontalMovePlatform : MonoBehaviour
+public class VerticalMovePlatform : MonoBehaviour
 {
-    private float speedUpDown = 1;
+    // Start is called before the first frame update
+    
+    public float speedUpDown = -1;
+    private float pos ;
     private float distanceUpDown = 2;
     private Vector3 mov;
     public GameObject player;
@@ -14,16 +17,17 @@ public class HorizontalMovePlatform : MonoBehaviour
 
 
     private void Start()
-    {
+    {pos=gameObject.transform.position.y;
     }
     void Update()
     {
-        mov = new Vector3(Mathf.Sin(speedUpDown * Time.time) * distanceUpDown + 8f, transform.position.y, transform.position.z);
+
+        mov = new Vector3(transform.position.x , Mathf.Sin(speedUpDown * Time.time) * distanceUpDown+pos, transform.position.z);
         transform.position = mov;
 
         if (playerAbove)
         {
-            player.transform.position = new Vector3(mov.x, player.transform.position.y,player.transform.position.z);
+            player.transform.position = new Vector3(player.transform.position.x, mov.y,player.transform.position.z);
         }
 
     }
@@ -42,6 +46,4 @@ public class HorizontalMovePlatform : MonoBehaviour
             playerAbove = true;
         }
     }
-
-
 }
