@@ -12,6 +12,8 @@ TagManager:
   - DangerObject
   - Explosion
   - PlatformHorizontal
+  - SignText
+  - SignImage
   layers:
   - Default
   - TransparentFX
