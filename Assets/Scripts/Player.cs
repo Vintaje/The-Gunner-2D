@@ -28,12 +28,20 @@ public class Player : MonoBehaviour
     private bool arriba;
     public bool derecha;
     public bool muerto;
+    public bool running;
 
     //Controles
     protected Joystick joystick;
     public JumpJoybutton jump;
     public FireJoybutton fire;
     public float deadzone;
+
+
+    //Sonidos
+    public AudioSource death;
+    public AudioSource footstep;
+    public AudioSource jumping;
+    public AudioSource[] sounds;
 
 
 
@@ -46,7 +54,13 @@ public class Player : MonoBehaviour
         derecha = true;
         arriba = false;
         muerto = false;
+        running = true;
 
+        //sonidos
+        sounds = sounds = GetComponents<AudioSource>();
+        death = sounds[0];
+        footstep = sounds[1];
+        jumping = sounds[2];
 
         //Buscamos los controles
         joystick = FindObjectOfType<Joystick>();
@@ -72,7 +86,7 @@ public class Player : MonoBehaviour
                 transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
                 animator.SetBool("Running", true);
                 derecha = false;
-
+                running = true;
             }
             else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || joystick.Horizontal > deadzone || Input.GetAxis("Horizontal") > deadzone)
             {
@@ -82,12 +96,13 @@ public class Player : MonoBehaviour
                 transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
                 animator.SetBool("Running", true);
                 derecha = true;
-
+                running = true;
 
             }
             else
             {
                 animator.SetBool("Running", false);
+                running = false;
             }
 
 
@@ -142,6 +157,7 @@ public class Player : MonoBehaviour
                         saltando = true;
                         animator.SetBool("Running", false);
                         animator.SetBool("Jumping", saltando);
+                        jumping.Play();
                     }
 
                 }
@@ -200,7 +216,12 @@ public class Player : MonoBehaviour
                 speed = speednormal;
             }
             animator.SetBool("Crouch", agachado);
-
+            if (running && !saltando)
+            {
+                footstep.UnPause();
+            }else{
+                footstep.Pause();
+            }
         }
     }
 
@@ -219,9 +240,10 @@ public class Player : MonoBehaviour
             if (!muerto)
             {
                 muerto = true;
+                footstep.Pause();
                 BlinkPlayer(3);
-                gameObject.GetComponent<AudioSource>().time = 0.65f;
-                gameObject.GetComponent<AudioSource>().Play();
+                death.time = 0.65f;
+                death.Play();
                 animator.SetBool("Death", true);
             }
         }

@@ -32,6 +32,11 @@ public class DestructibleObject : MonoBehaviour
             bullet = new Bullet();
             BlinkPlayer(2);
 
+            if(gameObject.tag == "DangerObject" && gameObject.name.StartsWith("Toxic")){
+                gameObject.GetComponent<AudioSource>().Play();
+            }
+
+
             //Damage received
             vida -= bullet.damage;
             Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage);
