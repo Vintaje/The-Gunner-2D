@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5519176309254749587}
   - component: {fileID: 5519176309254749586}
-  - component: {fileID: 5519176309254749589}
   - component: {fileID: 114242713890284604}
+  - component: {fileID: 9007154241112384617}
   m_Layer: 0
   m_Name: Bullet Impact
   m_TagString: Untagged
@@ -81,25 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5519176309254749589
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519176309254749588}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d6303f089a345794eb8caff2d6bca188, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114242713890284604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,3 +93,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7c2c919c77c6e4785d72e88519cf22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &9007154241112384617
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5519176309254749588}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9d870988524468a438f3dcffdbc43a93, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

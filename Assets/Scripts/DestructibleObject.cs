@@ -9,6 +9,11 @@ public class DestructibleObject : MonoBehaviour
     public float hurt_duration;
     private float t = 0.5f;
     private Bullet bullet;
+
+
+    //Effects
+    public GameObject explosion;
+
     void Start()
     {
 
@@ -19,6 +24,7 @@ public class DestructibleObject : MonoBehaviour
     {
         if (vida <= 0)
         {
+            GameObject explo = Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
             Destroy(gameObject);
         }
     }
@@ -32,7 +38,8 @@ public class DestructibleObject : MonoBehaviour
             bullet = new Bullet();
             BlinkPlayer(2);
 
-            if(gameObject.tag == "DangerObject" && gameObject.name.StartsWith("Toxic")){
+            if (gameObject.tag == "DangerObject" && gameObject.name.StartsWith("Toxic"))
+            {
                 gameObject.GetComponent<AudioSource>().Play();
             }
 

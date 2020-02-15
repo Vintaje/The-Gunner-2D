@@ -70,7 +70,7 @@ shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!muerto)
         {
@@ -224,6 +224,8 @@ shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
             }
         }
     }
+
+    void Update(){}
 
 
     void OnCollisionEnter2D(Collision2D _col)
