@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class signal : MonoBehaviour
+public class Sign : MonoBehaviour
 {
-
-    public Image image;
-    public Text text;
+    public GameObject text;
+    public GameObject image;
     public string mensaje;
 
     // Start is called before the first frame update
     void Start()
     {
-        text.text = mensaje;
-        image.enabled = false;
-        text.enabled = false;
+        mensaje = mensaje.Replace("||", "\n");
+        text.SetActive(false);
+        image.SetActive(false);
+        text.GetComponent<TextMesh>().text = mensaje;
     }
 
     // Update is called once per frame
@@ -27,8 +27,8 @@ public class signal : MonoBehaviour
     {
         if (collider.tag.Equals("Player"))
         {
-            image.enabled = true;
-            text.enabled = true;
+            text.SetActive(true);
+            image.SetActive(true);
         }
     }
 
@@ -36,8 +36,8 @@ public class signal : MonoBehaviour
     {
         if (collider.tag.Equals("Player"))
         {
-            image.enabled = false;
-            text.enabled = false;
+            text.SetActive(false);
+            image.SetActive(false);
         }
     }
 }

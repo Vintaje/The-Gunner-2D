@@ -252,7 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 674209870}
   text: {fileID: 1660214561}
-  mensaje: Primer cartel
+  mensaje: Segundo cartel
 --- !u!61 &421799134
 BoxCollider2D:
   m_ObjectHideFlags: 0
