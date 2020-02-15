@@ -97,6 +97,8 @@ MonoBehaviour:
   speed: 8
   damage: 1
   destroyTime: 0.5
+  bulletExplo: {fileID: 5519176309254749588, guid: b24eb017b92946745b192c8735173153,
+    type: 3}
 --- !u!82 &8246202642510503510
 AudioSource:
   m_ObjectHideFlags: 0

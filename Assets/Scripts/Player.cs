@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
         //Buscamos los controles
         joystick = FindObjectOfType<Joystick>();
 
-
+shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
         animator.SetBool("Running", false);
     }
 
