@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -65,7 +66,7 @@ public class Player : MonoBehaviour
         //Buscamos los controles
         joystick = FindObjectOfType<Joystick>();
 
-shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
+        shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
         animator.SetBool("Running", false);
     }
 
@@ -219,13 +220,15 @@ shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
             if (running && !saltando)
             {
                 footstep.UnPause();
-            }else{
+            }
+            else
+            {
                 footstep.Pause();
             }
         }
     }
 
-    void Update(){}
+    void Update() { }
 
 
     void OnCollisionEnter2D(Collision2D _col)
@@ -239,18 +242,38 @@ shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
 
         if (_col.gameObject.tag == "DangerObject")
         {
-            if (!muerto)
+            playermuerto();
+        }
+
+        if (_col.gameObject.tag == "Explosion")
+        {
+            gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction += 10;
+            if (derecha)
             {
-                muerto = true;
-                footstep.Pause();
-                BlinkPlayer(3);
-                death.time = 0.65f;
-                death.Play();
-                animator.SetBool("Death", true);
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(-20.0f, 100.0f));
+            }else{
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(20.0f, 100.0f));
             }
+            playermuerto();
         }
     }
 
+
+
+    void playermuerto()
+    {
+        if (!muerto)
+        {
+            
+            muerto = true;
+            footstep.Pause();
+            BlinkPlayer(3);
+            death.time = 0.65f;
+            death.Play();
+            animator.SetBool("Death", true);
+            Invoke("restart", 2);
+        }
+    }
 
     void BlinkPlayer(int numBlinks)
     {
@@ -273,5 +296,12 @@ shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
         gameObject.GetComponent<Renderer>().enabled = true;
     }
 
+
+
+    void restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    
 
 }
