@@ -11,6 +11,7 @@ TagManager:
   - Bullet
   - DangerObject
   - Explosion
+  - PlatformHorizontal
   layers:
   - Default
   - TransparentFX

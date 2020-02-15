@@ -234,28 +234,32 @@ public class Player : MonoBehaviour
     void OnCollisionEnter2D(Collision2D _col)
     {
 
-        if (_col.gameObject.tag == "Floor")
+        if (_col.gameObject.tag.Equals("Floor"))
         {
             saltando = false;
             animator.SetBool("Jumping", saltando);
         }
 
-        if (_col.gameObject.tag == "DangerObject")
+        if (_col.gameObject.tag.Equals("DangerObject"))
         {
             playermuerto();
         }
 
-        if (_col.gameObject.tag == "Explosion")
+        if (_col.gameObject.tag.Equals("Explosion"))
         {
             gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction += 10;
             if (derecha)
             {
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(-20.0f, 100.0f));
-            }else{
+            }
+            else
+            {
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(20.0f, 100.0f));
             }
             playermuerto();
         }
+
+
     }
 
 
@@ -264,7 +268,7 @@ public class Player : MonoBehaviour
     {
         if (!muerto)
         {
-            
+
             muerto = true;
             footstep.Pause();
             BlinkPlayer(3);
@@ -302,6 +306,6 @@ public class Player : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    
+
 
 }
