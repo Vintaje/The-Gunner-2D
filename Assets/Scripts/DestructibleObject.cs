@@ -9,6 +9,7 @@ public class DestructibleObject : MonoBehaviour
     public float hurt_duration;
     private float t = 0.5f;
     private Bullet bullet;
+    
 
 
     //Effects
@@ -16,7 +17,7 @@ public class DestructibleObject : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -25,6 +26,7 @@ public class DestructibleObject : MonoBehaviour
         if (vida <= 0)
         {
             GameObject explo = Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
+            gameObject.GetComponent<Animator>().SetBool("Destroy", true);
             Destroy(gameObject);
         }
     }
@@ -33,14 +35,18 @@ public class DestructibleObject : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D other)
     {
 
+        
         if (other.gameObject.tag == "Bullet" && this.vida > 0)
         {
             bullet = new Bullet();
+            gameObject.GetComponent<Animator>().SetBool("Hit", true);
             BlinkPlayer(2);
 
             if (gameObject.tag == "DangerObject" && gameObject.name.StartsWith("Toxic"))
             {
+
                 gameObject.GetComponent<AudioSource>().Play();
+                
             }
 
 
@@ -62,13 +68,13 @@ public class DestructibleObject : MonoBehaviour
 
             //toggle renderer
             gameObject.GetComponent<Renderer>().enabled = !gameObject.GetComponent<Renderer>().enabled;
-
             //wait for a bit
             yield return new WaitForSeconds(seconds);
         }
 
         //make sure renderer is enabled when we exit
         gameObject.GetComponent<Renderer>().enabled = true;
+        gameObject.GetComponent<Animator>().SetBool("Hit", false);
     }
 
 }
