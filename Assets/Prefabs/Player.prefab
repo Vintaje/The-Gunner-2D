@@ -226,6 +226,8 @@ MonoBehaviour:
   speednormal: 0.05
   bulletPrefab: {fileID: 5611423884645366640, guid: 59bf4cbdac8320b42b4276e94d4d2553,
     type: 3}
+  bulletSpecialPrefab: {fileID: 6832578267709467496, guid: 9b8414d7db487364dba2a0810c1296ab,
+    type: 3}
   shotSpawner: {fileID: 3153768776119223570}
   derecha: 0
   muerto: 0
@@ -250,7 +252,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.012651354, y: 0.018434316}
+  m_Offset: {x: -0.01045762, y: 0.018434316}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -261,7 +263,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.18370056, y: 0.28625956}
+  m_Size: {x: 0.13748261, y: 0.28625956}
   m_EdgeRadius: 0
 --- !u!50 &3153768777711790018
 Rigidbody2D:

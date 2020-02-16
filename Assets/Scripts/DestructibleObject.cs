@@ -38,7 +38,7 @@ public class DestructibleObject : MonoBehaviour
         
         if (other.gameObject.tag == "Bullet" && this.vida > 0)
         {
-            bullet = new Bullet();
+            bullet = other.gameObject.GetComponent<Bullet>();
             gameObject.GetComponent<Animator>().SetBool("Hit", true);
             BlinkPlayer(2);
 

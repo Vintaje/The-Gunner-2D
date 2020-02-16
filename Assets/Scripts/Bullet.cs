@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public int damage = 1;
     public float destroyTime = 0.1f;
     public GameObject bulletExplo;
+    public GameObject stream;
 
     // Start is called before the first frame update
     void Start()
@@ -19,17 +20,25 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.right * speed * Time.deltaTime);
+        GameObject explosion = Instantiate(stream, gameObject.transform.position, gameObject.transform.rotation);
     }
 
 
 
-    private void OnCollisionEnter2D(Collision2D other){
-       if (other.gameObject.tag != "Bullet")
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag != "Bullet")
         {
-            GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+
             this.gameObject.SetActive(false);
-            Destroy(this.gameObject);
+            Invoke("restos", 0.1f);
+            Destroy(this.gameObject, 0.5f);
 
         }
+    }
+
+    private void restos()
+    {
+        GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
     }
 }
