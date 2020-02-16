@@ -10,11 +10,7 @@ public class HorizontalMovePlatform : MonoBehaviour
     public GameObject player;
 
     private bool playerAbove = false;
-    public Vector3 Mov
-    {
-        get { return mov; }
-        set { mov = value; }
-    }
+
 
 
     private void Start()
@@ -22,17 +18,28 @@ public class HorizontalMovePlatform : MonoBehaviour
     }
     void Update()
     {
+
+        if (Mathf.Sin(speedUpDown * Time.time) > 0.98)
+        {
+            gameObject.transform.localScale = new Vector3(3.0f, 3.0f, 1.0f);
+
+        }
+        else if (Mathf.Sin(speedUpDown * Time.time) < -0.98)
+        {
+            gameObject.transform.localScale = new Vector3(-3.0f, 3.0f, 1.0f);
+
+        }
         mov = new Vector3(Mathf.Sin(speedUpDown * Time.time) * distanceUpDown + 8f, transform.position.y, transform.position.z);
         transform.position = mov;
 
-        if (playerAbove)
+       /*  if (playerAbove)
         {
-            player.transform.position = new Vector3(mov.x, player.transform.position.y,player.transform.position.z);
-        }
+            player.transform.position = new Vector3(mov.x, player.transform.position.y, player.transform.position.z);
+        } */
 
     }
 
-    private void OnCollisionExit2D(Collision2D other)
+/*     private void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.tag.Equals("Player"))
         {
@@ -46,6 +53,6 @@ public class HorizontalMovePlatform : MonoBehaviour
             playerAbove = true;
         }
     }
-
+ */
 
 }
