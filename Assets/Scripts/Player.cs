@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     public float speedagachado;
     public float speednormal;
 
+    public int municionspec;
+    public int municionextr;
+
 
     //Disparos
     public GameObject bulletPrefab;
@@ -155,47 +158,13 @@ public class Player : MonoBehaviour
                 if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButton("Fire3"))
                 {
 
-                    if (saltando == false && !agachado)
-                    {
-                        GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 175.0f));
-                        saltando = true;
-                        animator.SetBool("Running", false);
-                        animator.SetBool("Jumping", saltando);
-                        jumping.Play();
-                    }
+                    disparar();
 
                 }
 
                 if ((Input.GetKey(KeyCode.F) || Input.GetButton("Fire1")) && Time.time > nextFire)
                 {
-                    if (weapon == 0)
-                    {
-                        nextFire = Time.time + fireRate;
-                        GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
-                        shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
-                        if (!derecha)
-                        {
-                            tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
-                            if (arriba)
-                            {
-                                tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        nextFire = Time.time + fireRate;
-                        GameObject tempBullet = Instantiate(bulletSpecialPrefab, shotSpawner.position, shotSpawner.rotation);
-                        shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
-                        if (!derecha)
-                        {
-                            tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
-                            if (arriba)
-                            {
-                                tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
-                            }
-                        }
-                    }
+                    disparar();
                 }
                 else
                 {
@@ -243,10 +212,13 @@ public class Player : MonoBehaviour
             }
 
 
-            if(Input.GetKey(KeyCode.Alpha1)){
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
                 weapon = 0;
                 fireRate = 0.3f;
-            }else if(Input.GetKey(KeyCode.Alpha2)){
+            }
+            else if (Input.GetKey(KeyCode.Alpha2))
+            {
                 weapon = 1;
                 fireRate = 0.15f;
             }
@@ -255,6 +227,43 @@ public class Player : MonoBehaviour
 
     void Update() { }
 
+
+    void disparar()
+    {
+        if (weapon == 0)
+        {
+            nextFire = Time.time + fireRate;
+            GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
+            shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
+            if (!derecha)
+            {
+                tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
+                if (arriba)
+                {
+                    tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
+                }
+            }
+        }
+        else if (weapon == 1 && municionspec > 0)
+        {
+            nextFire = Time.time + fireRate;
+            GameObject tempBullet = Instantiate(bulletSpecialPrefab, shotSpawner.position, shotSpawner.rotation);
+            shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
+            if (!derecha)
+            {
+                tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
+                if (arriba)
+                {
+                    tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
+                }
+            }
+            municionspec--;
+        }
+        else if (weapon == 2 && municionextr > 0)
+        {
+            //TODO
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D _col)
     {
