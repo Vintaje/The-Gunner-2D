@@ -7,7 +7,6 @@ public class DestructibleObject : MonoBehaviour
     // Start is called before the first frame update
     public int vida;
     public float hurt_duration;
-    private float t = 0.5f;
     private Bullet bullet;
     
 
@@ -26,7 +25,6 @@ public class DestructibleObject : MonoBehaviour
         if (vida <= 0)
         {
             GameObject explo = Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
-            gameObject.GetComponent<Animator>().SetBool("Destroy", true);
             Destroy(gameObject);
         }
     }

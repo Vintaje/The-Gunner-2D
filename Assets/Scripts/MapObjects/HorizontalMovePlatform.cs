@@ -9,7 +9,6 @@ public class HorizontalMovePlatform : MonoBehaviour
     private Vector3 mov;
     public GameObject player;
 
-    private bool playerAbove = false;
 
 
 

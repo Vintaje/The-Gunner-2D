@@ -10,17 +10,28 @@ public class Bullet : MonoBehaviour
     public GameObject bulletExplo;
     public GameObject stream;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, destroyTime);
+        Invoke("disable", destroyTime);
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.right * speed * Time.deltaTime);
-        GameObject explosion = Instantiate(stream, gameObject.transform.position, gameObject.transform.rotation);
+        if (stream != null)
+        {
+            try
+            {
+                GameObject streamB = Instantiate(stream, gameObject.transform.position, gameObject.transform.rotation);
+            }
+            catch (MissingReferenceException ignored)
+            {
+
+            }
+        }
     }
 
 
@@ -29,16 +40,19 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.tag != "Bullet")
         {
-
             this.gameObject.SetActive(false);
-            Invoke("restos", 0.1f);
-            Destroy(this.gameObject, 1.0f);
-
+            restos();
         }
     }
 
     private void restos()
     {
         GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+    }
+
+    void disable()
+    {
+        gameObject.SetActive(false);
+        Destroy(gameObject, destroyTime);
     }
 }

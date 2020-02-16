@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,19 +13,25 @@ public class Player : MonoBehaviour
 
     //Parametros del jugador
     public int vidas;
-    public float fireRate = 0.5f;
-    public float nextFire;
     public float speed;
     public float speedagachado;
     public float speednormal;
 
-    public int municionspec;
-    public int municionextr;
+
+    //Armamento
+    private float fireRate = 0.5f; //Velocidad de disparo
+    private float nextFire; //Siguiente disparo
+    private int municionspec; // Municion especial
+    private int municionextr; // Municion explosiva
+    public float normalRate;
+    public float specRate;
+    public float exploRate;
 
 
     //Disparos
     public GameObject bulletPrefab;
     public GameObject bulletSpecialPrefab;
+    public GameObject bulletExploPrefab;
     public Transform shotSpawner;
     private int weapon;//0 normal; 1 special; 2 extreme
 
@@ -32,9 +40,9 @@ public class Player : MonoBehaviour
     private bool saltando;
     private bool agachado;
     private bool arriba;
-    public bool derecha;
-    public bool muerto;
-    public bool running;
+    private bool derecha;
+    private bool muerto;
+    private bool running;
 
     //Controles
     protected Joystick joystick;
@@ -47,7 +55,19 @@ public class Player : MonoBehaviour
     public AudioSource death;
     public AudioSource footstep;
     public AudioSource jumping;
+    public AudioSource ammo;
+    public AudioSource pickup;
+    public AudioSource no_ammo;
     public AudioSource[] sounds;
+
+    //UI
+    public GameObject ammospectext;
+    public GameObject ammoextratext;
+
+
+
+    //Efectos
+    public GameObject text;
 
 
 
@@ -68,17 +88,28 @@ public class Player : MonoBehaviour
         death = sounds[0];
         footstep = sounds[1];
         jumping = sounds[2];
+        ammo = sounds[3];
+        pickup = sounds[4];
+        no_ammo = sounds[5];
 
         //Buscamos los controles
         joystick = FindObjectOfType<Joystick>();
 
         shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
         animator.SetBool("Running", false);
+
+
+        //UI
+        ammospectext.GetComponent<Text>().text = "0";
+        ammoextratext.GetComponent<Text>().text = "0";
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        ammospectext.GetComponent<Text>().text = municionspec + "";
+        ammoextratext.GetComponent<Text>().text = municionextr + "";
         if (!muerto)
         {
             if (arriba)
@@ -116,39 +147,19 @@ public class Player : MonoBehaviour
             if (Application.platform == RuntimePlatform.Android)
             {
 
-                if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton"))
+                if ((jump.Pressed && jump.gameObject.tag == "JumpButton"))
                 {
-
-                    if (saltando == false && !agachado)
-                    {
-                        GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 175.0f));
-                        saltando = true;
-                        animator.SetBool("Running", false);
-                        animator.SetBool("Jumping", saltando);
-                    }
+                    saltar();
 
                 }
 
                 if ((fire.Pressed && fire.gameObject.tag == "FireButton") && Time.time > nextFire)
                 {
-                    nextFire = Time.time + fireRate;
-                    GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
-                    shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
-                    if (!derecha)
-                    {
-                        tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
-                        if (saltando)
-                        {
-                            tempBullet.transform.eulerAngles = new Vector3(0, 0, 270);
-                        }
-                        if (arriba)
-                        {
-                            tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
-                        }
-                    }
+                    disparar();
                 }
                 else
                 {
+                    no_ammo.Pause();
                     shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
                 }
             }
@@ -158,7 +169,7 @@ public class Player : MonoBehaviour
                 if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButton("Fire3"))
                 {
 
-                    disparar();
+                    saltar();
 
                 }
 
@@ -168,6 +179,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
+                    no_ammo.Pause();
                     shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
                 }
 
@@ -215,14 +227,30 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.Alpha1))
             {
                 weapon = 0;
-                fireRate = 0.3f;
+                fireRate = normalRate;
             }
             else if (Input.GetKey(KeyCode.Alpha2))
             {
                 weapon = 1;
-                fireRate = 0.15f;
+                fireRate = specRate;
+            }else if(Input.GetKey(KeyCode.Alpha3)){
+                weapon = 2;
+                fireRate = exploRate;
             }
         }
+    }
+
+    private void saltar()
+    {
+        if (saltando == false && !agachado)
+        {
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 175.0f));
+            saltando = true;
+            animator.SetBool("Running", false);
+            animator.SetBool("Jumping", saltando);
+            jumping.Play();
+        }
+
     }
 
     void Update() { }
@@ -244,7 +272,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        else if (weapon == 1 && municionspec > 0)
+        if (weapon == 1 && municionspec > 0)
         {
             nextFire = Time.time + fireRate;
             GameObject tempBullet = Instantiate(bulletSpecialPrefab, shotSpawner.position, shotSpawner.rotation);
@@ -262,7 +290,37 @@ public class Player : MonoBehaviour
         else if (weapon == 2 && municionextr > 0)
         {
             //TODO
+            nextFire = Time.time + fireRate;
+            GameObject tempBullet = Instantiate(bulletExploPrefab, shotSpawner.position, shotSpawner.rotation);
+            shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
+            if (!derecha)
+            {
+                tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
+                if (arriba)
+                {
+                    tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
+                }
+            }
+            municionextr--;
         }
+        else if (weapon == 1 && municionspec == 0)
+        {
+            nextFire = Time.time + fireRate;
+            no_ammo.UnPause();
+            GameObject tempText = Instantiate(text, (new Vector3(0.0f, 0.2f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation);
+            tempText.gameObject.GetComponent<TextMesh>().font.material.mainTexture.filterMode = FilterMode.Point;
+            tempText.GetComponent<TextMesh>().text = "OUT OF AMMO!";
+        }
+        else if (weapon == 2 && municionextr == 0)
+        {
+            nextFire = Time.time + fireRate;
+            no_ammo.UnPause();
+            GameObject tempText = Instantiate(text, (new Vector3(0.0f, 0.2f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation);
+            tempText.gameObject.GetComponent<TextMesh>().font.material.mainTexture.filterMode = FilterMode.Point;
+            tempText.GetComponent<TextMesh>().text = "OUT OF AMMO!";
+        }
+
+
     }
 
     void OnCollisionEnter2D(Collision2D _col)
@@ -294,6 +352,32 @@ public class Player : MonoBehaviour
         }
 
 
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag.Equals("AmmoCrate"))
+        {
+            GameObject tempText = Instantiate(text, (new Vector3(0.0f, 0.2f, 0.0f)) + collider.gameObject.transform.position, collider.gameObject.transform.rotation);
+            tempText.gameObject.GetComponent<TextMesh>().font.material.mainTexture.filterMode = FilterMode.Point;
+            if (collider.gameObject.GetComponent<AmmoCrate>().weapon == 1)
+            {
+
+                municionspec += collider.gameObject.GetComponent<AmmoCrate>().cantidad;
+                tempText.GetComponent<TextMesh>().text = " + " + collider.gameObject.GetComponent<AmmoCrate>().cantidad + "\n TYPE " + " SPECIAL";
+            }
+            else if (collider.gameObject.GetComponent<AmmoCrate>().weapon == 2)
+            {
+
+                municionextr += collider.gameObject.GetComponent<AmmoCrate>().cantidad;
+                tempText.GetComponent<TextMesh>().text = " + " + collider.gameObject.GetComponent<AmmoCrate>().cantidad + "\n TYPE " + " EXPLOSIVE";
+
+            }
+            ammo.Play();
+            pickup.Play();
+            collider.gameObject.SetActive(false);
+            Destroy(collider.gameObject, 0.9f);
+        }
     }
 
 
