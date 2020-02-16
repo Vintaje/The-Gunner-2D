@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
 
             this.gameObject.SetActive(false);
             Invoke("restos", 0.1f);
-            Destroy(this.gameObject, 0.5f);
+            Destroy(this.gameObject, 1.0f);
 
         }
     }
