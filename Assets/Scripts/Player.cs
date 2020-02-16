@@ -20,7 +20,9 @@ public class Player : MonoBehaviour
 
     //Disparos
     public GameObject bulletPrefab;
+    public GameObject bulletSpecialPrefab;
     public Transform shotSpawner;
+    private int weapon;//0 normal; 1 special; 2 extreme
 
 
     //Boolean animaciones
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        weapon = 0;
         vidas = 3;
         saltando = false;
         agachado = false;
@@ -149,7 +152,7 @@ public class Player : MonoBehaviour
             else
             {
 
-                if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButton("Jump"))
+                if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButton("Fire3"))
                 {
 
                     if (saltando == false && !agachado)
@@ -165,19 +168,32 @@ public class Player : MonoBehaviour
 
                 if ((Input.GetKey(KeyCode.F) || Input.GetButton("Fire1")) && Time.time > nextFire)
                 {
-                    nextFire = Time.time + fireRate;
-                    GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
-                    shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
-                    if (!derecha)
+                    if (weapon == 0)
                     {
-                        tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
-                        if (saltando)
+                        nextFire = Time.time + fireRate;
+                        GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
+                        shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
+                        if (!derecha)
                         {
-                            tempBullet.transform.eulerAngles = new Vector3(0, 0, 270);
+                            tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
+                            if (arriba)
+                            {
+                                tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
+                            }
                         }
-                        if (arriba)
+                    }
+                    else
+                    {
+                        nextFire = Time.time + fireRate;
+                        GameObject tempBullet = Instantiate(bulletSpecialPrefab, shotSpawner.position, shotSpawner.rotation);
+                        shotSpawner.transform.localScale = (new Vector3(1.5f, 1.5f, 1.0f));
+                        if (!derecha)
                         {
-                            tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
+                            tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
+                            if (arriba)
+                            {
+                                tempBullet.transform.eulerAngles = new Vector3(0, 0, 90);
+                            }
                         }
                     }
                 }
@@ -224,6 +240,15 @@ public class Player : MonoBehaviour
             else
             {
                 footstep.Pause();
+            }
+
+
+            if(Input.GetKey(KeyCode.Alpha1)){
+                weapon = 0;
+                fireRate = 0.3f;
+            }else if(Input.GetKey(KeyCode.Alpha2)){
+                weapon = 1;
+                fireRate = 0.15f;
             }
         }
     }
