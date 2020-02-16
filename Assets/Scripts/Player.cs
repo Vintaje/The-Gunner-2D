@@ -208,6 +208,9 @@ public class Player : MonoBehaviour
                 {
                     agachado = true;
                     speed = speedagachado;
+                    if(running){
+                        running = false;
+                    }
                 }
             }
             else
