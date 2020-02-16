@@ -97,7 +97,9 @@ public class Player : MonoBehaviour
 
         shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
         animator.SetBool("Running", false);
-
+        animator.SetBool("Weapon 1", true);
+        animator.SetBool("Weapon 2", false);
+        animator.SetBool("Weapon 3", false);
 
         //UI
         ammospectext.GetComponent<Text>().text = "0";
@@ -228,14 +230,25 @@ public class Player : MonoBehaviour
             {
                 weapon = 0;
                 fireRate = normalRate;
+                animator.SetBool("Weapon 1", true);
+                animator.SetBool("Weapon 2", false);
+                animator.SetBool("Weapon 3", false);
             }
             else if (Input.GetKey(KeyCode.Alpha2))
             {
                 weapon = 1;
                 fireRate = specRate;
-            }else if(Input.GetKey(KeyCode.Alpha3)){
+                animator.SetBool("Weapon 1", false);
+                animator.SetBool("Weapon 2", true);
+                animator.SetBool("Weapon 3", false);
+            }
+            else if (Input.GetKey(KeyCode.Alpha3))
+            {
                 weapon = 2;
                 fireRate = exploRate;
+                animator.SetBool("Weapon 1", false);
+                animator.SetBool("Weapon 2", false);
+                animator.SetBool("Weapon 3", true);
             }
         }
     }
