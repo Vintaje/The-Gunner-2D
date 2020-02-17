@@ -37,15 +37,11 @@ public class DestructibleObject : MonoBehaviour
         if (other.gameObject.tag == "Bullet" && this.vida > 0)
         {
             bullet = other.gameObject.GetComponent<Bullet>();
+            try{
             gameObject.GetComponent<Animator>().SetBool("Hit", true);
+            }catch(UnityException ex){}
             BlinkPlayer(2);
 
-            if (gameObject.tag == "DangerObject" && gameObject.name.StartsWith("Toxic"))
-            {
-
-                gameObject.GetComponent<AudioSource>().Play();
-                
-            }
 
 
             //Damage received

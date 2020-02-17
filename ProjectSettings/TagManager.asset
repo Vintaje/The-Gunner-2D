@@ -18,6 +18,7 @@ TagManager:
   - Roof
   - Ghost
   - Wall
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
