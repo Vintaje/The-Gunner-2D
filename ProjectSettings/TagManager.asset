@@ -15,6 +15,7 @@ TagManager:
   - SignText
   - SignImage
   - AmmoCrate
+  - Ghost
   layers:
   - Default
   - TransparentFX
