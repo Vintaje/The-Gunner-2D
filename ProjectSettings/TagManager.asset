@@ -17,6 +17,7 @@ TagManager:
   - AmmoCrate
   - Roof
   - Ghost
+  - Wall
   layers:
   - Default
   - TransparentFX
