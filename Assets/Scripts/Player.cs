@@ -396,12 +396,6 @@ public class Player : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 0;
         }
-        
-         if (_col.gameObject.tag.Equals("DangerObject"))
-        {
-            gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 0;
-            
-        }
 
         if (_col.gameObject.tag.Equals("Explosion"))
         {
@@ -418,8 +412,6 @@ public class Player : MonoBehaviour
             }
             playermuerto();
         }
-
-
 
     }
 

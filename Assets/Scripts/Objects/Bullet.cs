@@ -38,11 +38,10 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag != "Bullet")
-        {
-            this.gameObject.SetActive(false);
-            restos();
-        }
+
+        this.gameObject.SetActive(false);
+        restos();
+
     }
 
     private void restos()
@@ -50,9 +49,5 @@ public class Bullet : MonoBehaviour
         GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
     }
 
-    void disable()
-    {
-        gameObject.SetActive(false);
-        Destroy(gameObject, destroyTime);
-    }
+
 }

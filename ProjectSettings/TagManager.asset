@@ -17,6 +17,7 @@ TagManager:
   - AmmoCrate
   - Roof
   - Ghost
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
