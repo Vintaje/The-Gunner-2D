@@ -93,8 +93,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         //Detections
-        frontInfo = Physics2D.Raycast(frontDetect.position, Vector2.down, infoDistance);
-        backInfo = Physics2D.Raycast(backDetect.position, Vector2.down, infoDistance);
+        frontInfo = Physics2D.Raycast(frontDetect.position, Vector2.right, infoDistance);
+        backInfo = Physics2D.Raycast(backDetect.position, Vector2.left, infoDistance);
         floorInfo = Physics2D.Raycast(floorDetect.position, Vector2.down, infoDistance);
 
 
