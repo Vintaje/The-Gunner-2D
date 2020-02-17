@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
     //UI
     public GameObject ammospectext;
     public GameObject ammoextratext;
+    public GameObject ghost;
 
 
 
@@ -236,30 +237,36 @@ public class Player : MonoBehaviour
                 if (weapon == 2)
                 {
                     weapon = 0;
-                    fireRate = normalRate;
-                    animator.SetBool("Weapon 1", true);
-                    animator.SetBool("Weapon 2", false);
-                    animator.SetBool("Weapon 3", false);
                 }
                 else if (weapon == 0)
                 {
                     weapon = 1;
-                    fireRate = specRate;
-                    animator.SetBool("Weapon 1", false);
-                    animator.SetBool("Weapon 2", true);
-                    animator.SetBool("Weapon 3", false);
                 }
                 else if (weapon == 1)
                 {
                     weapon = 2;
-                    fireRate = exploRate;
-                    animator.SetBool("Weapon 1", false);
-                    animator.SetBool("Weapon 2", false);
-                    animator.SetBool("Weapon 3", true);
                 }
                 change_weapon.Play();
             }
 
+            if (weapon == 2)
+            {
+                animator.SetBool("Weapon 1", true);
+                animator.SetBool("Weapon 2", false);
+                animator.SetBool("Weapon 3", false);
+            }
+            else if (weapon == 0)
+            {
+                animator.SetBool("Weapon 1", false);
+                animator.SetBool("Weapon 2", true);
+                animator.SetBool("Weapon 3", false);
+            }
+            else if (weapon == 1)
+            {
+                animator.SetBool("Weapon 1", false);
+                animator.SetBool("Weapon 2", false);
+                animator.SetBool("Weapon 3", true);
+            }
         }
     }
 
@@ -341,7 +348,7 @@ public class Player : MonoBehaviour
             {
                 gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-100.0f, 50.0f, 0.0f));
             }
-            else if (!derecha && !saltando && !arriba) 
+            else if (!derecha && !saltando && !arriba)
             {
                 gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(100.0f, 50.0f, 0.0f));
             }
@@ -373,16 +380,12 @@ public class Player : MonoBehaviour
     void OnCollisionEnter2D(Collision2D _col)
     {
 
-        if (_col.gameObject.tag.Equals("Floor"))
+        if (_col.gameObject.tag.Equals("Floor") || _col.gameObject.tag.Equals("DangerObject"))
         {
             saltando = false;
             animator.SetBool("Jumping", saltando);
         }
 
-        if (_col.gameObject.tag.Equals("DangerObject"))
-        {
-            playermuerto();
-        }
 
         if (_col.gameObject.tag.Equals("Explosion"))
         {
@@ -429,12 +432,11 @@ public class Player : MonoBehaviour
 
 
 
-    void playermuerto()
+    public void playermuerto()
     {
         if (!muerto)
         {
-
-            muerto = true;
+            GameObject temp_ghost = Instantiate(ghost, (new Vector3(0.0f, 0.1f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation); muerto = true;
             footstep.Pause();
             BlinkPlayer(3);
             death.time = 0.65f;

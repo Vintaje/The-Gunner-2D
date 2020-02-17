@@ -6,15 +6,12 @@ public class Sign : MonoBehaviour
 {
     public GameObject text;
     public GameObject image;
-    public string mensaje;
 
     // Start is called before the first frame update
     void Start()
     {
-        mensaje = mensaje.Replace("||", "\n");
         text.SetActive(false);
         image.SetActive(false);
-        text.GetComponent<TextMesh>().text = mensaje;
     }
 
     // Update is called once per frame

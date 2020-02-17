@@ -245,9 +245,11 @@ MonoBehaviour:
   ammo: {fileID: 0}
   pickup: {fileID: 0}
   no_ammo: {fileID: 0}
+  change_weapon: {fileID: 0}
   sounds: []
   ammospectext: {fileID: 0}
   ammoextratext: {fileID: 0}
+  ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
   text: {fileID: 4901343218570307493, guid: be4ae85f9e3fecd4ab983040cf48ec62, type: 3}
 --- !u!61 &3153768777711790019
 BoxCollider2D:

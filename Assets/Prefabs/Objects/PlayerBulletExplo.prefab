@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5743792582288632753}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.061, y: 0, z: 1}
-  m_LocalScale: {x: 0.49, y: 0.8625, z: 1}
+  m_LocalPosition: {x: -0.026, y: 0, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 6806745126400997327}
   m_RootOrder: 1
@@ -124,8 +124,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6806745126005113806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.437, y: -0.002, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.305, y: -0.002, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 6806745126400997327}
   m_RootOrder: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   speed: 3
   damage: 6
   destroyTime: 2
-  bulletExplo: {fileID: 8558135286446325947, guid: cd2fc235b624fdd459b292642959bffd,
+  bulletExplo: {fileID: 2046152516995497041, guid: 057233687543d744e843b3f6ab4f96fd,
     type: 3}
   stream: {fileID: 0}
 --- !u!82 &6806745126400997171
