@@ -8,7 +8,12 @@ public class MyTextEvent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Instance && gameObject.GetComponent<TextMesh>().text.Equals("OUT OF AMMO!"))
+
+        if (Instance && gameObject.tag.Equals("Ghost"))
+        {
+            DestroyImmediate(gameObject);
+        }
+        else if (Instance && gameObject.GetComponent<TextMesh>().text.Equals("OUT OF AMMO!"))
         {
             DestroyImmediate(gameObject);
         }
