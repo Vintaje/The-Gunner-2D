@@ -52,18 +52,18 @@ public class Player : MonoBehaviour
 
 
     //Sonidos
-    public AudioSource death;
-    public AudioSource footstep;
-    public AudioSource jumping;
-    public AudioSource ammo;
-    public AudioSource pickup;
-    public AudioSource no_ammo;
-    public AudioSource change_weapon;
-    public AudioSource[] sounds;
+    private AudioSource death;
+    private AudioSource footstep;
+    private AudioSource jumping;
+    private AudioSource ammo;
+    private AudioSource pickup;
+    private AudioSource no_ammo;
+    private AudioSource change_weapon;
+    private AudioSource[] sounds;
     //Sonidos Disparo
-    public AudioSource normalweapon;
-    public AudioSource specweapon;
-    public AudioSource extraweapon;
+    private AudioSource normalweapon;
+    private AudioSource specweapon;
+    private AudioSource extraweapon;
 
     //UI
     public GameObject ammospectext;
@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
     //Update
     void Update()
     {
-        
+
         if (!muerto)
         {
 
@@ -135,28 +135,59 @@ public class Player : MonoBehaviour
                 {
                     weapon = 0;
                     fireRate = normalRate;
-                    animator.SetBool("Weapon 1", true);
-                    animator.SetBool("Weapon 2", false);
-                    animator.SetBool("Weapon 3", false);
                 }
                 else if (weapon == 0)
                 {
                     weapon = 1;
                     fireRate = specRate;
-                    animator.SetBool("Weapon 1", false);
-                    animator.SetBool("Weapon 2", true);
-                    animator.SetBool("Weapon 3", false);
                 }
                 else if (weapon == 1)
                 {
                     weapon = 2;
                     fireRate = exploRate;
-                    animator.SetBool("Weapon 1", false);
-                    animator.SetBool("Weapon 2", false);
-                    animator.SetBool("Weapon 3", true);
                 }
                 change_weapon.Play();
             }
+        }
+
+
+
+        if (Input.GetAxis("Vertical") < deadzone * -1 || joystick.Vertical < deadzone * -1 || Input.GetKey(KeyCode.S))
+        {
+            if (!saltando)
+            {
+                agachado = true;
+                speed = speedagachado;
+                if (running)
+                {
+                    running = false;
+                }
+            }
+        }
+        else
+        {
+            agachado = false;
+            speed = speednormal;
+        }
+
+        animator.SetBool("Crouch", agachado);
+        if (running && !saltando)
+        {
+            footstep.UnPause();
+        }
+        else
+        {
+            footstep.Pause();
+        }
+        if (Input.GetKey(KeyCode.W) || joystick.Vertical > deadzone - 0.5 || Input.GetAxis("Vertical") > deadzone - 0.5)
+        {
+            arriba = true;
+            speed = 0;
+        }
+        else
+        {
+            arriba = false;
+            speed = speednormal;
         }
 
     }
@@ -173,7 +204,6 @@ public class Player : MonoBehaviour
         }
         else if (weapon == 1)
         {
-
             fireRate = specRate;
             animator.SetBool("Weapon 1", false);
             animator.SetBool("Weapon 2", true);
@@ -220,89 +250,24 @@ public class Player : MonoBehaviour
                 speed = 0;
             }
 
-            if (Application.platform == RuntimePlatform.Android)
+
+
+            if (Input.GetKeyDown(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButtonDown("Fire1"))
             {
+                saltar();
+            }
 
-                if ((jump.Pressed && jump.gameObject.tag == "JumpButton"))
-                {
-                    saltar();
-
-                }
-
-                if ((fire.Pressed && fire.gameObject.tag == "FireButton") && Time.time > nextFire)
-                {
-                    disparar();
-                }
-                else
-                {
-
-                    shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
-                }
+            if (Input.GetButton("Fire2") && Time.time > nextFire)
+            {
+                disparar();
             }
             else
             {
-
-                if (Input.GetKeyDown(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButtonDown("Fire1"))
-                {
-
-                    saltar();
-
-                }
-
-                if (Input.GetButton("Fire2") && Time.time > nextFire)
-                {
-                    disparar();
-                }
-                else
-                {
-
-                    shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
-                }
-
-
-                if (Input.GetKey(KeyCode.W) || joystick.Vertical > deadzone - 0.5 || Input.GetAxis("Vertical") > deadzone - 0.5)
-                {
-                    arriba = true;
-                    speed = 0;
-                }
-                else
-                {
-                    arriba = false;
-                    speed = speednormal;
-                }
-                animator.SetBool("AimUp", arriba);
-
-
+                shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
             }
 
 
-            if (Input.GetAxis("Vertical") < deadzone * -1 || joystick.Vertical < deadzone * -1 || Input.GetKey(KeyCode.S))
-            {
-                if (!saltando)
-                {
-                    agachado = true;
-                    speed = speedagachado;
-                    if (running)
-                    {
-                        running = false;
-                    }
-                }
-            }
-            else
-            {
-                agachado = false;
-                speed = speednormal;
-            }
-            animator.SetBool("Crouch", agachado);
-            if (running && !saltando)
-            {
-                footstep.UnPause();
-            }
-            else
-            {
-                footstep.Pause();
-            }
-
+            animator.SetBool("AimUp", arriba);
 
 
 
@@ -359,11 +324,11 @@ public class Player : MonoBehaviour
             municionspec--;
             if (derecha && !saltando && !arriba)
             {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-50.0f, 50.0f, 0.0f));
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-30.0f, 50.0f, 0.0f));
             }
             else if (!derecha && !saltando && !arriba)
             {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(50.0f, 50.0f, 0.0f));
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(30.0f, 50.0f, 0.0f));
             }
             else if (arriba && saltando)
             {
@@ -387,11 +352,11 @@ public class Player : MonoBehaviour
             municionextr--;
             if (derecha && !saltando && !arriba)
             {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-100.0f, 50.0f, 0.0f));
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-80.0f, 50.0f, 0.0f));
             }
             else if (!derecha && !saltando && !arriba)
             {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(100.0f, 50.0f, 0.0f));
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(80.0f, 50.0f, 0.0f));
             }
             else if (arriba && saltando)
             {
@@ -426,16 +391,23 @@ public class Player : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
             saltando = false;
             animator.SetBool("Jumping", saltando);
-        }else{
+        }
+        else
+        {
             gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 0;
         }
-
+        
+         if (_col.gameObject.tag.Equals("DangerObject"))
+        {
+            gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 0;
+            
+        }
 
         if (_col.gameObject.tag.Equals("Explosion"))
         {
-            
+
             if (derecha)
-            {   
+            {
                 gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
                 GetComponent<Rigidbody2D>().AddForce(new Vector2(-20.0f, 100.0f));
             }
@@ -447,19 +419,11 @@ public class Player : MonoBehaviour
             playermuerto();
         }
 
-        
+
 
     }
 
-    void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.tag.Equals("Floor"))
-        {
-            saltando = true;
-            animator.SetBool("Jumping", true);
-        }
-
-    }
+    
 
     void OnTriggerEnter2D(Collider2D collider)
     {
