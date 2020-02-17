@@ -15,8 +15,8 @@ public class HommingMissile : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
-        Invoke("disable", destroyTime);
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        Destroy(gameObject, destroyTime);
 
     }
 
@@ -41,11 +41,8 @@ public class HommingMissile : MonoBehaviour
     private void restos()
     {
         GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(gameObject);
     }
 
-    void disable()
-    {
-        gameObject.SetActive(false);
-        Destroy(gameObject, destroyTime);
-    }
+
 }

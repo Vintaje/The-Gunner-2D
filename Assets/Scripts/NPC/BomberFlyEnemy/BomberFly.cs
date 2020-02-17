@@ -33,7 +33,7 @@ public class BomberFly : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, distance);
         if (groundInfo.collider.gameObject.tag.Equals("Player"))
         {
             detected = true;
@@ -44,7 +44,8 @@ public class BomberFly : MonoBehaviour
             if (Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
-                GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
+                GameObject tempMissile = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
+                
             }
         }
         else if (!detected)

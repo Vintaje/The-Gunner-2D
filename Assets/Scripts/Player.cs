@@ -70,32 +70,17 @@ public class Player : MonoBehaviour
     public GameObject ammoextratext;
     public GameObject ghost;
 
-
-
     //Efectos
     public GameObject text;
 
-    //Condiciones start;
-    private bool firstStart;
 
 
-    //Detections
-    private RaycastHit2D frontInfo;
-    private RaycastHit2D backInfo;
-    private RaycastHit2D floorInfo;
-    private Transform frontDetect;
-    private Transform backDetect;
-    private Transform floorDetect;
-    private float infoDistance = 0.8f;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //Detections
-        frontInfo = Physics2D.Raycast(frontDetect.position, Vector2.right, infoDistance);
-        backInfo = Physics2D.Raycast(backDetect.position, Vector2.left, infoDistance);
-        floorInfo = Physics2D.Raycast(floorDetect.position, Vector2.down, infoDistance);
 
 
         weapon = 0;
@@ -132,16 +117,36 @@ public class Player : MonoBehaviour
         animator.SetBool("Weapon 3", false);
 
         //UI
-        ammospectext.GetComponent<Text>().text = "0";
-        ammoextratext.GetComponent<Text>().text = "0";
-        StartCoroutine(NoAmmoBlink(0.1f));
-        firstStart = false;
+
+        StartCoroutine(NoAmmoBlink(0.05f));
     }
 
     //Update
     void Update()
     {
-
+        if (weapon == 0)
+        {
+            fireRate = normalRate;
+            animator.SetBool("Weapon 1", true);
+            animator.SetBool("Weapon 2", false);
+            animator.SetBool("Weapon 3", false);
+        }
+        else if (weapon == 1)
+        {
+            fireRate = specRate;
+            animator.SetBool("Weapon 1", false);
+            animator.SetBool("Weapon 2", true);
+            animator.SetBool("Weapon 3", false);
+        }
+        else if (weapon == 2)
+        {
+            fireRate = exploRate;
+            animator.SetBool("Weapon 1", false);
+            animator.SetBool("Weapon 2", false);
+            animator.SetBool("Weapon 3", true);
+        }
+        ammospectext.GetComponent<Text>().text = municionspec + "";
+        ammoextratext.GetComponent<Text>().text = municionextr + "";
         if (!muerto)
         {
 
@@ -206,44 +211,16 @@ public class Player : MonoBehaviour
             speed = speednormal;
         }
 
+        if (arriba)
+        {
+            speed = 0;
+        }
+        animator.SetBool("AimUp", arriba);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if ((frontInfo.collider && floorInfo.collider) || (backInfo.collider && floorInfo.collider) || ((frontInfo.collider.gameObject.tag.Equals("Wall") || backInfo.collider.gameObject.tag.Equals("Wall")) && floorInfo.collider == false))
-        {
-            GetComponent<Rigidbody2D>().sharedMaterial.friction = 0;
-        }
-        else
-        {
-            GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
-        }
-
-
-        if (weapon == 0)
-        {
-            fireRate = normalRate;
-            animator.SetBool("Weapon 1", true);
-            animator.SetBool("Weapon 2", false);
-            animator.SetBool("Weapon 3", false);
-        }
-        else if (weapon == 1)
-        {
-            fireRate = specRate;
-            animator.SetBool("Weapon 1", false);
-            animator.SetBool("Weapon 2", true);
-            animator.SetBool("Weapon 3", false);
-        }
-        else if (weapon == 2)
-        {
-            fireRate = exploRate;
-            animator.SetBool("Weapon 1", false);
-            animator.SetBool("Weapon 2", false);
-            animator.SetBool("Weapon 3", true);
-        }
-        ammospectext.GetComponent<Text>().text = municionspec + "";
-        ammoextratext.GetComponent<Text>().text = municionextr + "";
         if (!muerto)
         {
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || joystick.Horizontal < deadzone * -1 || Input.GetAxis("Horizontal") < deadzone * -1)
@@ -271,12 +248,6 @@ public class Player : MonoBehaviour
                 animator.SetBool("Running", false);
                 running = false;
             }
-            if (arriba)
-            {
-                speed = 0;
-            }
-
-
 
             if (Input.GetKeyDown(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButtonDown("Fire1"))
             {
@@ -291,12 +262,6 @@ public class Player : MonoBehaviour
             {
                 shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
             }
-
-
-            animator.SetBool("AimUp", arriba);
-
-
-
         }
     }
 
