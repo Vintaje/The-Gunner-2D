@@ -79,10 +79,25 @@ public class Player : MonoBehaviour
     private bool firstStart;
 
 
+    //Detections
+    private RaycastHit2D frontInfo;
+    private RaycastHit2D backInfo;
+    private RaycastHit2D floorInfo;
+    private Transform frontDetect;
+    private Transform backDetect;
+    private Transform floorDetect;
+    private float infoDistance = 0.8f;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        //Detections
+        frontInfo = Physics2D.Raycast(frontDetect.position, Vector2.down, infoDistance);
+        backInfo = Physics2D.Raycast(backDetect.position, Vector2.down, infoDistance);
+        floorInfo = Physics2D.Raycast(floorDetect.position, Vector2.down, infoDistance);
+
+
         weapon = 0;
         vidas = 3;
         saltando = false;
@@ -104,6 +119,7 @@ public class Player : MonoBehaviour
         normalweapon = sounds[7];
         specweapon = sounds[8];
         extraweapon = sounds[9];
+
 
 
         //Buscamos los controles
@@ -195,6 +211,16 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if ((frontInfo.collider && floorInfo.collider) || (backInfo.collider && floorInfo.collider) || ((frontInfo.collider.gameObject.tag.Equals("Wall") || backInfo.collider.gameObject.tag.Equals("Wall")) && floorInfo.collider == false))
+        {
+            GetComponent<Rigidbody2D>().sharedMaterial.friction = 0;
+        }
+        else
+        {
+            GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
+        }
+
+
         if (weapon == 0)
         {
             fireRate = normalRate;
@@ -415,7 +441,7 @@ public class Player : MonoBehaviour
 
     }
 
-    
+
 
     void OnTriggerEnter2D(Collider2D collider)
     {

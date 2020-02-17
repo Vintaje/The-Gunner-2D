@@ -19,7 +19,6 @@ public class BomberFly : MonoBehaviour
     private float nextFire;
     public GameObject bulletPrefab;
     public Transform shotSpawner;
-    private RaycastHit2D targetInfo;
     private RaycastHit2D groundInfo;
 
 
