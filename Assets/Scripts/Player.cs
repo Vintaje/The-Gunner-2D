@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
     public AudioSource ammo;
     public AudioSource pickup;
     public AudioSource no_ammo;
+    public AudioSource change_weapon;
     public AudioSource[] sounds;
 
     //UI
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour
         ammo = sounds[3];
         pickup = sounds[4];
         no_ammo = sounds[5];
+        change_weapon = sounds[6];
 
         //Buscamos los controles
         joystick = FindObjectOfType<Joystick>();
@@ -168,14 +170,14 @@ public class Player : MonoBehaviour
             else
             {
 
-                if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButton("Fire3"))
+                if (Input.GetKey(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButton("Jump"))
                 {
 
                     saltar();
 
                 }
 
-                if ((Input.GetKey(KeyCode.F) || Input.GetButton("Fire1")) && Time.time > nextFire)
+                if (Input.GetButton("Fire1") && Time.time > nextFire)
                 {
                     disparar();
                 }
@@ -208,7 +210,8 @@ public class Player : MonoBehaviour
                 {
                     agachado = true;
                     speed = speedagachado;
-                    if(running){
+                    if (running)
+                    {
                         running = false;
                     }
                 }
@@ -228,31 +231,35 @@ public class Player : MonoBehaviour
                 footstep.Pause();
             }
 
+            if (Input.GetButtonDown("ChangeWeapon"))
+            {
+                if (weapon == 2)
+                {
+                    weapon = 0;
+                    fireRate = normalRate;
+                    animator.SetBool("Weapon 1", true);
+                    animator.SetBool("Weapon 2", false);
+                    animator.SetBool("Weapon 3", false);
+                }
+                else if (weapon == 0)
+                {
+                    weapon = 1;
+                    fireRate = specRate;
+                    animator.SetBool("Weapon 1", false);
+                    animator.SetBool("Weapon 2", true);
+                    animator.SetBool("Weapon 3", false);
+                }
+                else if (weapon == 1)
+                {
+                    weapon = 2;
+                    fireRate = exploRate;
+                    animator.SetBool("Weapon 1", false);
+                    animator.SetBool("Weapon 2", false);
+                    animator.SetBool("Weapon 3", true);
+                }
+                change_weapon.Play();
+            }
 
-            if (Input.GetKey(KeyCode.Alpha1))
-            {
-                weapon = 0;
-                fireRate = normalRate;
-                animator.SetBool("Weapon 1", true);
-                animator.SetBool("Weapon 2", false);
-                animator.SetBool("Weapon 3", false);
-            }
-            else if (Input.GetKey(KeyCode.Alpha2))
-            {
-                weapon = 1;
-                fireRate = specRate;
-                animator.SetBool("Weapon 1", false);
-                animator.SetBool("Weapon 2", true);
-                animator.SetBool("Weapon 3", false);
-            }
-            else if (Input.GetKey(KeyCode.Alpha3))
-            {
-                weapon = 2;
-                fireRate = exploRate;
-                animator.SetBool("Weapon 1", false);
-                animator.SetBool("Weapon 2", false);
-                animator.SetBool("Weapon 3", true);
-            }
         }
     }
 
@@ -302,6 +309,18 @@ public class Player : MonoBehaviour
                 }
             }
             municionspec--;
+            if (derecha && !saltando && !arriba)
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-50.0f, 50.0f, 0.0f));
+            }
+            else if (!derecha && !saltando && !arriba)
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(50.0f, 50.0f, 0.0f));
+            }
+            else if (arriba && saltando)
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(0.0f, -50.0f, 0.0f));
+            }
         }
         else if (weapon == 2 && municionextr > 0)
         {
@@ -318,6 +337,18 @@ public class Player : MonoBehaviour
                 }
             }
             municionextr--;
+            if (derecha && !saltando && !arriba)
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(-100.0f, 50.0f, 0.0f));
+            }
+            else if (!derecha && !saltando && !arriba) 
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(100.0f, 50.0f, 0.0f));
+            }
+            else if (arriba && saltando)
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(0.0f, -100.0f, 0.0f));
+            }
         }
         else if (weapon == 1 && municionspec == 0)
         {
