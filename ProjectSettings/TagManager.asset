@@ -15,6 +15,7 @@ TagManager:
   - SignText
   - SignImage
   - AmmoCrate
+  - Roof
   - Ghost
   layers:
   - Default
