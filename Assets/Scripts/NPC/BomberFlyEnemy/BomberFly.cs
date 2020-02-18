@@ -42,9 +42,10 @@ public class BomberFly : MonoBehaviour
         if (groundInfo.collider == true)
         {
 
-            if (groundInfo.collider.gameObject.tag.Equals("Floor"))
+            if (!groundInfo.collider.gameObject.tag.Equals("Player"))
             {
                 transform.Translate(Vector2.right * speed * Time.deltaTime);
+                Debug.Log("Suelo");
             }
         }
         else
@@ -63,7 +64,7 @@ public class BomberFly : MonoBehaviour
         }
         if (detected)
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, gameObject.transform.position.y, gameObject.transform.position.z), speed*1.1f * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, gameObject.transform.position.y, gameObject.transform.position.z), speed* Time.deltaTime);
             if (Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
@@ -76,6 +77,17 @@ public class BomberFly : MonoBehaviour
         (transform.position.x - target.position.x) < -1.5)
         {
             detected = false;
+            if (right)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+                right = false;
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                right = true;
+            }
+            
         }
         else
         {
@@ -94,6 +106,6 @@ public class BomberFly : MonoBehaviour
             right = true;
         }
         oldPosition = transform.position.x;
-        Debug.Log("Detected Enemy" + detected);
+        
     }
 }

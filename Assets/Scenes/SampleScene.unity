@@ -834,6 +834,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4855102506359189279, guid: ccbde2c2b4915c64dae520d9df53262c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855102506359189279, guid: ccbde2c2b4915c64dae520d9df53262c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -65.729935
+      objectReference: {fileID: 0}
+    - target: {fileID: 5512582523380998420, guid: ccbde2c2b4915c64dae520d9df53262c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -130.00002
+      objectReference: {fileID: 0}
+    - target: {fileID: 5512582523380998420, guid: ccbde2c2b4915c64dae520d9df53262c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -65
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccbde2c2b4915c64dae520d9df53262c, type: 3}
 --- !u!114 &1470584609 stripped
@@ -1098,6 +1118,11 @@ PrefabInstance:
         type: 3}
       propertyPath: fireRate
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780404758061249577, guid: 68b6214bd22fd534aa24c2f142f90598,
+        type: 3}
+      propertyPath: distance
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5780404758061249578, guid: 68b6214bd22fd534aa24c2f142f90598,
         type: 3}
