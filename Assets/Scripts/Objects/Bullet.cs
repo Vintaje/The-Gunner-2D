@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("disable", destroyTime);
+        Destroy(gameObject, destroyTime);
     }
 
     // Update is called once per frame
@@ -38,15 +38,13 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-
-        this.gameObject.SetActive(false);
         restos();
-
     }
 
     private void restos()
     {
         GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(gameObject);
     }
 
 
