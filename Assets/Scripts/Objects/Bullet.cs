@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, destroyTime);
+        Invoke("disable", destroyTime);
     }
 
     // Update is called once per frame
@@ -23,14 +23,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(Vector3.right * speed * Time.deltaTime);
         if (stream != null)
         {
-            try
-            {
-                GameObject streamB = Instantiate(stream, gameObject.transform.position, gameObject.transform.rotation);
-            }
-            catch (MissingReferenceException ignored)
-            {
-
-            }
+            GameObject streamB = Instantiate(stream, gameObject.transform.position, gameObject.transform.rotation);
         }
     }
 
@@ -38,11 +31,10 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        restos();
+        disable();
     }
 
-    private void restos()
-    {
+    private void disable(){
         GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(gameObject);
     }

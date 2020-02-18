@@ -16,7 +16,7 @@ public class HommingMissile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        Destroy(gameObject, destroyTime);
+        Invoke("disable", destroyTime);
 
     }
 
@@ -32,13 +32,14 @@ public class HommingMissile : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-
-        this.gameObject.SetActive(false);
-        restos();
-
+        if (!other.gameObject.tag.Equals("EnemyBullet"))
+        {
+            disable();
+        }
     }
 
-    private void restos()
+
+    private void disable()
     {
         GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(gameObject);

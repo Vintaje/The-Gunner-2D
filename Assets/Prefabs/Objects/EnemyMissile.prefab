@@ -293,7 +293,7 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 1
   damage: 1
-  destroyTime: 5
+  destroyTime: 3.5
   bulletExplo: {fileID: 2046152516995497041, guid: 49a223b8450bd5445858a5f803ab0bc0,
     type: 3}
   angularspeed: 200
