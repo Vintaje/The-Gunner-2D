@@ -8,7 +8,7 @@ public class DestructibleObject : MonoBehaviour
     public int vida;
     public float hurt_duration;
     private Bullet bullet;
-    
+
 
 
     //Effects
@@ -16,7 +16,7 @@ public class DestructibleObject : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -33,13 +33,15 @@ public class DestructibleObject : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D other)
     {
 
-        
+
         if (other.gameObject.tag == "Bullet" && this.vida > 0)
         {
             bullet = other.gameObject.GetComponent<Bullet>();
-            try{
-            gameObject.GetComponent<Animator>().SetBool("Hit", true);
-            }catch(UnityException ex){}
+            try
+            {
+                gameObject.GetComponent<Animator>().SetBool("Hit", true);
+            }
+            catch (UnityException ex) { }
             BlinkPlayer(2);
 
 
@@ -68,7 +70,10 @@ public class DestructibleObject : MonoBehaviour
 
         //make sure renderer is enabled when we exit
         gameObject.GetComponent<Renderer>().enabled = true;
-        gameObject.GetComponent<Animator>().SetBool("Hit", false);
+        if (gameObject.tag.Equals("DangerObject"))
+        {
+            gameObject.GetComponent<Animator>().SetBool("Hit", false);
+        }
     }
 
 }
