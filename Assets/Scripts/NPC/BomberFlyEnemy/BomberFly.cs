@@ -48,7 +48,7 @@ public class BomberFly : MonoBehaviour
                 transform.Translate(Vector2.right * speed * Time.deltaTime);
                 
             }
-           Debug.Log( groundInfo.collider.gameObject.name);
+           
         }
         {
 

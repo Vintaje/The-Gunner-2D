@@ -23,11 +23,14 @@ public class akInfantry : MonoBehaviour
     private float oldPosition = 0.0f;
     private bool shooting;
     public float distanceToShot;
+    private float distanceToTarget;
 
     //Sonido
     private AudioSource[] sounds;
     private AudioSource shot;
     private AudioSource alert;
+
+    private GameObject[] enemies;
 
     //Script general
     Human human;
@@ -45,6 +48,9 @@ public class akInfantry : MonoBehaviour
         speed = normalspeed;
         fastspeed = 2f * normalspeed;
         human = GetComponent<Human>();
+        enemies = GameObject.FindGameObjectsWithTag("EnemyBullet");
+
+
     }
 
     // Update is called once per frame
@@ -52,18 +58,44 @@ public class akInfantry : MonoBehaviour
     {
         if (!human.muerto)
         {
+
+
             RaycastHit2D groundInfo = Physics2D.Raycast(eyeDetection.position, Vector2.down, distance);
-            if (groundInfo.collider == true)
+
+            if (groundInfo.distance > 0.35)
+            {
+                GetComponent<Rigidbody2D>().gravityScale = 1;
+            }
+            else
+            {
+                GetComponent<Rigidbody2D>().gravityScale = 0;
+            }
+            if (groundInfo.collider == true && groundInfo.collider.gameObject.tag.Equals("Floor"))
             {
 
-                if (!groundInfo.collider.gameObject.tag.Equals("Player") && !detected)
+                if (!groundInfo.collider.gameObject.tag.Equals("Player"))
                 {
                     transform.Translate(Vector2.right * speed * Time.deltaTime);
 
                 }
 
             }
-            else
+            else if (!groundInfo.collider.gameObject.tag.Equals("EnemyBullets") && !groundInfo.collider.gameObject.tag.Equals("LimiteEnemigos"))
+            {
+
+                if (right)
+                {
+                    transform.eulerAngles = new Vector3(0, -180, 0);
+                    right = false;
+                }
+                else
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 0);
+                    right = true;
+                }
+            }
+
+            if (groundInfo.collider.gameObject.tag.Equals("LimiteEnemigos") && !detected)
             {
                 if (right)
                 {
@@ -76,10 +108,11 @@ public class akInfantry : MonoBehaviour
                     right = true;
                 }
             }
-            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+            distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+
             if (detected)
             {
-                if (distanceToTarget > distanceToShot)
+                if (distanceToTarget > distanceToShot && groundInfo.collider == true && groundInfo.collider.gameObject.tag.Equals("Floor"))
                 {
                     transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, gameObject.transform.position.y, gameObject.transform.position.z), speed * Time.deltaTime);
                 }
@@ -146,6 +179,7 @@ public class akInfantry : MonoBehaviour
     }
 
 
+
     IEnumerator DoBlinks(float seconds)
     {
         shot.Play();
@@ -156,5 +190,37 @@ public class akInfantry : MonoBehaviour
         //make sure renderer is enabled when we exit
         GetComponent<Animator>().SetBool("Shooting", false);
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "EnemyBullet")
+        {
+            GetComponent<Rigidbody2D>().isKinematic = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        if (other.gameObject.tag == "EnemyBullet")
+        {
+            GetComponent<Rigidbody2D>().isKinematic = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Equals("LimiteEnemigos"))
+        {
+            if (right)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+                right = false;
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                right = true;
+            }
+        }
     }
 }

@@ -20,6 +20,7 @@ TagManager:
   - Wall
   - EnemyBullet
   - Ladder
+  - LimiteEnemigos
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - 
   - Floor
   - PlayerBullet
-  - 
+  - Enemy
   - 
   - 
   - 

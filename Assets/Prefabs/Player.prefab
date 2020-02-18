@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 1230844823076698207}
   - component: {fileID: 1089103079364660193}
   - component: {fileID: 2204165780352496166}
+  - component: {fileID: 269768737}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -288,7 +289,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3153768777711790029}
-  vidas: 0
   speed: 0.05
   speedagachado: 0.01
   speednormal: 0.05
@@ -309,6 +309,7 @@ MonoBehaviour:
   ammoextratext: {fileID: 0}
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
   text: {fileID: 4901343218570307493, guid: be4ae85f9e3fecd4ab983040cf48ec62, type: 3}
+  human: {fileID: 0}
 --- !u!61 &3153768777711790019
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -463,7 +464,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6d419f8a5e037e44d869f952494be457, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 0.226
   m_Pitch: 1
   Loop: 1
@@ -1316,6 +1317,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &269768737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3153768777711790016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 186cee79608faea4ebe94365dbaed19d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vida: 9
+  muerto: 0
+  hurt_duration: 2
+  ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
 --- !u!1 &9058939334466873389
 GameObject:
   m_ObjectHideFlags: 0
