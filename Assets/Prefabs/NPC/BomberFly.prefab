@@ -185,6 +185,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7232695561182912324, guid: 508a23099c1ac994bb45c5d3439a6e6b,
     type: 3}
   shotSpawner: {fileID: 5780404757519214929}
+  pos1: {x: 0, y: 0}
 --- !u!61 &5780404758061249581
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -195,7 +196,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.13077378, y: 0.04897085}
