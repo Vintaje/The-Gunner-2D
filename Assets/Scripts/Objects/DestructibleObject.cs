@@ -37,14 +37,7 @@ public class DestructibleObject : MonoBehaviour
         if (other.gameObject.tag == "Bullet" && this.vida > 0)
         {
             bullet = other.gameObject.GetComponent<Bullet>();
-            try
-            {
-                gameObject.GetComponent<Animator>().SetBool("Hit", true);
-            }
-            catch (UnityException ex) { }
             BlinkPlayer(2);
-
-
 
             //Damage received
             vida -= bullet.damage;
@@ -70,10 +63,7 @@ public class DestructibleObject : MonoBehaviour
 
         //make sure renderer is enabled when we exit
         gameObject.GetComponent<Renderer>().enabled = true;
-        if (gameObject.tag.Equals("DangerObject"))
-        {
-            gameObject.GetComponent<Animator>().SetBool("Hit", false);
-        }
+        gameObject.GetComponent<Animator>().SetBool("Hit", false);
     }
 
 }
