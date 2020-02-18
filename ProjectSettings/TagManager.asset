@@ -19,6 +19,7 @@ TagManager:
   - Ghost
   - Wall
   - EnemyBullet
+  - Ladder
   layers:
   - Default
   - TransparentFX
