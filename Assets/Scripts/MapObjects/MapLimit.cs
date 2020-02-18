@@ -22,9 +22,9 @@ public class MapLimit : MonoBehaviour
         if (other.gameObject.tag.Equals("Player"))
         {
             other.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.001f;
-             other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(0.0f, 150.0f, 0.0f));
-            other.gameObject.GetComponent<Player>().playermuerto();
-            
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(0.0f, 150.0f, 0.0f));
+            other.gameObject.GetComponent<Player>().human.vida = 0;
+
         }
     }
 }

@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
 
 
     //Parametros del jugador
-    public int vidas;
     public float speed;
     public float speedagachado;
     public float speednormal;
@@ -44,7 +43,6 @@ public class Player : MonoBehaviour
     private bool agachado;
     private bool arriba;
     private bool derecha;
-    private bool muerto;
     private bool running;
 
     //Controles
@@ -77,28 +75,31 @@ public class Player : MonoBehaviour
     public GameObject text;
 
 
-
+    //Script general
+    public Human human;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        //Script principal
+        human = GetComponent<Human>();
+
+        //Boolean de movimientos y armas
         wep1 = true;
         wep2 = false;
         wep3 = false;
 
         weapon = 0;
-        vidas = 3;
         saltando = false;
         agachado = false;
         derecha = true;
         arriba = false;
-        muerto = false;
         running = true;
 
         //sonidos
-        sounds = sounds = GetComponents<AudioSource>();
+        sounds = GetComponents<AudioSource>();
         death = sounds[0];
         footstep = sounds[1];
         jumping = sounds[2];
@@ -132,7 +133,7 @@ public class Player : MonoBehaviour
 
         ammospectext.GetComponent<Text>().text = municionspec + "";
         ammoextratext.GetComponent<Text>().text = municionextr + "";
-        if (!muerto)
+        if (!human.muerto)
         {
 
             if (Input.GetButtonDown("Jump"))
@@ -213,7 +214,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!muerto)
+        if (!human.muerto)
         {
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || joystick.Horizontal < deadzone * -1 || Input.GetAxis("Horizontal") < deadzone * -1)
             {
@@ -376,32 +377,17 @@ public class Player : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 0;
         }
 
-        if (_col.gameObject.tag.Equals("Explosion"))
-        {
 
-            if (derecha)
-            {
-                gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
-                GetComponent<Rigidbody2D>().AddForce(new Vector2(-20.0f, 100.0f));
-            }
-            else
-            {
-                gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
-                GetComponent<Rigidbody2D>().AddForce(new Vector2(20.0f, 100.0f));
-            }
-            playermuerto();
-        }
 
     }
 
-    void OnCollisionExit2D(Collision2D _col){
+    void OnCollisionExit2D(Collision2D _col)
+    {
         if (_col.gameObject.tag.Equals("Wall"))
         {
             gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
         }
-        if(_col.gameObject.tag.Equals("Floor")){
-            saltando = true;
-        }
+
     }
 
 
@@ -429,22 +415,34 @@ public class Player : MonoBehaviour
             collider.gameObject.SetActive(false);
             Destroy(collider.gameObject, 0.9f);
         }
+        if (collider.gameObject.tag.Equals("Explosion"))
+        {
+            human.vida = 0;
+            if (derecha)
+            {
+                gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(-20.0f, 100.0f));
+            }
+            else
+            {
+                gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
+                GetComponent<Rigidbody2D>().AddForce(new Vector2(20.0f, 100.0f));
+            }
+
+        }
     }
 
 
 
     public void playermuerto()
     {
-        if (!muerto)
-        {
-            GameObject temp_ghost = Instantiate(ghost, (new Vector3(0.0f, 0.1f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation); muerto = true;
-            footstep.Pause();
-            BlinkPlayer(3);
-            death.time = 0.65f;
-            death.Play();
-            animator.SetBool("Death", true);
-            Invoke("restart", 2);
-        }
+        GameObject temp_ghost = Instantiate(ghost, (new Vector3(0.0f, 0.1f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation);
+        footstep.Pause();
+        BlinkPlayer(3);
+        death.time = 0.65f;
+        death.Play();
+        animator.SetBool("Death", true);
+        Invoke("restart", 2);
     }
 
     void BlinkPlayer(int numBlinks)
