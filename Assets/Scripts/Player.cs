@@ -394,7 +394,7 @@ public class Player : MonoBehaviour
 
     }
 
-    void OnCollisionExit2D(Collider2D _col){
+    void OnCollisionExit2D(Collision2D _col){
         if (_col.gameObject.tag.Equals("Wall"))
         {
             gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
