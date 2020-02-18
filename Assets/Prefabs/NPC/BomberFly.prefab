@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5780404757519214930}
   m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: 0.15, y: -0.92, z: 0}
+  m_LocalPosition: {x: 0.667, y: -1.031, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5780404758061249582}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 5780404758061249580}
   m_Layer: 0
   m_Name: BomberFly
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,13 +178,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  distance: 2
+  distance: 1.5
   groundDetection: {fileID: 5780404758363966956}
   targetDetection: {fileID: 5780404758026460766}
-  fireRate: 2
+  fireRate: 3
   bulletPrefab: {fileID: 7232695561182912324, guid: 508a23099c1ac994bb45c5d3439a6e6b,
     type: 3}
   shotSpawner: {fileID: 5780404757519214929}
+  pos1: {x: 0, y: 0}
 --- !u!61 &5780404758061249581
 BoxCollider2D:
   m_ObjectHideFlags: 0

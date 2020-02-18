@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BomberFly : MonoBehaviour
+public class akInfantry : MonoBehaviour
 {
-
     public float speed;
     public float distance;
 
     private bool right = true;
     private bool detected = false;
 
-    public Transform groundDetection;
+    public Transform eyeDetection;
     private Transform target;
     public Transform targetDetection;
 
@@ -24,32 +23,32 @@ public class BomberFly : MonoBehaviour
     private float oldPosition = 0.0f;
     //Check derecha o izquierda
     public Vector2 pos1;
-
+    private bool shooting;
     // Start is called before the first frame update
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         nextFire = 0.0f;
-        groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, distance);
         oldPosition = transform.position.x;
         right = true;
+        shooting = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, distance);
+        RaycastHit2D groundInfo = Physics2D.Raycast(eyeDetection.position, Vector2.right, distance);
         if (groundInfo.collider == true)
         {
 
-            if (!groundInfo.collider.gameObject.tag.Equals("Player"))
+            if (!groundInfo.collider.gameObject.tag.Equals("Player") && !shooting)
             {
                 transform.Translate(Vector2.right * speed * Time.deltaTime);
-                
+
             }
-           Debug.Log( groundInfo.collider.gameObject.name);
+
         }
+        else
         {
 
             if (right)
@@ -65,17 +64,51 @@ public class BomberFly : MonoBehaviour
         }
         if (detected)
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, gameObject.transform.position.y, gameObject.transform.position.z), speed * Time.deltaTime);
+            if (!shooting)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, gameObject.transform.position.y, gameObject.transform.position.z), speed * Time.deltaTime);
+            }
+           
+
             if (Time.time > nextFire)
             {
+                StartCoroutine(DoBlinks(0.9f));
                 nextFire = Time.time + fireRate;
-                GameObject tempMissile = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
-                
+                GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
+
+                if (!right)
+                {
+                    tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
+                }
+
+            }
+
+
+            if (transform.position.x > target.position.x) // he's looking right
+            {
+                right = false;
+            }
+
+            if (transform.position.x < target.position.x) // he's looking left
+            {
+                right = true;
+            }
+
+            if (!right)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
             }
         }
 
-        if ((transform.position.x - target.position.x) > 1.5 ||
-        (transform.position.x - target.position.x) < -1.5)
+        
+
+        if ((transform.position.x - target.position.x) > distance ||
+        (transform.position.x - target.position.x) < distance)
         {
             detected = false;
 
@@ -94,26 +127,20 @@ public class BomberFly : MonoBehaviour
         if (transform.position.x < oldPosition) // he's looking left
         {
             transform.eulerAngles = new Vector3(0, -180, 0);
-            right = true;
+            right = false;
         }
         oldPosition = transform.position.x;
-
     }
 
 
-
-    private void OnCollisionEnter2D(Collision2D other)
+    IEnumerator DoBlinks(float seconds)
     {
-        if (other.gameObject.tag.Equals("EnemyBullet") || other.gameObject.tag.Equals("Wall"))
-            if (right)
-            {
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                right = false;
-            }
-            else
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                right = true;
-            }
+        GetComponent<Animator>().SetBool("Shooting", true);
+        shooting = true;
+        yield return new WaitForSeconds(seconds);
+
+        //make sure renderer is enabled when we exit
+        GetComponent<Animator>().SetBool("Shooting", false);
+        shooting = false;
     }
 }

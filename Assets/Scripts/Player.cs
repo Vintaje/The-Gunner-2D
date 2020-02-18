@@ -399,6 +399,9 @@ public class Player : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
         }
+        if(_col.gameObject.tag.Equals("Floor")){
+            saltando = true;
+        }
     }
 
 
