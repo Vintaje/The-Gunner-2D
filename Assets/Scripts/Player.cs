@@ -46,10 +46,6 @@ public class Player : MonoBehaviour
     private bool running;
 
     //Controles
-    protected Joystick joystick;
-    public JumpJoybutton jump;
-    public FireJoybutton fire;
-    public ChangeWButton changeWButton;
     public float deadzone;
 
 
@@ -79,6 +75,8 @@ public class Player : MonoBehaviour
     //Script general
     public Human human;
 
+    private int plataforma; //1 PC //3 Android
+
 
 
     // Start is called before the first frame update
@@ -94,10 +92,8 @@ public class Player : MonoBehaviour
 
         weapon = 0;
         saltando = false;
-        agachado = false;
         derecha = true;
-        arriba = false;
-        running = true;
+
 
         //sonidos
         sounds = GetComponents<AudioSource>();
@@ -112,11 +108,7 @@ public class Player : MonoBehaviour
         specweapon = sounds[8];
         extraweapon = sounds[9];
 
-
-
-        //Buscamos los controles
-        joystick = FindObjectOfType<Joystick>();
-
+        //Animaciones iniciales
         shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
         animator.SetBool("Running", false);
         animator.SetBool("Weapon 1", wep1);
@@ -138,7 +130,46 @@ public class Player : MonoBehaviour
         if (!human.muerto)
         {
 
-            if (Input.GetButtonDown("Jump") || changeWButton.Pressed)
+            if (Input.GetAxis("Vertical") == 0)
+            {
+                running = false;
+                agachado = false;
+                arriba = false;
+                speed = speednormal;
+            }
+            Debug.Log("Horizontal: " + Input.GetAxis("Horizontal"));
+            Debug.Log("Vertical: " + Input.GetAxis("Vertical"));
+            if (Input.GetAxis("Horizontal") < deadzone * -1)
+            {
+
+                transform.Translate(new Vector3(speed * -1, 0.0f));
+                transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
+                derecha = false;
+                running = true;
+
+            }
+            if (Input.GetAxis("Horizontal") > deadzone)
+            {
+                transform.Translate(new Vector3(speed, 0.0f));
+                transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
+                derecha = true;
+                running = true;
+            }
+            if ((Input.GetAxis("Horizontal") < deadzone && Input.GetAxis("Horizontal") > deadzone * -1) || saltando || arriba)
+            {
+                running = false;
+            }
+            if (running && !saltando && !arriba)
+            {
+                footstep.UnPause();
+            }
+            else
+            {
+                footstep.Pause();
+            }
+
+
+            if (Input.GetButtonDown("Arma"))
             {
                 if (weapon == 2)
                 {
@@ -167,89 +198,23 @@ public class Player : MonoBehaviour
                 change_weapon.Play();
             }
 
-
-
-
-            if (Input.GetAxis("Vertical") < deadzone * -1 || joystick.Vertical < deadzone * -1 || Input.GetKey(KeyCode.S))
+            if (Input.GetAxis("Vertical") < deadzone * -1)
             {
                 if (!saltando)
                 {
                     agachado = true;
                     speed = speedagachado;
-                    running = false;
+                    
                 }
             }
-            else
-            {
-                agachado = false;
-                speed = speednormal;
-            }
 
 
-            if (running && !saltando && !arriba)
-            {
-                footstep.UnPause();
-            }
-            else
-            {
-                footstep.Pause();
-            }
-            if (Input.GetKey(KeyCode.W) || joystick.Vertical > deadzone - 0.5 || Input.GetAxis("Vertical") > deadzone - 0.5)
-            {
-                arriba = true;
-                running = false;
-                speed = 0;
-            }
-            else
-            {
-                arriba = false;
-                speed = speednormal;
-            }
-            animator.SetBool("Running", running);
-            animator.SetBool("Crouch", agachado);
-            animator.SetBool("AimUp", arriba);
-            animator.SetBool("Weapon 1", wep1);
-            animator.SetBool("Weapon 2", wep2);
-            animator.SetBool("Weapon 3", wep3);
-        }
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (!human.muerto)
-        {
-            if (!agachado)
-            {
-                if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || joystick.Horizontal < deadzone * -1 || Input.GetAxis("Horizontal") < deadzone * -1)
-                {
-
-                    transform.Translate(new Vector3(speed * -1, 0.0f));
-                    transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
-                    derecha = false;
-                    running = true;
-
-                }
-                else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || joystick.Horizontal > deadzone || Input.GetAxis("Horizontal") > deadzone)
-                {
-                    transform.Translate(new Vector3(speed, 0.0f));
-                    transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
-                    derecha = true;
-                    running = true;
-                }
-                else
-                {
-                    running = false;
-                }
-            }
-            animator.SetBool("Running", derecha);
-
-            if (Input.GetKeyDown(KeyCode.Space) || (jump.Pressed && jump.gameObject.tag == "JumpButton") || Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Saltar"))
             {
                 saltar();
             }
 
-            if ((Input.GetButton("Fire2") && Time.time > nextFire) ||(fire.Pressed && Time.time > nextFire))
+            if ((Input.GetButton("Disparar") && Time.time > nextFire))
             {
                 disparar();
             }
@@ -257,19 +222,39 @@ public class Player : MonoBehaviour
             {
                 shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
             }
+
+
+            if (Input.GetAxis("Vertical") > deadzone - 0.5)
+            {
+                arriba = true;
+
+                speed = 0;
+            }
+
+            animator.SetBool("Running", running);
+            animator.SetBool("Crouch", agachado);
+            animator.SetBool("AimUp", arriba);
+            animator.SetBool("Weapon 1", wep1);
+            animator.SetBool("Weapon 2", wep2);
+            animator.SetBool("Weapon 3", wep3);
+
         }
     }
 
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+
+    }
 
 
     private void saltar()
     {
-        if (saltando == false && !agachado)
+        if (!saltando && !agachado)
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 175.0f));
             saltando = true;
-            running = false;
-            animator.SetBool("Running", false);
+            animator.SetBool("Running", running);
             animator.SetBool("Jumping", saltando);
             jumping.Play();
         }
