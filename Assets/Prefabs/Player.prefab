@@ -290,11 +290,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3153768777711790029}
   speed: 0.05
-  speedagachado: 0.01
+  speedagachado: 0
   speednormal: 0.05
-  normalRate: 0.4
-  specRate: 0.2
-  exploRate: 0.5
+  normalRate: 0.15
+  specRate: 0.15
+  exploRate: 0.2
   bulletPrefab: {fileID: 5611423884645366640, guid: 59bf4cbdac8320b42b4276e94d4d2553,
     type: 3}
   bulletSpecialPrefab: {fileID: 6832578267709467496, guid: 9b8414d7db487364dba2a0810c1296ab,

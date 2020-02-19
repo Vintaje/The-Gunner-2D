@@ -59,7 +59,7 @@ public class akInfantry : MonoBehaviour
         if (!human.muerto)
         {
 
-
+            distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
             RaycastHit2D groundInfo = Physics2D.Raycast(eyeDetection.position, Vector2.down, distance);
 
             if (groundInfo.distance > 0.35)
@@ -70,47 +70,49 @@ public class akInfantry : MonoBehaviour
             {
                 GetComponent<Rigidbody2D>().gravityScale = 0;
             }
-            if (groundInfo.collider == true && groundInfo.collider.gameObject.tag.Equals("Floor"))
+            if (!detected)
             {
-
-                if (!groundInfo.collider.gameObject.tag.Equals("Player"))
+                if (groundInfo.collider == true && groundInfo.collider.gameObject.tag.Equals("Floor") && distanceToTarget > distanceToShot)
                 {
-                    transform.Translate(Vector2.right * speed * Time.deltaTime);
 
+                    if (!groundInfo.collider.gameObject.tag.Equals("Player"))
+                    {
+                        transform.Translate(Vector2.right * speed * Time.deltaTime);
+
+                    }
+
+                }
+                else if (!groundInfo.collider.gameObject.tag.Equals("EnemyBullets") && !groundInfo.collider.gameObject.tag.Equals("LimiteEnemigos") && distanceToTarget > distanceToShot)
+                {
+
+                    if (right)
+                    {
+                        transform.eulerAngles = new Vector3(0, -180, 0);
+                        right = false;
+                    }
+                    else
+                    {
+                        transform.eulerAngles = new Vector3(0, 0, 0);
+                        right = true;
+                    }
+                }
+
+                if (groundInfo.collider.gameObject.tag.Equals("LimiteEnemigos"))
+                {
+                    if (right)
+                    {
+                        transform.eulerAngles = new Vector3(0, -180, 0);
+                        right = false;
+                    }
+                    else
+                    {
+                        transform.eulerAngles = new Vector3(0, 0, 0);
+                        right = true;
+                    }
                 }
 
             }
-            else if (!groundInfo.collider.gameObject.tag.Equals("EnemyBullets") && !groundInfo.collider.gameObject.tag.Equals("LimiteEnemigos"))
-            {
-
-                if (right)
-                {
-                    transform.eulerAngles = new Vector3(0, -180, 0);
-                    right = false;
-                }
-                else
-                {
-                    transform.eulerAngles = new Vector3(0, 0, 0);
-                    right = true;
-                }
-            }
-
-            if (groundInfo.collider.gameObject.tag.Equals("LimiteEnemigos") && !detected)
-            {
-                if (right)
-                {
-                    transform.eulerAngles = new Vector3(0, -180, 0);
-                    right = false;
-                }
-                else
-                {
-                    transform.eulerAngles = new Vector3(0, 0, 0);
-                    right = true;
-                }
-            }
-            distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-
-            if (detected)
+            else if (detected)
             {
                 if (distanceToTarget > distanceToShot && groundInfo.collider == true && groundInfo.collider.gameObject.tag.Equals("Floor"))
                 {
@@ -130,25 +132,19 @@ public class akInfantry : MonoBehaviour
                 }
 
 
-                if (transform.position.x > target.position.x) // he's looking right
-                {
-                    right = false;
-                }
-
-                if (transform.position.x < target.position.x) // he's looking left
+                if (transform.position.x < target.position.x) // he's looking right
                 {
                     right = true;
-                }
-
-                if (!right)
-                {
-                    transform.eulerAngles = new Vector3(0, -180, 0);
-
-                }
-                else
-                {
                     transform.eulerAngles = new Vector3(0, 0, 0);
                 }
+
+                if (transform.position.x > target.position.x) // he's looking left
+                {
+                    right = false;
+                    transform.eulerAngles = new Vector3(0, -180, 0);
+                }
+
+
             }
 
             if (distanceToTarget > distance)
@@ -200,7 +196,8 @@ public class akInfantry : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D other) {
+    private void OnCollisionExit2D(Collision2D other)
+    {
         if (other.gameObject.tag == "EnemyBullet")
         {
             GetComponent<Rigidbody2D>().isKinematic = false;

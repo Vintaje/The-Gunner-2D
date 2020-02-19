@@ -5198,6 +5198,36 @@ Transform:
   m_Father: {fileID: 661270564}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &325294822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 325294823}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &325294823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325294822}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 19.31456, y: 2.974198, z: 173.96742}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &329594673
 GameObject:
   m_ObjectHideFlags: 0
@@ -52396,7 +52426,7 @@ PrefabInstance:
     - target: {fileID: 6764519214488474978, guid: a33f691a0f2ba8f48b40030f05ce1844,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.379
+      value: 17.487
       objectReference: {fileID: 0}
     - target: {fileID: 6764519214488474978, guid: a33f691a0f2ba8f48b40030f05ce1844,
         type: 3}
@@ -52447,6 +52477,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764519214488474983, guid: a33f691a0f2ba8f48b40030f05ce1844,
+        type: 3}
+      propertyPath: vida
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6764519214488474990, guid: a33f691a0f2ba8f48b40030f05ce1844,
         type: 3}
@@ -55213,7 +55248,17 @@ PrefabInstance:
     - target: {fileID: 1443505688940444122, guid: ccbde2c2b4915c64dae520d9df53262c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -236.5
+      value: -236.49997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4372599037604142964, guid: ccbde2c2b4915c64dae520d9df53262c,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1993756405}
+    - target: {fileID: 4372599037604142964, guid: ccbde2c2b4915c64dae520d9df53262c,
+        type: 3}
+      propertyPath: m_PixelPerfect
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4372599037604142965, guid: ccbde2c2b4915c64dae520d9df53262c,
         type: 3}
@@ -55823,7 +55868,7 @@ Transform:
   m_GameObject: {fileID: 1361409355}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 200}
-  m_LocalScale: {x: 2.7, y: 2.5, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 1993756406}
   m_RootOrder: 0
@@ -57190,15 +57235,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5780404758061249577, guid: 68b6214bd22fd534aa24c2f142f90598,
-        type: 3}
-      propertyPath: distance
-      value: 1.2
-      objectReference: {fileID: 0}
     - target: {fileID: 5780404758061249578, guid: 68b6214bd22fd534aa24c2f142f90598,
         type: 3}
       propertyPath: m_Name
       value: BomberFly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5780404758061249580, guid: 68b6214bd22fd534aa24c2f142f90598,
+        type: 3}
+      propertyPath: vida
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5780404758061249582, guid: 68b6214bd22fd534aa24c2f142f90598,
         type: 3}
@@ -57622,6 +57667,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6764519214488474990, guid: a33f691a0f2ba8f48b40030f05ce1844,
         type: 3}
+    - target: {fileID: 6764519214488474980, guid: a33f691a0f2ba8f48b40030f05ce1844,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764519214488474983, guid: a33f691a0f2ba8f48b40030f05ce1844,
+        type: 3}
+      propertyPath: vida
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6764519214488474990, guid: a33f691a0f2ba8f48b40030f05ce1844,
         type: 3}
       propertyPath: m_Name

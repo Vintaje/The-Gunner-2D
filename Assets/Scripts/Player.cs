@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
 
     //Armamento
-    private float fireRate = 0.5f; //Velocidad de disparo
+    private float fireRate; //Velocidad de disparo
     private float nextFire; //Siguiente disparo
     private int municionspec; // Municion especial
     private int municionextr; // Municion explosiva
@@ -125,6 +125,7 @@ public class Player : MonoBehaviour
         //UI
 
         StartCoroutine(NoAmmoBlink(0.05f));
+        fireRate = normalRate;
     }
 
     //Update
@@ -184,7 +185,7 @@ public class Player : MonoBehaviour
             }
 
 
-            if (running && !saltando)
+            if (running && !saltando && !arriba)
             {
                 footstep.UnPause();
             }
@@ -195,6 +196,7 @@ public class Player : MonoBehaviour
             if (Input.GetKey(KeyCode.W) || joystick.Vertical > deadzone - 0.5 || Input.GetAxis("Vertical") > deadzone - 0.5)
             {
                 arriba = true;
+                running = false;
                 speed = 0;
             }
             else
@@ -216,24 +218,28 @@ public class Player : MonoBehaviour
     {
         if (!human.muerto)
         {
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || joystick.Horizontal < deadzone * -1 || Input.GetAxis("Horizontal") < deadzone * -1)
+            if (!agachado)
             {
-                transform.Translate(new Vector3(speed * -1, 0.0f));
-                transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
-                derecha = false;
-                running = true;
+                if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || joystick.Horizontal < deadzone * -1 || Input.GetAxis("Horizontal") < deadzone * -1)
+                {
 
-            }
-            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || joystick.Horizontal > deadzone || Input.GetAxis("Horizontal") > deadzone)
-            {
-                transform.Translate(new Vector3(speed, 0.0f));
-                transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
-                derecha = true;
-                running = true;
-            }
-            else
-            {
-                running = false;
+                    transform.Translate(new Vector3(speed * -1, 0.0f));
+                    transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
+                    derecha = false;
+                    running = true;
+
+                }
+                else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || joystick.Horizontal > deadzone || Input.GetAxis("Horizontal") > deadzone)
+                {
+                    transform.Translate(new Vector3(speed, 0.0f));
+                    transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
+                    derecha = true;
+                    running = true;
+                }
+                else
+                {
+                    running = false;
+                }
             }
             animator.SetBool("Running", derecha);
 

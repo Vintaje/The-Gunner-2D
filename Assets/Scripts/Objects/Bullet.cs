@@ -31,7 +31,9 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        disable();
+        gameObject.SetActive(false);
+        GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(gameObject, 0.2f);
     }
 
     private void disable(){

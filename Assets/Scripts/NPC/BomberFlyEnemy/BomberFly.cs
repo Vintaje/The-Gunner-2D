@@ -20,10 +20,10 @@ public class BomberFly : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform shotSpawner;
     private RaycastHit2D groundInfo;
+    private AudioSource shot;
 
     private float oldPosition = 0.0f;
     //Check derecha o izquierda
-    public Vector2 pos1;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +33,7 @@ public class BomberFly : MonoBehaviour
         groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, distance);
         oldPosition = transform.position.x;
         right = true;
+        shot = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -43,7 +44,7 @@ public class BomberFly : MonoBehaviour
         if (groundInfo.collider == true)
         {
 
-            if (!groundInfo.collider.gameObject.tag.Equals("Player"))
+            if (!groundInfo.collider.gameObject.tag.Equals("Player") && !detected)
             {
                 transform.Translate(Vector2.right * speed * Time.deltaTime);
                 
@@ -70,6 +71,7 @@ public class BomberFly : MonoBehaviour
             {
                 nextFire = Time.time + fireRate;
                 GameObject tempMissile = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
+                shot.Play();
                 
             }
         }
