@@ -86,9 +86,7 @@ public class Player : MonoBehaviour
         human = GetComponent<Human>();
 
         //Boolean de movimientos y armas
-        wep1 = true;
-        wep2 = false;
-        wep3 = false;
+
 
         weapon = 0;
         saltando = false;
@@ -110,6 +108,9 @@ public class Player : MonoBehaviour
 
         //Animaciones iniciales
         shotSpawner.transform.localScale = (new Vector3(0.0f, 0.0f, 1.0f));
+        wep1 = true;
+        wep2 = false;
+        wep3 = false;
         animator.SetBool("Running", false);
         animator.SetBool("Weapon 1", wep1);
         animator.SetBool("Weapon 2", wep2);
@@ -139,26 +140,25 @@ public class Player : MonoBehaviour
             }
             Debug.Log("Horizontal: " + Input.GetAxis("Horizontal"));
             Debug.Log("Vertical: " + Input.GetAxis("Vertical"));
-            if (Input.GetAxis("Horizontal") < deadzone * -1)
+            if (Input.GetAxis("Horizontal") < deadzone * -1 && !arriba && !agachado)
             {
-
                 transform.Translate(new Vector3(speed * -1, 0.0f));
                 transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
                 derecha = false;
                 running = true;
-
             }
-            if (Input.GetAxis("Horizontal") > deadzone)
+            if (Input.GetAxis("Horizontal") > deadzone && !arriba && !agachado)
             {
                 transform.Translate(new Vector3(speed, 0.0f));
                 transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
                 derecha = true;
                 running = true;
             }
-            if ((Input.GetAxis("Horizontal") < deadzone && Input.GetAxis("Horizontal") > deadzone * -1) || saltando || arriba)
+            if ((Input.GetAxis("Horizontal") < deadzone && Input.GetAxis("Horizontal") > deadzone * -1))
             {
                 running = false;
             }
+
             if (running && !saltando && !arriba)
             {
                 footstep.UnPause();
@@ -167,6 +167,7 @@ public class Player : MonoBehaviour
             {
                 footstep.Pause();
             }
+
 
 
             if (Input.GetButtonDown("Arma"))
@@ -198,14 +199,11 @@ public class Player : MonoBehaviour
                 change_weapon.Play();
             }
 
-            if (Input.GetAxis("Vertical") < deadzone * -1)
+            if (Input.GetAxis("Vertical") < deadzone * -1 && !saltando)
             {
-                if (!saltando)
-                {
-                    agachado = true;
-                    speed = speedagachado;
-                    
-                }
+                agachado = true;
+                running = false;
+                speed = speedagachado;
             }
 
 
@@ -227,9 +225,10 @@ public class Player : MonoBehaviour
             if (Input.GetAxis("Vertical") > deadzone - 0.5)
             {
                 arriba = true;
-
+                running = false;
                 speed = 0;
             }
+            
 
             animator.SetBool("Running", running);
             animator.SetBool("Crouch", agachado);

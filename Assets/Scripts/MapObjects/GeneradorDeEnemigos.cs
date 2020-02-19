@@ -41,8 +41,10 @@ public class GeneradorDeEnemigos : MonoBehaviour
             {
                 Debug.Log("Acaba de ocurri algo");
                 activo = false;
-                mainCamera.GetComponent<CameraFollow>().enabled = true;
-                Destroy(gameObject, 0.5f);
+                mainCamera.GetComponent<CameraFollow>().habilitado = true;
+                
+                Invoke("recuperarCamara",1.0f);
+                Destroy(gameObject, 1.5f);
                 Debug.Log("Fase 1 Terminada");
 
             }
@@ -50,7 +52,9 @@ public class GeneradorDeEnemigos : MonoBehaviour
 
     }
 
-
+    void recuperarCamara(){
+        mainCamera.GetComponent<CameraFollow>().enabled = true;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -70,7 +74,7 @@ public class GeneradorDeEnemigos : MonoBehaviour
         {
             col.enabled = true;
         }
-        mainCamera.GetComponent<CameraFollow>().enabled = false;
+        mainCamera.GetComponent<CameraFollow>().habilitado = false;
         activo = true;
         GetComponent<BoxCollider2D>().enabled = false;
         Spawner();
