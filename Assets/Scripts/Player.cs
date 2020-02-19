@@ -235,7 +235,7 @@ public class Player : MonoBehaviour
             }
 
 
-            if (jumpButton)
+            if (jumpButton.Pressed)
             {
                 saltar();
             }
