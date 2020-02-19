@@ -25,6 +25,7 @@ public class PikemanMove : MonoBehaviour
 
         if (dist < visionRadius)
         {
+            visionRadius = 3.5f;
             if (dist < 0.60f)
             {
                 animator.SetBool("attack", true);
@@ -35,9 +36,9 @@ public class PikemanMove : MonoBehaviour
             }
             else
             {
-                
-                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
-                
+
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
+
                 animator.SetBool("attack", false);
 
                 Debug.Log("dist:" + dist + " vision:" + visionRadius);

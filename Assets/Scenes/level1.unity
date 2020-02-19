@@ -490,6 +490,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2087701248}
+  habilitado: 0
+  offset: {x: 0, y: 0, z: 0}
+  smoothSpeed: 0.125
 --- !u!1 &510523677
 GameObject:
   m_ObjectHideFlags: 0
@@ -19006,12 +19009,12 @@ PrefabInstance:
         type: 3}
       propertyPath: fire
       value: 
-      objectReference: {fileID: 1244257477}
+      objectReference: {fileID: 0}
     - target: {fileID: 3153768777711790028, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad,
         type: 3}
       propertyPath: jump
       value: 
-      objectReference: {fileID: 811158453}
+      objectReference: {fileID: 0}
     - target: {fileID: 3153768777711790028, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad,
         type: 3}
       propertyPath: vidas
@@ -19433,18 +19436,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &811158453 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4372599036729234446, guid: ccbde2c2b4915c64dae520d9df53262c,
-    type: 3}
-  m_PrefabInstance: {fileID: 318944712}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 588e25e5c823d0645b9d138cd286b466, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &818740485 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5846887114917765344, guid: ccbde2c2b4915c64dae520d9df53262c,
@@ -19536,18 +19527,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 318944712}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1244257477 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4372599037066359074, guid: ccbde2c2b4915c64dae520d9df53262c,
-    type: 3}
-  m_PrefabInstance: {fileID: 318944712}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68d81050805133b4a80e99a3f510207f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1268901276
 GameObject:
   m_ObjectHideFlags: 0
@@ -19633,6 +19612,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 44377439925110444}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1322260854 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 44377438873395162, guid: dfa4220cd7b41e541895d0d500d0474b,
+    type: 3}
+  m_PrefabInstance: {fileID: 44377439925110444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1322260856 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 44377438873395156, guid: dfa4220cd7b41e541895d0d500d0474b,
@@ -19653,6 +19638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionRadius: 2
   speed: 1.5
+  animator: {fileID: 1322260854}
 --- !u!68 &1322260858
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -19666,7 +19652,7 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.051000424, y: 0}
   m_EdgeRadius: 0
   m_Points:
   - {x: -0.37442842, y: -0.17769337}
@@ -19710,7 +19696,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 14e3070176d979c439d07dd14ba9a8f5, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!58 &1322260860
 CircleCollider2D:
@@ -20010,7 +19996,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066810638}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.0073407996, y: -0.00432612, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1322260856}
@@ -20026,7 +20012,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.10553005, y: -0.33166713}
@@ -20225,6 +20211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 44377438873395156, guid: dfa4220cd7b41e541895d0d500d0474b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 44377438873395161, guid: dfa4220cd7b41e541895d0d500d0474b,
         type: 3}
