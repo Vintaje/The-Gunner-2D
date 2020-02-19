@@ -168,21 +168,21 @@ public class Player : MonoBehaviour
                 speed = speednormal;
             }
 
-            if (joystick.Horizontal < deadzone * -1 && !arriba && !agachado)
+            if (joystick.Horizontal < (deadzone/2) * -1 && !arriba && !agachado)
             {
                 transform.Translate(new Vector3(speed * -1, 0.0f));
                 transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
                 derecha = false;
                 running = true;
             }
-            if (joystick.Horizontal > deadzone && !arriba && !agachado)
+            if (joystick.Horizontal > (deadzone/2) && !arriba && !agachado)
             {
                 transform.Translate(new Vector3(speed, 0.0f));
                 transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
                 derecha = true;
                 running = true;
             }
-            if ((joystick.Horizontal < deadzone && joystick.Horizontal > deadzone * -1))
+            if ((joystick.Horizontal < (deadzone/2) && joystick.Horizontal > deadzone * -1))
             {
                 running = false;
             }
@@ -227,7 +227,7 @@ public class Player : MonoBehaviour
                 change_weapon.Play();
             }
 
-            if (joystick.Vertical < deadzone * -1 && !saltando)
+            if (joystick.Vertical < (deadzone/2) * -1 && !saltando)
             {
                 agachado = true;
                 running = false;
@@ -250,7 +250,7 @@ public class Player : MonoBehaviour
             }
 
 
-            if (Input.GetAxis("Vertical") > deadzone - 0.5)
+            if (Input.GetAxis("Vertical") > (deadzone/2) - 0.5)
             {
                 arriba = true;
                 running = false;
