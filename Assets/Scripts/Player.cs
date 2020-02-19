@@ -49,9 +49,9 @@ public class Player : MonoBehaviour
     //Controles
     public float deadzone;
     protected Joystick joystick;
-    protected Joybutton fireButton;
-    protected Joybutton jumpButton;
-    protected Joybutton switchButton;
+    public Joybutton fireButton;
+    public Joybutton jumpButton;
+    public Joybutton switchButton;
 
 
     //Sonidos
@@ -96,23 +96,7 @@ public class Player : MonoBehaviour
             plataforma = 3;
             Debug.Log("Android");
             joystick = FindObjectOfType<Joystick>();
-            Joybutton[] joys = FindObjectsOfType<Joybutton>();
-
-            foreach (Joybutton joy in joys)
-            {
-                if (joy.gameObject.tag.Equals("FireButton"))
-                {
-                    fireButton = joy;
-                }
-                if (joy.gameObject.tag.Equals("JumpButton"))
-                {
-                    jumpButton = joy;
-                }
-                if (joy.gameObject.tag.Equals("SwitchButton"))
-                {
-                    switchButton = joy;
-                }
-            }
+            
         }
         else
         {
