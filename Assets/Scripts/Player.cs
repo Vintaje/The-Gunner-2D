@@ -85,8 +85,17 @@ public class Player : MonoBehaviour
         //Script principal
         human = GetComponent<Human>();
 
-        //Boolean de movimientos y armas
-
+        //Plataforma
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            plataforma = 3;
+            Debug.Log("Android");
+        }
+        else
+        {
+            plataforma = 1;
+            Debug.Log("PC");
+        }
 
         weapon = 0;
         saltando = false;
@@ -120,12 +129,25 @@ public class Player : MonoBehaviour
 
         StartCoroutine(NoAmmoBlink(0.05f));
         fireRate = normalRate;
+
     }
 
     //Update
     void Update()
     {
 
+        if (plataforma == 1)
+        {
+            pcPlatform();
+        }
+        else if (plataforma == 3)
+        {
+
+        }
+    }
+
+    void androidPlatform()
+    {
         ammospectext.GetComponent<Text>().text = municionspec + "";
         ammoextratext.GetComponent<Text>().text = municionextr + "";
         if (!human.muerto)
@@ -138,8 +160,7 @@ public class Player : MonoBehaviour
                 arriba = false;
                 speed = speednormal;
             }
-            Debug.Log("Horizontal: " + Input.GetAxis("Horizontal"));
-            Debug.Log("Vertical: " + Input.GetAxis("Vertical"));
+
             if (Input.GetAxis("Horizontal") < deadzone * -1 && !arriba && !agachado)
             {
                 transform.Translate(new Vector3(speed * -1, 0.0f));
@@ -228,7 +249,122 @@ public class Player : MonoBehaviour
                 running = false;
                 speed = 0;
             }
-            
+
+
+            animator.SetBool("Running", running);
+            animator.SetBool("Crouch", agachado);
+            animator.SetBool("AimUp", arriba);
+            animator.SetBool("Weapon 1", wep1);
+            animator.SetBool("Weapon 2", wep2);
+            animator.SetBool("Weapon 3", wep3);
+
+        }
+    }
+
+    void pcPlatform()
+    {
+        ammospectext.GetComponent<Text>().text = municionspec + "";
+        ammoextratext.GetComponent<Text>().text = municionextr + "";
+        if (!human.muerto)
+        {
+
+            if (Input.GetAxis("Vertical") == 0)
+            {
+                running = false;
+                agachado = false;
+                arriba = false;
+                speed = speednormal;
+            }
+
+            if (Input.GetAxis("Horizontal") < deadzone * -1 && !arriba && !agachado)
+            {
+                transform.Translate(new Vector3(speed * -1, 0.0f));
+                transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
+                derecha = false;
+                running = true;
+            }
+            if (Input.GetAxis("Horizontal") > deadzone && !arriba && !agachado)
+            {
+                transform.Translate(new Vector3(speed, 0.0f));
+                transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
+                derecha = true;
+                running = true;
+            }
+            if ((Input.GetAxis("Horizontal") < deadzone && Input.GetAxis("Horizontal") > deadzone * -1))
+            {
+                running = false;
+            }
+
+            if (running && !saltando && !arriba)
+            {
+                footstep.UnPause();
+            }
+            else
+            {
+                footstep.Pause();
+            }
+
+
+
+            if (Input.GetButtonDown("Arma"))
+            {
+                if (weapon == 2)
+                {
+                    weapon = 0;
+                    wep1 = true;
+                    wep2 = false;
+                    wep3 = false;
+                    fireRate = normalRate;
+                }
+                else if (weapon == 0)
+                {
+                    weapon = 1;
+                    fireRate = specRate;
+                    wep1 = false;
+                    wep2 = true;
+                    wep3 = false;
+                }
+                else if (weapon == 1)
+                {
+                    weapon = 2;
+                    fireRate = exploRate;
+                    wep1 = false;
+                    wep2 = false;
+                    wep3 = true;
+                }
+                change_weapon.Play();
+            }
+
+            if (Input.GetAxis("Vertical") < deadzone * -1 && !saltando)
+            {
+                agachado = true;
+                running = false;
+                speed = speedagachado;
+            }
+
+
+            if (Input.GetButtonDown("Saltar"))
+            {
+                saltar();
+            }
+
+            if ((Input.GetButton("Disparar") && Time.time > nextFire))
+            {
+                disparar();
+            }
+            else
+            {
+                shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
+            }
+
+
+            if (Input.GetAxis("Vertical") > deadzone - 0.5)
+            {
+                arriba = true;
+                running = false;
+                speed = 0;
+            }
+
 
             animator.SetBool("Running", running);
             animator.SetBool("Crouch", agachado);

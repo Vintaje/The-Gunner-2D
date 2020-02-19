@@ -24,7 +24,7 @@ public class DestructibleObject : MonoBehaviour
     {
         if (vida <= 0)
         {
-            GameObject.Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
+            GameObject.Instantiate(explosion, gameObject.transform.position+(new Vector3(0.0f, -50.0f, 0.0f)) , gameObject.transform.rotation);
             Destroy(gameObject);
 
         }
