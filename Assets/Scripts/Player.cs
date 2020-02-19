@@ -45,8 +45,13 @@ public class Player : MonoBehaviour
     private bool derecha;
     private bool running;
 
+
     //Controles
     public float deadzone;
+    protected Joystick joystick;
+    protected Joybutton fireButton;
+    protected Joybutton jumpButton;
+    protected Joybutton switchButton;
 
 
     //Sonidos
@@ -90,6 +95,24 @@ public class Player : MonoBehaviour
         {
             plataforma = 3;
             Debug.Log("Android");
+            joystick = FindObjectOfType<Joystick>();
+            Joybutton[] joys = FindObjectsOfType<Joybutton>();
+
+            foreach (Joybutton joy in joys)
+            {
+                if (joy.gameObject.tag.Equals("FireButton"))
+                {
+                    fireButton = joy;
+                }
+                if (joy.gameObject.tag.Equals("JumpButton"))
+                {
+                    jumpButton = joy;
+                }
+                if (joy.gameObject.tag.Equals("SwitchButton"))
+                {
+                    switchButton = joy;
+                }
+            }
         }
         else
         {
@@ -142,7 +165,7 @@ public class Player : MonoBehaviour
         }
         else if (plataforma == 3)
         {
-
+            androidPlatform();
         }
     }
 
@@ -153,7 +176,7 @@ public class Player : MonoBehaviour
         if (!human.muerto)
         {
 
-            if (Input.GetAxis("Vertical") == 0)
+            if (joystick.Vertical == 0)
             {
                 running = false;
                 agachado = false;
@@ -161,21 +184,21 @@ public class Player : MonoBehaviour
                 speed = speednormal;
             }
 
-            if (Input.GetAxis("Horizontal") < deadzone * -1 && !arriba && !agachado)
+            if (joystick.Horizontal < deadzone * -1 && !arriba && !agachado)
             {
                 transform.Translate(new Vector3(speed * -1, 0.0f));
                 transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
                 derecha = false;
                 running = true;
             }
-            if (Input.GetAxis("Horizontal") > deadzone && !arriba && !agachado)
+            if (joystick.Horizontal > deadzone && !arriba && !agachado)
             {
                 transform.Translate(new Vector3(speed, 0.0f));
                 transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
                 derecha = true;
                 running = true;
             }
-            if ((Input.GetAxis("Horizontal") < deadzone && Input.GetAxis("Horizontal") > deadzone * -1))
+            if ((joystick.Horizontal < deadzone && joystick.Horizontal > deadzone * -1))
             {
                 running = false;
             }
@@ -191,7 +214,7 @@ public class Player : MonoBehaviour
 
 
 
-            if (Input.GetButtonDown("Arma"))
+            if (switchButton.Pressed)
             {
                 if (weapon == 2)
                 {
@@ -220,7 +243,7 @@ public class Player : MonoBehaviour
                 change_weapon.Play();
             }
 
-            if (Input.GetAxis("Vertical") < deadzone * -1 && !saltando)
+            if (joystick.Vertical < deadzone * -1 && !saltando)
             {
                 agachado = true;
                 running = false;
@@ -228,12 +251,12 @@ public class Player : MonoBehaviour
             }
 
 
-            if (Input.GetButtonDown("Saltar"))
+            if (jumpButton)
             {
                 saltar();
             }
 
-            if ((Input.GetButton("Disparar") && Time.time > nextFire))
+            if (fireButton.Pressed && Time.time > nextFire)
             {
                 disparar();
             }
