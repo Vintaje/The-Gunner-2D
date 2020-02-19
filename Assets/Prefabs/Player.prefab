@@ -289,9 +289,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3153768777711790029}
-  speed: 0.05
+  speed: 0.04
   speedagachado: 0
-  speednormal: 0.05
+  speednormal: 0.04
   normalRate: 0.15
   specRate: 0.15
   exploRate: 0.2
@@ -302,9 +302,10 @@ MonoBehaviour:
   bulletExploPrefab: {fileID: 6806745126400997170, guid: 217516c2d383967418ae8645da683329,
     type: 3}
   shotSpawner: {fileID: 3153768776119223570}
-  jump: {fileID: 0}
-  fire: {fileID: 0}
   deadzone: 0.9
+  fireButton: {fileID: 0}
+  jumpButton: {fileID: 0}
+  switchButton: {fileID: 0}
   ammospectext: {fileID: 0}
   ammoextratext: {fileID: 0}
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
@@ -1333,6 +1334,7 @@ MonoBehaviour:
   muerto: 0
   hurt_duration: 2
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
+  destroyed: 0
 --- !u!1 &9058939334466873389
 GameObject:
   m_ObjectHideFlags: 0
