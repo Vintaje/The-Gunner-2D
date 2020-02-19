@@ -8,11 +8,12 @@ public class PikemanMove : MonoBehaviour
     public float speed;
     private GameObject player;
     private float oldPosition = 0.0f;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        oldPosition = transform.position.x;
+       oldPosition = transform.position.x;
 
     }
 
@@ -24,20 +25,17 @@ public class PikemanMove : MonoBehaviour
 
         if (dist < visionRadius)
         {
-            if (dist < 0.40f)
+            if (dist < 0.45f)
             {
-                gameObject.GetComponent<Animator>().SetBool("attack", true);
+                animator.SetBool("attack", true);
 
             }
             else
             {
-                gameObject.GetComponent<Animator>().SetBool("attack", false);
-
+                animator.SetBool("attack", false);
 
                 Debug.Log("dist:" + dist + " vision:" + visionRadius);
-                gameObject.GetComponent<Animator>().SetBool("isPlayerVisible", true);
-
-
+                animator.SetBool("isPlayerVisible", true);
 
                 transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
 
@@ -46,22 +44,26 @@ public class PikemanMove : MonoBehaviour
         }
         else
         {
-            gameObject.GetComponent<Animator>().SetBool("isPlayerVisible", false);
+            animator.SetBool("isPlayerVisible", false);
 
         }
 
 
         if (transform.position.x > oldPosition)
         {
-            transform.localScale = new Vector3(0.33f, 0.33f, 1);
+            transform.localScale = new Vector3(0.33f, 0.33f, 2);
 
         }
 
         if (transform.position.x < oldPosition)
         {
-            transform.localScale = new Vector3(-0.33f, 0.33f, 1);
+            transform.localScale = new Vector3(-0.33f, 0.33f, 2);
         }
         oldPosition = transform.position.x;
+
+    }
+    public void ResetAttack()
+    {
     }
 
 }
