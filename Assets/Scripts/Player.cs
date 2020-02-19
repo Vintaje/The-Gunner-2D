@@ -250,7 +250,7 @@ public class Player : MonoBehaviour
             }
 
 
-            if (Input.GetAxis("Vertical") > (deadzone/2) - 0.5)
+            if (Input.GetAxis("Vertical") > (deadzone/2))
             {
                 arriba = true;
                 running = false;
