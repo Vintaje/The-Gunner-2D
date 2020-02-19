@@ -13,7 +13,7 @@ public class PikemanMove : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-       oldPosition = transform.position.x;
+        oldPosition = transform.position.x;
 
     }
 
@@ -28,19 +28,24 @@ public class PikemanMove : MonoBehaviour
             if (dist < 0.60f)
             {
                 animator.SetBool("attack", true);
-
+                if (dist > 0.50f)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
+                }
             }
             else
             {
+                
+                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
+                
                 animator.SetBool("attack", false);
 
                 Debug.Log("dist:" + dist + " vision:" + visionRadius);
                 animator.SetBool("isPlayerVisible", true);
-
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
-
                 Debug.DrawLine(transform.position, player.transform.position, Color.red);
+
             }
+
         }
         else
         {
@@ -49,13 +54,13 @@ public class PikemanMove : MonoBehaviour
         }
 
 
-        if (transform.position.x-0.01f > oldPosition)
+        if (transform.position.x - 0.01f > oldPosition)
         {
             transform.localScale = new Vector3(0.33f, 0.33f, 2);
 
         }
 
-        if (transform.position.x+0.01f < oldPosition)
+        if (transform.position.x + 0.01f < oldPosition)
         {
             transform.localScale = new Vector3(-0.33f, 0.33f, 2);
         }
