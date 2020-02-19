@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
     protected Joystick joystick;
     public JumpJoybutton jump;
     public FireJoybutton fire;
+    public ChangeWButton changeWButton;
     public float deadzone;
 
 
@@ -137,7 +138,7 @@ public class Player : MonoBehaviour
         if (!human.muerto)
         {
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump") || changeWButton.Pressed)
             {
                 if (weapon == 2)
                 {
@@ -248,7 +249,7 @@ public class Player : MonoBehaviour
                 saltar();
             }
 
-            if (Input.GetButton("Fire2") && Time.time > nextFire)
+            if ((Input.GetButton("Fire2") && Time.time > nextFire) ||(fire.Pressed && Time.time > nextFire))
             {
                 disparar();
             }
@@ -267,6 +268,7 @@ public class Player : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0.0f, 175.0f));
             saltando = true;
+            running = false;
             animator.SetBool("Running", false);
             animator.SetBool("Jumping", saltando);
             jumping.Play();
@@ -436,6 +438,7 @@ public class Player : MonoBehaviour
             }
 
         }
+
     }
 
 

@@ -178,6 +178,7 @@ MonoBehaviour:
   normalspeed: 0.5
   distance: 2
   eyeDetection: {fileID: 6764519213566612927}
+  target: {fileID: 3153768777711790016, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad, type: 3}
   targetDetection: {fileID: 0}
   fireRate: 2.5
   bulletPrefab: {fileID: 1771085150099968606, guid: 06e9971e4cfcbcb469beb42ba3d645ec,

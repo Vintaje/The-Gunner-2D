@@ -36,7 +36,19 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, 0.2f);
     }
 
-    private void disable(){
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Equals("EnemyBullet"))
+        {
+            gameObject.SetActive(false);
+            GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+            Destroy(gameObject, 0.2f);
+        }
+
+    }
+
+    public void disable()
+    {
         GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(gameObject);
     }

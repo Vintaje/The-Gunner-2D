@@ -6,44 +6,51 @@ public class GeneradorDeEnemigos : MonoBehaviour
 {
 
     public GameObject enemigo_original;
+    public GameObject helicoptero;
+    public GameObject heli_state;
+
     public Camera mainCamera;
+    public float seconds;
+
     public Vector3 izquierda, derecha;
     private bool activo;
     public int cantidad;
+
+    private EdgeCollider2D[] colliders;
     // Start is called before the first frame update
     void Start()
     {
-        activo = false;
+        
+
+        colliders = GetComponents<EdgeCollider2D>();
+
+        foreach (EdgeCollider2D col in colliders)
+        {
+            col.enabled = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (activo)
         {
-            if (cantidad >= 0)
+            Debug.Log(heli_state);
+            if (heli_state == null)
             {
-                DecideSiEnemigo();
-            }
-            else
-            {
+                Debug.Log("Acaba de ocurri algo");
+                activo = false;
                 mainCamera.GetComponent<CameraFollow>().enabled = true;
-                Destroy(gameObject);
+                Destroy(gameObject, 0.5f);
+                Debug.Log("Fase 1 Terminada");
+
             }
         }
 
     }
 
 
-    private void DecideSiEnemigo()
-    {
-        float random = Random.Range(0.0f, 100.0f);
-        if (random < 0.7f)
-        {
-            GameObject.Instantiate(enemigo_original, transform.position, transform.rotation).GetComponent<Rigidbody2D>().gravityScale = 1.0f;
-            cantidad--;
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -56,8 +63,44 @@ public class GeneradorDeEnemigos : MonoBehaviour
 
     void inicio()
     {
-        gameObject.GetComponent<Collider2D>().isTrigger = false;
+        GameObject.Instantiate(helicoptero, izquierda, transform.rotation);
+        heli_state = GameObject.FindGameObjectWithTag("Helicopter");
+        
+        foreach (EdgeCollider2D col in colliders)
+        {
+            col.enabled = true;
+        }
         mainCamera.GetComponent<CameraFollow>().enabled = false;
         activo = true;
+        GetComponent<BoxCollider2D>().enabled = false;
+        Spawner();
+    }
+
+    void Spawner()
+    {
+        StartCoroutine(DoBlinks(cantidad));
+    }
+
+    IEnumerator DoBlinks(int numBlinks)
+    {
+        for (int i = 0; i < numBlinks * 2; i++)
+        {
+            yield return new WaitForSeconds(seconds);
+            //toggle renderer
+            if (cantidad >= 0)
+            {
+                izquierda.z -= cantidad;
+                derecha.z -= cantidad;
+                GameObject.Instantiate(enemigo_original, izquierda, transform.rotation).GetComponent<Rigidbody2D>().gravityScale = 1.0f;
+
+                cantidad -= 2;
+            }
+
+            //wait for a bit
+
+        }
+
+        //make sure renderer is enabled when we exit
+
     }
 }

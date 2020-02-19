@@ -12,12 +12,14 @@ public class Human : MonoBehaviour
     private Bullet bullet;
     public GameObject ghost;
 
+    public bool destroyed;
+
 
     //Effects
 
     void Start()
     {
-
+        destroyed =false;
     }
 
     // Update is called once per frame
@@ -25,23 +27,31 @@ public class Human : MonoBehaviour
     {
         if (vida <= 0 && !muerto)
         {
+            muerto = true;
             Destroy(gameObject.GetComponent<Rigidbody2D>());
             Destroy(gameObject.GetComponent<Collider2D>());
-            muerto = true;
-            if (gameObject.tag.Equals("Player"))
+            if(!destroyed && !gameObject.tag.Equals("Player")){
+                destroyed = true;
+                Destroy(gameObject, 1.5f);
+            }
+            
+            if (!destroyed && gameObject.tag.Equals("Player"))
             {
+                destroyed = true;
+                Destroy(gameObject, 4f);
                 gameObject.GetComponent<Player>().playermuerto();
+                
             }
             else
             {
                 GetComponent<Animator>().SetBool("Death", muerto);
-                GameObject temp_ghost = Instantiate(ghost, (new Vector3(0.0f, 0.1f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation);
+                GameObject temp_ghost = Instantiate(ghost, gameObject.transform.position, gameObject.transform.rotation);
             }
         }
     }
 
 
-    public void OnCollisionEnter2D(Collision2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Bullet" && this.vida > 0)
         {
@@ -51,6 +61,9 @@ public class Human : MonoBehaviour
             //Damage received
             vida -= bullet.damage;
             Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage+" || Vidas Restantes: "+vida);
+        }
+        if(other.gameObject.tag == "Explosion" && this.vida >0){
+            this.vida = 0;
         }
     }
 
@@ -71,7 +84,7 @@ public class Human : MonoBehaviour
         }
 
         //make sure renderer is enabled when we exit
-        gameObject.GetComponent<Renderer>().enabled = true;
+       
     }
 
 

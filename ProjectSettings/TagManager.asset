@@ -21,6 +21,7 @@ TagManager:
   - EnemyBullet
   - Ladder
   - LimiteEnemigos
+  - Helicopter
   layers:
   - Default
   - TransparentFX

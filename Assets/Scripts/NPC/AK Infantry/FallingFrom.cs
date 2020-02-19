@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class akInfantry : MonoBehaviour
+public class FallingFrom : MonoBehaviour
 {
     public float normalspeed;
     private float fastspeed;
@@ -12,9 +12,7 @@ public class akInfantry : MonoBehaviour
     private bool right = true;
     private bool detected = false;
 
-    public Transform eyeDetection;
     public Transform target;
-    public Transform targetDetection;
 
     public float fireRate;
     private float nextFire;
@@ -47,7 +45,7 @@ public class akInfantry : MonoBehaviour
         speed = normalspeed;
         fastspeed = 2f * normalspeed;
         human = GetComponent<Human>();
-        enemies = GameObject.FindGameObjectsWithTag("EnemyBullet");
+
         target = GameObject.FindGameObjectWithTag("Player").transform;
         human.muerto = false;
     }
@@ -57,63 +55,17 @@ public class akInfantry : MonoBehaviour
     {
         if (!human.muerto)
         {
-            distanceToTarget = Vector3.Distance(transform.position, target.position);
-            RaycastHit2D groundInfo = Physics2D.Raycast(eyeDetection.position, Vector2.down, distance);
+            
+            distanceToTarget = Mathf.Abs(transform.position.x - target.position.x);
 
-            if (groundInfo.distance > 0.35)
-            {
-                GetComponent<Rigidbody2D>().gravityScale = 1;
-            }
-            else
-            {
-                GetComponent<Rigidbody2D>().gravityScale = 0;
-            }
             if (!detected)
             {
-
-                if (groundInfo.collider == true && groundInfo.collider.gameObject.tag.Equals("Floor") && distanceToTarget > distanceToShot)
-                {
-
-                    if (!groundInfo.collider.gameObject.tag.Equals("Player"))
-                    {
-                        transform.Translate(Vector2.right * speed * Time.deltaTime);
-
-                    }
-
-                }
-                else if (!groundInfo.collider.gameObject.tag.Equals("EnemyBullets") && !groundInfo.collider.gameObject.tag.Equals("LimiteEnemigos") && distanceToTarget > distanceToShot)
-                {
-
-                    if (right)
-                    {
-                        transform.eulerAngles = new Vector3(0, -180, 0);
-                        right = false;
-                    }
-                    else
-                    {
-                        transform.eulerAngles = new Vector3(0, 0, 0);
-                        right = true;
-                    }
-                }
-
-                if (groundInfo.collider.gameObject.tag.Equals("LimiteEnemigos"))
-                {
-                    if (right)
-                    {
-                        transform.eulerAngles = new Vector3(0, -180, 0);
-                        right = false;
-                    }
-                    else
-                    {
-                        transform.eulerAngles = new Vector3(0, 0, 0);
-                        right = true;
-                    }
-                }
-
+                transform.Translate(Vector2.right * speed * Time.deltaTime);
             }
-            else if (detected)
+            if (detected)
             {
-                if (distanceToTarget > distanceToShot && groundInfo.collider == true && groundInfo.collider.gameObject.tag.Equals("Floor"))
+
+                if (distanceToTarget > distanceToShot)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, gameObject.transform.position.y, gameObject.transform.position.z), speed * Time.deltaTime);
                 }

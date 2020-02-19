@@ -8,7 +8,7 @@ public class VerticalMovePlatform : MonoBehaviour
     
     public float speedUpDown = -1;
     private float pos ;
-    private float distanceUpDown = 2;
+    public float distanceUpDown = 2;
     private Vector3 mov;
     public GameObject player;
 

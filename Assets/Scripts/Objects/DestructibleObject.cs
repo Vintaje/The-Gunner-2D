@@ -24,8 +24,9 @@ public class DestructibleObject : MonoBehaviour
     {
         if (vida <= 0)
         {
-            GameObject explo = Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
+            GameObject.Instantiate(explosion, gameObject.transform.position, gameObject.transform.rotation);
             Destroy(gameObject);
+
         }
     }
 
@@ -41,6 +42,22 @@ public class DestructibleObject : MonoBehaviour
 
             //Damage received
             vida -= bullet.damage;
+            Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage);
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+
+
+        if (other.gameObject.tag == "Bullet" && this.vida > 0)
+        {
+            bullet = other.gameObject.GetComponent<Bullet>();
+            BlinkPlayer(2);
+
+            //Damage received
+            vida -= bullet.damage;
+            bullet.disable();
             Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage);
         }
     }
