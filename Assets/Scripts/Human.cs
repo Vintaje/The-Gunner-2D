@@ -39,7 +39,6 @@ public class Human : MonoBehaviour
             if (!destroyed && gameObject.tag.Equals("Player"))
             {
                 destroyed = true;
-                Destroy(gameObject, destroyTime);
                 gameObject.GetComponent<Player>().playermuerto();
 
             }
