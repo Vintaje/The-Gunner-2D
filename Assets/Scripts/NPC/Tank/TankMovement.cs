@@ -27,7 +27,6 @@ public class TankMovement : MonoBehaviour
         {
 
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
             Debug.DrawLine(transform.position, player.transform.position, Color.green);
 
         }
