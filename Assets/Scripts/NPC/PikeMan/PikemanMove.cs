@@ -72,4 +72,10 @@ public class PikemanMove : MonoBehaviour
     {
     }
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag.Equals("Bullet")){
+            other.gameObject.SetActive(false);
+        }
+    }
+
 }
