@@ -253,7 +253,7 @@ public class Player : MonoBehaviour
             }
 
 
-            if (Input.GetAxis("Vertical") > (deadzone / 2))
+            if (Input.GetAxisRaw("Vertical") > (deadzone / 2))
             {
                 arriba = true;
                 running = false;
@@ -345,7 +345,7 @@ public class Player : MonoBehaviour
                 change_weapon.Play();
             }
 
-            if (Input.GetAxis("Vertical") < deadzone * -1 && !saltando)
+            if (Input.GetAxisRaw("Vertical") < deadzone * -1 && !saltando)
             {
                 agachado = true;
                 running = false;
