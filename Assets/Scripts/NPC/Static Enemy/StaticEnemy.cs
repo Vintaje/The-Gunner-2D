@@ -53,17 +53,10 @@ public class StaticEnemy : MonoBehaviour
                 StartCoroutine(DoBlinks(1.4f));
                 if (!mortar)
                 {
+                    StartCoroutine(DoBlinks(0.9f));
                     nextFire = Time.time + fireRate;
-                    GameObject tempBullet = (Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation));
+                    GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, gameObject.transform.rotation);
 
-                    if (!right)
-                    {
-                        tempBullet.transform.eulerAngles = new Vector3(0, 0, 0);
-                    }
-                    else
-                    {
-                        tempBullet.transform.eulerAngles = new Vector3(0, 0, 180);
-                    }
                 }
                 else
                 {

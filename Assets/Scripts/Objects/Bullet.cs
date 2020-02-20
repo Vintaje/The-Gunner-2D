@@ -43,17 +43,7 @@ public class Bullet : MonoBehaviour
                 }
             }
 
-            if (right) // he's looking right
-            {
-                transform.eulerAngles = new Vector3(0, 0, 180);
-                right = true;
-            }
-
-            if (!right) // he's looking left
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                right = false;
-            }
+            
             oldPosition = transform.position.x;
         }
 
