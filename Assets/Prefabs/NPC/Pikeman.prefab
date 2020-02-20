@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 4310713094604245919}
   m_Layer: 0
   m_Name: Pikeman
-  m_TagString: Explosion
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,6 +179,7 @@ MonoBehaviour:
   hurt_duration: 0
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
   destroyed: 0
+  destroyTime: 0
 --- !u!50 &4310713094604245904
 Rigidbody2D:
   serializedVersion: 4
