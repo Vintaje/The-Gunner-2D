@@ -184,7 +184,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1771085150099968606, guid: 06e9971e4cfcbcb469beb42ba3d645ec,
     type: 3}
   shotSpawner: {fileID: 6764519215448091347}
-  distanceToShot: 1
+  distanceToShot: 2
 --- !u!50 &6764519214488474980
 Rigidbody2D:
   serializedVersion: 4
@@ -414,6 +414,7 @@ MonoBehaviour:
   muerto: 0
   hurt_duration: 2
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
+  destroyed: 0
 --- !u!1 &6764519215448091346
 GameObject:
   m_ObjectHideFlags: 0

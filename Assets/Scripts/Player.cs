@@ -90,27 +90,23 @@ public class Player : MonoBehaviour
         //Script principal
         human = GetComponent<Human>();
 
-        Debug.Log(Input.GetJoystickNames().Length);
+       
 
         //Plataforma
         if (Application.platform == RuntimePlatform.Android)
         {
             plataforma = 3;
-            Debug.Log("Android");
-            joystick = FindObjectOfType<Joystick>();
             
-        }else if (Input.GetJoystickNames().Length > 0 && !Input.GetJoystickNames()[0].Equals("")){
-            plataforma = 2;
+            joystick = FindObjectOfType<Joystick>();
+
         }
         else
         {
-            deadzone = 0;
-            plataforma = 1;
-
+            plataforma = 2;
         }
 
-        
-        
+
+
 
         weapon = 0;
         saltando = false;
@@ -150,9 +146,7 @@ public class Player : MonoBehaviour
     //Update
     void Update()
     {
-        if(plataforma == 1){
-            pcPlatform();
-        }else if (plataforma == 2)
+        if (plataforma == 2)
         {
             pcPlatformGamePad();
         }
@@ -177,21 +171,21 @@ public class Player : MonoBehaviour
                 speed = speednormal;
             }
 
-            if (joystick.Horizontal < (deadzone/2) * -1 && !arriba && !agachado)
+            if (joystick.Horizontal < (deadzone / 2) * -1 && !arriba && !agachado)
             {
                 transform.Translate(new Vector3(speed * -1, 0.0f));
                 transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
                 derecha = false;
                 running = true;
             }
-            if (joystick.Horizontal > (deadzone/2) && !arriba && !agachado)
+            if (joystick.Horizontal > (deadzone / 2) && !arriba && !agachado)
             {
                 transform.Translate(new Vector3(speed, 0.0f));
                 transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
                 derecha = true;
                 running = true;
             }
-            if ((joystick.Horizontal < (deadzone/2) && joystick.Horizontal > deadzone * -1))
+            if ((joystick.Horizontal < (deadzone / 2) && joystick.Horizontal > deadzone * -1))
             {
                 running = false;
             }
@@ -236,7 +230,7 @@ public class Player : MonoBehaviour
                 change_weapon.Play();
             }
 
-            if (joystick.Vertical < (deadzone/2) * -1 && !saltando)
+            if (joystick.Vertical < (deadzone / 2) * -1 && !saltando)
             {
                 agachado = true;
                 running = false;
@@ -259,7 +253,7 @@ public class Player : MonoBehaviour
             }
 
 
-            if (Input.GetAxis("Vertical") > (deadzone/2))
+            if (Input.GetAxis("Vertical") > (deadzone / 2))
             {
                 arriba = true;
                 running = false;
@@ -283,8 +277,8 @@ public class Player : MonoBehaviour
         ammoextratext.GetComponent<Text>().text = municionextr + "";
         if (!human.muerto)
         {
-
-            if (Input.GetAxis("Vertical") == 0)
+        
+            if (Input.GetAxisRaw("Vertical") == 0)
             {
                 running = false;
                 agachado = false;
@@ -292,21 +286,21 @@ public class Player : MonoBehaviour
                 speed = speednormal;
             }
 
-            if (Input.GetAxis("Horizontal") < deadzone * -1 && !arriba && !agachado)
+            if (Input.GetAxisRaw("Horizontal") < deadzone * -1 && !arriba && !agachado)
             {
                 transform.Translate(new Vector3(speed * -1, 0.0f));
                 transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
                 derecha = false;
                 running = true;
             }
-            if (Input.GetAxis("Horizontal") > deadzone && !arriba && !agachado)
+            if (Input.GetAxisRaw("Horizontal") > deadzone && !arriba && !agachado)
             {
                 transform.Translate(new Vector3(speed, 0.0f));
                 transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
                 derecha = true;
                 running = true;
             }
-            if ((Input.GetAxis("Horizontal") < deadzone && Input.GetAxis("Horizontal") > deadzone * -1))
+            if ((Input.GetAxisRaw("Horizontal") < deadzone && Input.GetAxisRaw("Horizontal") > deadzone * -1))
             {
                 running = false;
             }
@@ -356,6 +350,9 @@ public class Player : MonoBehaviour
                 agachado = true;
                 running = false;
                 speed = speedagachado;
+            }else{
+                agachado = false;
+                speed = speednormal;
             }
 
 
@@ -393,119 +390,7 @@ public class Player : MonoBehaviour
     }
 
 
-void pcPlatform()
-    {
-        ammospectext.GetComponent<Text>().text = municionspec + "";
-        ammoextratext.GetComponent<Text>().text = municionextr + "";
-        if (!human.muerto)
-        {
 
-            if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-            {
-                running = false;
-                agachado = false;
-                arriba = false;
-                speed = speednormal;
-            }
-
-            if (Input.GetKey(KeyCode.A) && !arriba && !agachado)
-            {
-                transform.Translate(new Vector3(speed * -1, 0.0f));
-                transform.localScale = (new Vector3(-1.0f, 1.0f, 1.0f));
-                derecha = false;
-                running = true;
-            }
-            if (Input.GetKey(KeyCode.D) && !arriba && !agachado)
-            {
-                transform.Translate(new Vector3(speed, 0.0f));
-                transform.localScale = (new Vector3(1.0f, 1.0f, 1.0f));
-                derecha = true;
-                running = true;
-            }
-            if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
-            {
-                running = false;
-            }
-
-            if (running && !saltando && !arriba)
-            {
-                footstep.UnPause();
-            }
-            else
-            {
-                footstep.Pause();
-            }
-
-
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                if (weapon == 2)
-                {
-                    weapon = 0;
-                    wep1 = true;
-                    wep2 = false;
-                    wep3 = false;
-                    fireRate = normalRate;
-                }
-                else if (weapon == 0)
-                {
-                    weapon = 1;
-                    fireRate = specRate;
-                    wep1 = false;
-                    wep2 = true;
-                    wep3 = false;
-                }
-                else if (weapon == 1)
-                {
-                    weapon = 2;
-                    fireRate = exploRate;
-                    wep1 = false;
-                    wep2 = false;
-                    wep3 = true;
-                }
-                change_weapon.Play();
-            }
-
-            if (Input.GetKey(KeyCode.S) && !saltando)
-            {
-                agachado = true;
-                running = false;
-                speed = speedagachado;
-            }
-
-
-            if (Input.GetKey(KeyCode.Space) )
-            {
-                saltar();
-            }
-
-            if (Input.GetKey(KeyCode.L)  && Time.time > nextFire)
-            {
-                disparar();
-            }
-            else
-            {
-                shotSpawner.transform.localScale = (new Vector3(0.0f, 1.0f, 1.0f));
-            }
-
-
-            if (Input.GetKey(KeyCode.W) )
-            {
-                arriba = true;
-                running = false;
-                speed = 0;
-            }
-
-
-            animator.SetBool("Running", running);
-            animator.SetBool("Crouch", agachado);
-            animator.SetBool("AimUp", arriba);
-            animator.SetBool("Weapon 1", wep1);
-            animator.SetBool("Weapon 2", wep2);
-            animator.SetBool("Weapon 3", wep3);
-
-        }
-    }
 
     // Update is called once per frame
     void FixedUpdate()

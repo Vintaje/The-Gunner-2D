@@ -136,7 +136,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1771085150099968606, guid: 06e9971e4cfcbcb469beb42ba3d645ec,
     type: 3}
   shotSpawner: {fileID: 2147650526953324345}
-  distanceToShot: 1
+  distanceToShot: 2
 --- !u!61 &2147650526984664775
 BoxCollider2D:
   m_ObjectHideFlags: 0

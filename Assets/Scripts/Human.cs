@@ -14,12 +14,12 @@ public class Human : MonoBehaviour
 
     public bool destroyed;
 
-
+    public float destroyTime = 1.5f;
     //Effects
 
     void Start()
     {
-        destroyed =false;
+        destroyed = false;
     }
 
     // Update is called once per frame
@@ -30,17 +30,18 @@ public class Human : MonoBehaviour
             muerto = true;
             Destroy(gameObject.GetComponent<Rigidbody2D>());
             Destroy(gameObject.GetComponent<Collider2D>());
-            if(!destroyed && !gameObject.tag.Equals("Player")){
+            if (!destroyed && !gameObject.tag.Equals("Player"))
+            {
                 destroyed = true;
-                Destroy(gameObject, 1.5f);
+                Destroy(gameObject, destroyTime);
             }
-            
+
             if (!destroyed && gameObject.tag.Equals("Player"))
             {
                 destroyed = true;
-                Destroy(gameObject, 4f);
+                Destroy(gameObject, destroyTime);
                 gameObject.GetComponent<Player>().playermuerto();
-                
+
             }
             else
             {
@@ -56,13 +57,17 @@ public class Human : MonoBehaviour
         if (other.gameObject.tag == "Bullet" && this.vida > 0)
         {
             bullet = other.gameObject.GetComponent<Bullet>();
-            BlinkPlayer(2);
+            if ((bullet.enemy && gameObject.tag.Equals("Player") )|| (!bullet.enemy && gameObject.tag.Equals("EnemyBullet")))
+            {
+                BlinkPlayer(2);
 
-            //Damage received
-            vida -= bullet.damage;
-            Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage+" || Vidas Restantes: "+vida);
+                //Damage received
+                vida -= bullet.damage;
+                Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage + " || Vidas Restantes: " + vida);
+            }
         }
-        if(other.gameObject.tag == "Explosion" && this.vida >0){
+        if (other.gameObject.tag == "Explosion" && this.vida > 0)
+        {
             this.vida = 0;
         }
     }
@@ -84,7 +89,7 @@ public class Human : MonoBehaviour
         }
 
         //make sure renderer is enabled when we exit
-       
+
     }
 
 
