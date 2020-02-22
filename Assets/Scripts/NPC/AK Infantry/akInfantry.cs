@@ -21,7 +21,6 @@ public class akInfantry : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform shotSpawner;
     private float oldPosition = 0.0f;
-    private bool shooting;
     public float distanceToShot;
     private float distanceToTarget;
 

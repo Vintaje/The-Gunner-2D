@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         if (speed != 0)
         {
             transform.Translate(Vector3.right * speed * Time.deltaTime);
@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
                 }
             }
 
-            
+
             oldPosition = transform.position.x;
         }
 
@@ -56,9 +56,10 @@ public class Bullet : MonoBehaviour
 
         gameObject.SetActive(false);
 
-
-        GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
-
+        if (bulletExplo != null)
+        {
+            GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+        }
 
         Destroy(gameObject, 0.2f);
 
@@ -72,7 +73,6 @@ public class Bullet : MonoBehaviour
             if (other.gameObject.tag.Equals("EnemyBullet") || other.gameObject.tag.Equals("Player"))
             {
                 gameObject.SetActive(false);
-                GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
                 Destroy(gameObject, 0.2f);
             }
         }
@@ -81,17 +81,22 @@ public class Bullet : MonoBehaviour
             if (other.gameObject.tag.Equals("Player"))
             {
                 gameObject.SetActive(false);
-                GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
                 Destroy(gameObject, 0.2f);
             }
+        }
+        if (bulletExplo != null)
+        {
+            GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
         }
 
     }
 
     public void disable()
     {
-        GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
-        Destroy(gameObject);
+        if (bulletExplo != null)
+        {
+            GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+        }
     }
 
 
