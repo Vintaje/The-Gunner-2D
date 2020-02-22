@@ -222,7 +222,7 @@ MonoBehaviour:
   vida: 20
   muerto: 0
   hurt_duration: 1
-  ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
+  ghost: {fileID: 6764519214488474990, guid: a33f691a0f2ba8f48b40030f05ce1844, type: 3}
   destroyed: 0
   destroyTime: 1.5
 --- !u!1 &6827082714597075305

@@ -54,7 +54,7 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
 
-        gameObject.SetActive(false);
+
 
         if (bulletExplo != null)
         {
@@ -72,7 +72,10 @@ public class Bullet : MonoBehaviour
         {
             if (other.gameObject.tag.Equals("EnemyBullet") || other.gameObject.tag.Equals("Player"))
             {
-                gameObject.SetActive(false);
+                if (bulletExplo != null)
+                {
+                    GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+                }
                 Destroy(gameObject, 0.2f);
             }
         }
@@ -80,14 +83,14 @@ public class Bullet : MonoBehaviour
         {
             if (other.gameObject.tag.Equals("Player"))
             {
-                gameObject.SetActive(false);
+                if (bulletExplo != null)
+                {
+                    GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+                }
                 Destroy(gameObject, 0.2f);
             }
         }
-        if (bulletExplo != null)
-        {
-            GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
-        }
+
 
     }
 
@@ -97,6 +100,7 @@ public class Bullet : MonoBehaviour
         {
             GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
         }
+        Destroy(gameObject, destroyTime);
     }
 
 

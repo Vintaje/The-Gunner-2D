@@ -33,6 +33,10 @@ public class Human : MonoBehaviour
             if (!destroyed && !gameObject.tag.Equals("Player"))
             {
                 destroyed = true;
+                if (gameObject.name.Equals("BossExoMachine"))
+                {
+                    GameObject temp_ghost = Instantiate(ghost, gameObject.transform.position, gameObject.transform.rotation);
+                }
                 Destroy(gameObject, destroyTime);
             }
 
@@ -56,7 +60,7 @@ public class Human : MonoBehaviour
         if (other.gameObject.tag == "Bullet" && this.vida > 0)
         {
             bullet = other.gameObject.GetComponent<Bullet>();
-            if ((bullet.enemy && gameObject.tag.Equals("Player") )|| (!bullet.enemy && gameObject.tag.Equals("EnemyBullet")))
+            if ((bullet.enemy && gameObject.tag.Equals("Player")) || (!bullet.enemy && gameObject.tag.Equals("EnemyBullet")))
             {
                 BlinkPlayer(2);
 

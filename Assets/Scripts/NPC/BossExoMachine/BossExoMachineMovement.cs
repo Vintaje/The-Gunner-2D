@@ -73,8 +73,14 @@ public class BossExoMachineMovement : MonoBehaviour
             {
                 if (distanceToTarget > distanceToShot && Mathf.Abs(transform.position.y - target.position.y) < 0.6f && !patron)
                 {
+                    run = true;
                     transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, gameObject.transform.position.y, gameObject.transform.position.z), speed * Time.deltaTime);
                 }
+                else
+                {
+                    run = false;
+                }
+                GetComponent<Animator>().SetBool("Running", run);
                 if (Time.time > nextFire && distanceToTarget < distanceToShot && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
                 {
                     GetComponent<Animator>().SetBool("Attacking", true);
@@ -177,7 +183,7 @@ public class BossExoMachineMovement : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
 
-            Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f,-0.2f,0.0f));
+            Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, -0.2f, 0.0f));
             yield return new WaitForSeconds(1.0f);
         }
         yield return new WaitForSeconds(1.5f);
