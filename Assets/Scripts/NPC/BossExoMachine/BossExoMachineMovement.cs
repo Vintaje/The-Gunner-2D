@@ -20,19 +20,18 @@ public class BossExoMachineMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {                animator.SetBool("Attacking", true);
+
 
         float dist = Vector3.Distance(player.transform.position, transform.position);
         float fixedSpeed = speed * Time.deltaTime;
 
         if (dist < visionRadius)
         {
-            animator.SetBool("IsPlayerVisible", true);
 
             visionRadius = 3.5f;
             if (dist < 1f)
             {
-                animator.SetBool("Attacking", true);
                 if (dist > 0.50f)
                 {
 
