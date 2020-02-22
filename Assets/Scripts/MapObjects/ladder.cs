@@ -17,12 +17,12 @@ public class ladder : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag.Equals("Player") && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)))
+        if (other.tag.Equals("Player") && Input.GetAxisRaw("Vertical") > 0)
         {
             other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2);
 
         }
-        else if (other.tag.Equals("Player") && (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)))
+        else if (other.tag.Equals("Player") && Input.GetAxisRaw("Vertical") < 0)
         {
             other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -2);
         }
