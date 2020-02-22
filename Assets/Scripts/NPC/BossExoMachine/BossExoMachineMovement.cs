@@ -183,7 +183,7 @@ public class BossExoMachineMovement : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
 
-            Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, -0.2f, 0.0f));
+            Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
             yield return new WaitForSeconds(1.0f);
         }
         yield return new WaitForSeconds(1.5f);
