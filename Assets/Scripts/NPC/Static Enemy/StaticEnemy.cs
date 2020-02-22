@@ -17,6 +17,7 @@ public class StaticEnemy : MonoBehaviour
     public Transform shotSpawner;
 
     private AudioSource shot;
+    private AudioSource gren_out;
 
     private Human human;
 
@@ -25,7 +26,8 @@ public class StaticEnemy : MonoBehaviour
     void Start()
     {
         human = GetComponent<Human>();
-        shot = GetComponent<AudioSource>();
+        shot = GetComponents<AudioSource>()[0];
+        gren_out = GetComponents<AudioSource>()[1];
         target = GameObject.FindGameObjectWithTag("Player").transform;
 
     }
@@ -72,6 +74,7 @@ public class StaticEnemy : MonoBehaviour
     IEnumerator DoBlinks(float seconds)
     {
         shot.Play();
+        gren_out.Play();
         GetComponent<Animator>().SetBool("Shooting", true);
 
         yield return new WaitForSeconds(seconds);

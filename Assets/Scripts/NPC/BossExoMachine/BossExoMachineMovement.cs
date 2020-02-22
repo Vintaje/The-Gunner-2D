@@ -101,7 +101,7 @@ public class BossExoMachineMovement : MonoBehaviour
 
                 }
 
-                Debug.Log(Mathf.Abs(transform.position.x - target.position.x));
+
                 if (transform.position.x < target.position.x && Mathf.Abs(transform.position.x - target.position.x) > 0.5f) // he's looking right
                 {
                     right = true;

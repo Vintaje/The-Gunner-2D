@@ -56,7 +56,9 @@ public class akInfantry : MonoBehaviour
     {
         if (!human.muerto)
         {
-            distanceToTarget = Vector3.Distance(transform.position, target.position);
+            Vector3 boss = new Vector3(transform.position.x, 0.0f, 0.0f);
+            Vector3 targetx = new Vector3(target.position.x, 0.0f, 0.0f);
+            distanceToTarget = Vector3.Distance(boss, targetx);
             RaycastHit2D groundInfo = Physics2D.Raycast(eyeDetection.position, Vector2.down, distance);
 
             if (groundInfo.distance > 0.35)
@@ -112,11 +114,11 @@ public class akInfantry : MonoBehaviour
             }
             else if (detected)
             {
-                if (distanceToTarget > distanceToShot && groundInfo.collider == true && groundInfo.collider.gameObject.tag.Equals("Floor"))
+                if (distanceToTarget > distanceToShot && groundInfo.collider == true && groundInfo.collider.gameObject.tag.Equals("Floor") && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, gameObject.transform.position.y, gameObject.transform.position.z), speed * Time.deltaTime);
                 }
-                if (Time.time > nextFire && distanceToTarget < distanceToShot)
+                if (Time.time > nextFire && distanceToTarget < distanceToShot && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
                 {
                     StartCoroutine(DoBlinks(0.9f));
                     nextFire = Time.time + fireRate;
@@ -130,13 +132,13 @@ public class akInfantry : MonoBehaviour
                 }
 
 
-                if (transform.position.x < target.position.x) // he's looking right
+                if (transform.position.x < target.position.x && Mathf.Abs(transform.position.y - target.position.y) < 0.6f) // he's looking right
                 {
                     right = true;
                     transform.eulerAngles = new Vector3(0, 0, 0);
                 }
 
-                if (transform.position.x > target.position.x) // he's looking left
+                if (transform.position.x > target.position.x && Mathf.Abs(transform.position.y - target.position.y) < 0.6f) // he's looking left
                 {
                     right = false;
                     transform.eulerAngles = new Vector3(0, -180, 0);
@@ -145,7 +147,7 @@ public class akInfantry : MonoBehaviour
 
             }
 
-            if (distanceToTarget > distance)
+            if (distanceToTarget > distance )
             {
                 detected = false;
                 speed = normalspeed;

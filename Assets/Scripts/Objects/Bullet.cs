@@ -61,7 +61,7 @@ public class Bullet : MonoBehaviour
             GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
         }
 
-        Destroy(gameObject, 0.2f);
+        Destroy(gameObject);
 
         //
     }
@@ -76,7 +76,7 @@ public class Bullet : MonoBehaviour
                 {
                     GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
                 }
-                Destroy(gameObject, 0.2f);
+                Destroy(gameObject);
             }
         }
         else
@@ -87,7 +87,7 @@ public class Bullet : MonoBehaviour
                 {
                     GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
                 }
-                Destroy(gameObject, 0.2f);
+                Destroy(gameObject);
             }
         }
 
