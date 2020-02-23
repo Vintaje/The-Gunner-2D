@@ -85419,12 +85419,12 @@ PrefabInstance:
     - target: {fileID: 3153768777711790031, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.11
+      value: -1.38
       objectReference: {fileID: 0}
     - target: {fileID: 3153768777711790031, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.58
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 3153768777711790031, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad,
         type: 3}
@@ -86484,6 +86484,11 @@ PrefabInstance:
         type: 3}
       propertyPath: numDisparos
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677696327561363883, guid: 2a418f477b4541d488462a4eccf5a0d1,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a418f477b4541d488462a4eccf5a0d1, type: 3}
