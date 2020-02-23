@@ -358,7 +358,7 @@ PrefabInstance:
     - target: {fileID: 4310713094604245916, guid: abf1720bec1e56e4f89920fcaab87122,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abf1720bec1e56e4f89920fcaab87122, type: 3}
@@ -448,15 +448,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4310713093819236840, guid: abf1720bec1e56e4f89920fcaab87122,
-        type: 3}
-      propertyPath: m_TagString
-      value: Explosion
-      objectReference: {fileID: 0}
     - target: {fileID: 4310713094604245908, guid: abf1720bec1e56e4f89920fcaab87122,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.21
+      value: 1.48
       objectReference: {fileID: 0}
     - target: {fileID: 4310713094604245908, guid: abf1720bec1e56e4f89920fcaab87122,
         type: 3}
@@ -512,21 +507,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pikeman
-      objectReference: {fileID: 0}
-    - target: {fileID: 4310713094604245916, guid: abf1720bec1e56e4f89920fcaab87122,
-        type: 3}
-      propertyPath: m_TagString
-      value: EnemyBullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 4310713094604245916, guid: abf1720bec1e56e4f89920fcaab87122,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4310713094604245919, guid: abf1720bec1e56e4f89920fcaab87122,
-        type: 3}
-      propertyPath: visionRadius
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abf1720bec1e56e4f89920fcaab87122, type: 3}
