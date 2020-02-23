@@ -90,6 +90,14 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        if (other.gameObject.tag.Equals("Floor"))
+            {
+                if (bulletExplo != null)
+                {
+                    GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
+                }
+                Destroy(gameObject);
+            }
 
 
     }
