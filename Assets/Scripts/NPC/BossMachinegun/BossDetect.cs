@@ -28,12 +28,14 @@ public class BossDetect : MonoBehaviour
             boss.GetComponent<Animator>().SetBool("Start", true);
             mainCamera.GetComponent<CameraFollow>().player = gameObject.transform;
             StartCoroutine(closeCollider());
+            GetComponent<AudioSource>().Play();
         }
     }
 
     IEnumerator closeCollider()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         GetComponent<Collider2D>().isTrigger = false;
+        GetComponent<Collider2D>().offset = new Vector2(-3.6f,GetComponent<Collider2D>().offset.y);
     }
 }

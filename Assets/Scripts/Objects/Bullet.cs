@@ -90,7 +90,7 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        if (other.gameObject.tag.Equals("Floor"))
+        if (other.gameObject.tag.Equals("Floor") || other.gameObject.tag.Equals("Wall"))
             {
                 if (bulletExplo != null)
                 {

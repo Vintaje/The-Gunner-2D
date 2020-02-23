@@ -5,9 +5,10 @@ using UnityEngine;
 public class ObjectExplosion : MonoBehaviour
 {
     // Start is called before the first frame update
+    public int damage;
     void Start()
     {
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 0.4f);
         gameObject.GetComponent<AudioSource>().Play();
     }
 
