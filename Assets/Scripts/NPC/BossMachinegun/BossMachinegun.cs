@@ -33,6 +33,10 @@ public class BossMachinegun : MonoBehaviour
     public float distanceToShot;
     private float distanceToTarget;
 
+
+    public int numDisparos;
+    public int numBombs;
+
     private GameObject[] enemies;
 
 
@@ -40,6 +44,9 @@ public class BossMachinegun : MonoBehaviour
 
     //Script general
     Human human;
+
+    private bool newPatron;
+    private bool death;
     public int timeTillHit;
 
     // Start is called before the first frame update
@@ -59,11 +66,12 @@ public class BossMachinegun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!human.muerto)
+        if (!human.muerto && GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("heavy_machinegun_shot"))
         {
             Vector3 boss = new Vector3(transform.position.x, 0.0f, 0.0f);
             Vector3 targetx = new Vector3(target.position.x, 0.0f, 0.0f);
             distanceToTarget = Vector3.Distance(boss, targetx);
+            Debug.Log(distanceToTarget);
 
             if (!detected)
             {
@@ -95,13 +103,13 @@ public class BossMachinegun : MonoBehaviour
                 }
 
 
-                if (transform.position.x < target.position.x && Mathf.Abs(transform.position.x - target.position.x) > 0.5f) // he's looking right
+                if (transform.position.x < target.position.x && distanceToTarget < -0.5f) // he's looking right
                 {
                     right = true;
                     transform.eulerAngles = new Vector3(0, 0, 0);
                 }
 
-                if (transform.position.x > target.position.x && Mathf.Abs(transform.position.x - target.position.x) > 0.5f) // he's looking left
+                if (transform.position.x > target.position.x && distanceToTarget > 0.5f) // he's looking left
                 {
                     right = false;
                     transform.eulerAngles = new Vector3(0, -180, 0);
@@ -122,18 +130,13 @@ public class BossMachinegun : MonoBehaviour
                 speed = fastspeed;
             }
 
-            if (transform.position.x > oldPosition && Mathf.Abs(oldPosition - transform.position.x) < 0.3f) // he's looking right
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                right = true;
-            }
 
-            if (transform.position.x < oldPosition && Mathf.Abs(oldPosition - transform.position.x) < 0.3f) // he's looking left
-            {
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                right = false;
-            }
             oldPosition = transform.position.x;
+        }
+
+        if(human.muerto && !death){
+            death = true;
+            GetComponents<AudioSource>()[0].Play();
         }
     }
 
@@ -167,60 +170,93 @@ public class BossMachinegun : MonoBehaviour
 
     IEnumerator patronAtaque()
     {
-        for (int i = 0; i < 5; i++)
+        if (human.vida > 10)
         {
-
-            Instantiate(bullet, patronSpawner.position, patronSpawner.rotation).GetComponent<Bullet>().destroyTime = 1.5f;
-            yield return new WaitForSeconds(0.25f);
-        }
-        yield return new WaitForSeconds(1.0f);
-        for (int i = 0; i < 5; i++)
-        {
-            gameObject.GetComponent<Animator>().SetBool("Nade", true);
-            GameObject nade = Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation);
-            nade.transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
-            Throw(nade);
+            for (int i = 0; i < numDisparos; i++)
+            {
+                if (!human.muerto)
+                {
+                    Instantiate(bullet, patronSpawner.position, patronSpawner.rotation).GetComponent<Bullet>().destroyTime = 1.5f;
+                    yield return new WaitForSeconds(0.25f);
+                }
+            }
             yield return new WaitForSeconds(1.0f);
+            for (int i = 0; i < numBombs; i++)
+            {
+                if (!human.muerto)
+                {
+                    gameObject.GetComponent<Animator>().SetBool("Nade", true);
+                    GameObject nade = Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation);
+                    nade.transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
+                    Throw(nade);
+                    yield return new WaitForSeconds(1.0f);
+                    gameObject.GetComponent<Animator>().SetBool("Nade", false);
+                }
+            }
             gameObject.GetComponent<Animator>().SetBool("Nade", false);
+            yield return new WaitForSeconds(0.5f);
+            for (int i = 0; i < numDisparos / 2; i++)
+            {
+                if (!human.muerto)
+                {
+                    GameObject bulletg = Instantiate(bullet, patronSpawner.position, patronSpawner.rotation);
+                    bulletg.GetComponent<Bullet>().destroyTime = 1.5f;
+                    bulletg.transform.Translate(new Vector3(0.0f, -0.1f, 0.0f));
+                    yield return new WaitForSeconds(0.25f);
+                }
+            }
+            yield return new WaitForSeconds(1.0f);
+            for (int i = 0; i < numBombs; i++)
+            {
+                if (!human.muerto)
+                {
+                    gameObject.GetComponent<Animator>().SetBool("Nade", true);
+                    GameObject nade = Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation);
+                    nade.transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
+                    Throw(nade);
+                    yield return new WaitForSeconds(1.0f);
+                    gameObject.GetComponent<Animator>().SetBool("Nade", false);
+                }
+            }
+            gameObject.GetComponent<Animator>().SetBool("Nade", false);
+            yield return new WaitForSeconds(1.0f);
 
         }
-        yield return new WaitForSeconds(1.5f);
-
+        else
+        {
+            if(!newPatron){
+                GetComponents<AudioSource>()[1].Play();
+                newPatron = true;
+            }
+            for (int i = 0; i < numBombs*3; i++)
+            {
+                if (!human.muerto)
+                {
+                    gameObject.GetComponent<Animator>().SetBool("Nade", true);
+                    GameObject nade = Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation);
+                    nade.transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
+                    Throw(nade);
+                    yield return new WaitForSeconds(1.0f);
+                    gameObject.GetComponent<Animator>().SetBool("Nade", false);
+                }
+            }
+            gameObject.GetComponent<Animator>().SetBool("Nade", false);
+            yield return new WaitForSeconds(0.5f);
+            for (int i = 0; i < numDisparos; i++)
+            {
+                if (!human.muerto)
+                {
+                    GameObject bulletg = Instantiate(bullet, patronSpawner.position, patronSpawner.rotation);
+                    bulletg.GetComponent<Bullet>().destroyTime = 1.5f;
+                    bulletg.transform.Translate(new Vector3(0.0f, -0.1f, 0.0f));
+                    yield return new WaitForSeconds(0.25f);
+                }
+            }
+            yield return new WaitForSeconds(1.0f);
+        }
         patron = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "EnemyBullet")
-        {
-            GetComponent<Rigidbody2D>().isKinematic = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "EnemyBullet")
-        {
-            GetComponent<Rigidbody2D>().isKinematic = false;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag.Equals("LimiteEnemigos"))
-        {
-            if (right)
-            {
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                right = false;
-            }
-            else
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                right = true;
-            }
-        }
-    }
 
     public void Throw(GameObject nade)
     {

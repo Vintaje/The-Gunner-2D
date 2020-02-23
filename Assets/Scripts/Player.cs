@@ -20,8 +20,8 @@ public class Player : MonoBehaviour
     //Armamento
     private float fireRate; //Velocidad de disparo
     private float nextFire; //Siguiente disparo
-    private int municionspec; // Municion especial
-    private int municionextr; // Municion explosiva
+    public int municionspec; // Municion especial
+    public int municionextr; // Municion explosiva
     public float normalRate;
     public float specRate;
     public float exploRate;
@@ -567,7 +567,9 @@ public class Player : MonoBehaviour
         }
         if (collider.gameObject.tag.Equals("Explosion"))
         {
-            human.vida = 0;
+
+            
+        
             if (derecha)
             {
                 gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;

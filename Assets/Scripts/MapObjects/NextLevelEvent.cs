@@ -24,8 +24,15 @@ public class NextLevelEvent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+
         if (other.gameObject.tag.Equals("Player"))
         {
+            Human human = other.gameObject.GetComponent<Human>();
+            Player player = other.gameObject.GetComponent<Player>();
+            PlayerPrefs.SetInt("Vida", human.vida);
+            PlayerPrefs.SetInt("Spec", player.municionspec);
+            PlayerPrefs.SetInt("Extra", player.municionextr);
+            
             SceneManager.LoadScene(nextScene);
         }
     }

@@ -71,7 +71,8 @@ public class Human : MonoBehaviour
         }
         if (other.gameObject.tag == "Explosion" && this.vida > 0)
         {
-            this.vida = 0;
+            this.vida -= other.gameObject.GetComponent<ObjectExplosion>().damage;
+            Debug.Log(this.vida);
         }
     }
 
