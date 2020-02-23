@@ -14,7 +14,7 @@ public class akInfantry : MonoBehaviour
 
     public Transform eyeDetection;
     public Transform target;
-    public Transform targetDetection;
+
 
     public float fireRate;
     private float nextFire;

@@ -57,12 +57,12 @@ public class BomberFly : MonoBehaviour
             }
             {
 
-                if (right)
+                if (right && !detected)
                 {
                     transform.eulerAngles = new Vector3(0, -180, 0);
                     right = false;
                 }
-                else
+                else if(!detected)
                 {
                     transform.eulerAngles = new Vector3(0, 0, 0);
                     right = true;
@@ -70,7 +70,9 @@ public class BomberFly : MonoBehaviour
             }
             if (detected)
             {
+
                 transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, gameObject.transform.position.y, gameObject.transform.position.z), speed * Time.deltaTime);
+
                 if (Time.time > nextFire)
                 {
                     nextFire = Time.time + fireRate;
@@ -80,8 +82,7 @@ public class BomberFly : MonoBehaviour
                 }
             }
 
-            if ((transform.position.x - target.position.x) > 1.5 ||
-            (transform.position.x - target.position.x) < -1.5)
+            if (Mathf.Abs(transform.position.x - target.position.x) > 1.5)
             {
                 detected = false;
 
