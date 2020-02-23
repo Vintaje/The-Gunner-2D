@@ -20,7 +20,7 @@ public class ChangeScene : MonoBehaviour
 
     void LoadScene()
     {
-
+        
         SceneManager.LoadScene(sceneStr);
 
     }
