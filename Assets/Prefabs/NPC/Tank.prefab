@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11fba8e941d8a4d46b074067bc020fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRadius: 2
+  visionRadius: 5
   speed: 0.5
   shotSpawner: {fileID: 1491386164}
   timeTillHit: 0.5
