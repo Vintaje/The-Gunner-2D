@@ -31,4 +31,12 @@ public class ladder : MonoBehaviour
             other.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 1.5f);
         }*/
     }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag.Equals("Player"))
+        {
+            other.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        }
+
+    }
 }
