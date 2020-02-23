@@ -29,6 +29,7 @@ public class PikemanMove : MonoBehaviour
             if (dist < 0.60f)
             {
                 animator.SetBool("attack", true);
+                GetComponent<AudioSource>().Play();
                 if (dist > 0.50f)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
