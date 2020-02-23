@@ -93,13 +93,13 @@ public class Player : MonoBehaviour
         //Script principal
         human = GetComponent<Human>();
 
-       
+
 
         //Plataforma
         if (Application.platform == RuntimePlatform.Android)
         {
             plataforma = 3;
-            
+
             joystick = FindObjectOfType<Joystick>();
 
         }
@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
         {
             androidPlatform();
         }
-        
+
     }
 
     void androidPlatform()
@@ -283,7 +283,7 @@ public class Player : MonoBehaviour
         ammoextratext.GetComponent<Text>().text = municionextr + "";
         if (!human.muerto)
         {
-        
+
             if (Input.GetAxisRaw("Vertical") == 0)
             {
                 running = false;
@@ -356,7 +356,9 @@ public class Player : MonoBehaviour
                 agachado = true;
                 running = false;
                 speed = speedagachado;
-            }else{
+            }
+            else
+            {
                 agachado = false;
                 speed = speednormal;
             }
@@ -568,8 +570,8 @@ public class Player : MonoBehaviour
         if (collider.gameObject.tag.Equals("Explosion"))
         {
 
-            
-        
+
+
             if (derecha)
             {
                 gameObject.GetComponent<Rigidbody2D>().sharedMaterial.friction = 421;
@@ -589,6 +591,9 @@ public class Player : MonoBehaviour
 
     public void playermuerto()
     {
+        PlayerPrefs.SetInt("Vida", 10);
+        PlayerPrefs.SetInt("Spec", 0);
+        PlayerPrefs.SetInt("Extra", 0);
         GameObject temp_ghost = Instantiate(ghost, (new Vector3(0.0f, 0.1f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation);
         footstep.Pause();
         BlinkPlayer(3);
