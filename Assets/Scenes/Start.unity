@@ -325,8 +325,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6, y: 9}
-  m_SizeDelta: {x: 600, y: 389}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 800, y: 389}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &507283569
 MonoBehaviour:
@@ -341,12 +341,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   On: 1
-  reset: 0
+  reset: 1
   FinalText: 'The Gunner 2D
 
 '
-  TotalTypeTime: 2
-  TypeRate: 0
+  TotalTypeTime: 0.5
+  TypeRate: 0.5
   RandomCharactor: 
   RandomCharacterChangeRate: 0.1
   i: 0
@@ -369,13 +369,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 0d321ad12fe3d4391b506737af0972d1, type: 3}
-    m_FontSize: 103
+    m_Font: {fileID: 12800000, guid: 38e4a494d219e6944a917cd0769fb7e1, type: 3}
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 8
     m_MaxSize: 103
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
