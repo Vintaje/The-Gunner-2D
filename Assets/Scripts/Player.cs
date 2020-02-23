@@ -256,7 +256,7 @@ public class Player : MonoBehaviour
             }
 
 
-            if (Input.GetAxisRaw("Vertical") > (deadzone / 2))
+            if (joystick.Vertical > (deadzone / 2))
             {
                 arriba = true;
                 running = false;
