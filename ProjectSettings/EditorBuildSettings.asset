@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/map1.unity
     guid: d47bc4fa389cd2040b4f9332482c1698
+  - enabled: 1
+    path: Assets/Scenes/transitionMap1-lvl1.unity
+    guid: 99d5b08b26627cb45abb4fb6673b3cac
   m_configObjects: {}
