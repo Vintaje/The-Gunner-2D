@@ -85208,6 +85208,11 @@ PrefabInstance:
       propertyPath: life
       value: 
       objectReference: {fileID: 225944578}
+    - target: {fileID: 3153768777711790028, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad,
+        type: 3}
+      propertyPath: changewepDelay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3153768777711790031, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad,
         type: 3}
       propertyPath: m_LocalPosition.x
