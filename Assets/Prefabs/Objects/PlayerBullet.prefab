@@ -99,6 +99,7 @@ MonoBehaviour:
   bulletExplo: {fileID: 5519176309254749588, guid: b24eb017b92946745b192c8735173153,
     type: 3}
   stream: {fileID: 0}
+  enemy: 0
 --- !u!1 &5628238112851176351
 GameObject:
   m_ObjectHideFlags: 0

@@ -100,7 +100,7 @@ public class Bullet : MonoBehaviour
         {
             GameObject explosion = Instantiate(bulletExplo, gameObject.transform.position, gameObject.transform.rotation);
         }
-        Destroy(gameObject, destroyTime);
+        Destroy(gameObject);
     }
 
 

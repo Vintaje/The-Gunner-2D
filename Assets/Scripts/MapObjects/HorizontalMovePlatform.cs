@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HorizontalMovePlatform : MonoBehaviour
 {
-    private float speedUpDown = 1;
+    public float speedUpDown = 0.4f;
     private float distanceUpDown = 2;
     private Vector3 mov;
     public GameObject player;
