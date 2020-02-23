@@ -103,7 +103,9 @@ public class BomberFly : MonoBehaviour
                 right = true;
             }
             oldPosition = transform.position.x;
-        }else{
+        }
+        else
+        {
             human.destroyed = true;
             Destroy(gameObject, 0.1f);
         }
@@ -126,5 +128,22 @@ public class BomberFly : MonoBehaviour
             }
     }
 
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Equals("LimiteEnemigos"))
+        {
+            if (right)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+                right = false;
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                right = true;
+            }
+        }
+    }
 
 }

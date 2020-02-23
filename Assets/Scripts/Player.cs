@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
     public GameObject ammospectext;
     public GameObject ammoextratext;
     public GameObject ghost;
+    public GameObject life;
 
     //Efectos
     public GameObject text;
@@ -146,6 +147,7 @@ public class Player : MonoBehaviour
     //Update
     void Update()
     {
+        life.GetComponent<HealthBar>().SetHealth(human.vida);
         if (plataforma == 2)
         {
             pcPlatformGamePad();
@@ -154,6 +156,7 @@ public class Player : MonoBehaviour
         {
             androidPlatform();
         }
+        
     }
 
     void androidPlatform()
