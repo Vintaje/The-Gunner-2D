@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     public float normalRate;
     public float specRate;
     public float exploRate;
+    public float changewepDelay;
+    private float nextWeapon;
 
 
     //Disparos
@@ -204,8 +206,9 @@ public class Player : MonoBehaviour
 
 
 
-            if (switchButton.Pressed)
+            if (switchButton.Pressed && Time.time > nextWeapon)
             {
+                nextWeapon = Time.time + changewepDelay;
                 if (weapon == 2)
                 {
                     weapon = 0;
