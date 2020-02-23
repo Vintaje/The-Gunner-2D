@@ -23,6 +23,7 @@ TagManager:
   - LimiteEnemigos
   - Helicopter
   - SwitchButton
+  - EnemyGenerator
   layers:
   - Default
   - TransparentFX

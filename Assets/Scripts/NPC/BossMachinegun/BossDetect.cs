@@ -8,6 +8,8 @@ public class BossDetect : MonoBehaviour
 
     public GameObject mainCamera;
     public GameObject boss;
+    private bool show;
+    public GameObject arrow;
     void Start()
     {
 
@@ -16,7 +18,11 @@ public class BossDetect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (!show && boss.GetComponent<Human>().vida <= 0)
+        {
+            show = true;
+            arrow.SetActive(show);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -29,6 +35,9 @@ public class BossDetect : MonoBehaviour
             mainCamera.GetComponent<CameraFollow>().player = gameObject.transform;
             StartCoroutine(closeCollider());
             GetComponent<AudioSource>().Play();
+            mainCamera.GetComponent<AudioSource>().Stop();
+            GetComponents<AudioSource>()[0].Play();
+            GetComponents<AudioSource>()[1].Play();
         }
     }
 
@@ -36,6 +45,6 @@ public class BossDetect : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         GetComponent<Collider2D>().isTrigger = false;
-        GetComponent<Collider2D>().offset = new Vector2(-3.6f,GetComponent<Collider2D>().offset.y);
+        GetComponent<Collider2D>().offset = new Vector2(-3.6f, GetComponent<Collider2D>().offset.y);
     }
 }
