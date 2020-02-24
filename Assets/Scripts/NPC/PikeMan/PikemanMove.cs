@@ -6,6 +6,7 @@ public class PikemanMove : MonoBehaviour
 {
     public float visionRadius;
     public float speed;
+    private AudioSource attack;
     private GameObject player;
     private float oldPosition = 0.0f;
     public Animator animator;
@@ -14,7 +15,7 @@ public class PikemanMove : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         oldPosition = transform.position.x;
-
+attack = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,7 +30,7 @@ public class PikemanMove : MonoBehaviour
             if (dist < 0.60f)
             {
                 animator.SetBool("attack", true);
-                GetComponent<AudioSource>().Play();
+                attack.Play();
                 if (dist > 0.50f)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
@@ -42,7 +43,7 @@ public class PikemanMove : MonoBehaviour
 
                 animator.SetBool("attack", false);
 
-                Debug.Log("dist:" + dist + " vision:" + visionRadius);
+                
                 animator.SetBool("isPlayerVisible", true);
                 Debug.DrawLine(transform.position, player.transform.position, Color.red);
 
@@ -73,8 +74,10 @@ public class PikemanMove : MonoBehaviour
     {
     }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag.Equals("Bullet")){
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Equals("Bullet"))
+        {
             other.gameObject.SetActive(false);
         }
     }

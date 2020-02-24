@@ -8,7 +8,10 @@ public class ObjectExplosion : MonoBehaviour
     public int damage;
     void Start()
     {
-        Destroy(gameObject, 0.4f);
+        if (!gameObject.name.Equals("AttackCollider"))
+        {
+            Destroy(gameObject, 0.4f);
+        }
         try
         {
             gameObject.GetComponent<AudioSource>().Play();
