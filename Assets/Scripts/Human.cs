@@ -69,7 +69,7 @@ public class Human : MonoBehaviour
 
                 //Damage received
                 vida -= bullet.damage;
-                Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage + " || Vidas Restantes: " + vida);
+                
             }
         }
         if (other.gameObject.tag == "Explosion" && this.vida > 0)
@@ -77,6 +77,7 @@ public class Human : MonoBehaviour
             this.vida -= other.gameObject.GetComponent<ObjectExplosion>().damage;
             Debug.Log(this.vida);
         }
+        Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage + " || Vidas Restantes: " + vida);
     }
 
     void BlinkPlayer(int numBlinks)

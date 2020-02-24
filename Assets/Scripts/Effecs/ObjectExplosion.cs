@@ -9,12 +9,16 @@ public class ObjectExplosion : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, 0.4f);
-        gameObject.GetComponent<AudioSource>().Play();
+        try
+        {
+            gameObject.GetComponent<AudioSource>().Play();
+        }
+        catch (UnityException ex) { }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

@@ -99888,11 +99888,6 @@ PrefabInstance:
       propertyPath: life
       value: 
       objectReference: {fileID: 225944578}
-    - target: {fileID: 3153768777711790028, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad,
-        type: 3}
-      propertyPath: changewepDelay
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3153768777711790031, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -101158,7 +101153,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1530276738, guid: 2a418f477b4541d488462a4eccf5a0d1, type: 3}
       propertyPath: vida
-      value: 60
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114690820211813862, guid: 2a418f477b4541d488462a4eccf5a0d1,
         type: 3}

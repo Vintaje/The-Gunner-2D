@@ -12,33 +12,41 @@ public class Detection : MonoBehaviour
     public bool shot;
     public AudioSource alert;
     public float targetDetectY;
+    Human human;
 
     // Start is called before the first frame update
     void Start()
     {
         alert = gameObject.GetComponents<AudioSource>()[1];
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        human = GetComponent<Human>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        distanceToTarget = Mathf.Abs(transform.position.x - target.position.x);
-        if (distanceToTarget > distance)
+        if (!human.muerto)
         {
-            detected = false;
+            distanceToTarget = Mathf.Abs(transform.position.x - target.position.x);
+            if (distanceToTarget > distance)
+            {
+                detected = false;
 
-        }
-        else if (!detected &&Mathf.Abs(transform.position.y - target.position.y) < targetDetectY)
-        {
-            detected = true;
-            alert.Play();
-        }
-        
-        if(distanceToTarget <= distanceToShot && detected){
-            shot = true;
-        }else{
-            shot = false;
+            }
+            else if (!detected && Mathf.Abs(transform.position.y - target.position.y) < targetDetectY)
+            {
+                detected = true;
+                alert.Play();
+            }
+
+            if (distanceToTarget <= distanceToShot && detected)
+            {
+                shot = true;
+            }
+            else
+            {
+                shot = false;
+            }
         }
     }
 }
