@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1593850879423285454}
+  - component: {fileID: 114690820211813862}
   - component: {fileID: 1593850879423285449}
   - component: {fileID: 1593850879423285448}
   - component: {fileID: 6134017132133605635}
@@ -39,6 +40,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114690820211813862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593850879423285451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6dc357194d01f4ea5684f09f7268c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 5048418303729830408, guid: db61ecaa024023c4d8a54713d77586aa, type: 3}
+  dropRate: 90
 --- !u!212 &1593850879423285449
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -122,7 +138,7 @@ MonoBehaviour:
   distance: 4
   target: {fileID: 0}
   fireRate: 1
-  patronRate: 7
+  patronRate: 6
   bulletPrefab: {fileID: 1050126247601993417, guid: 9da7895d5dad1dd449792b132e5c9e07,
     type: 3}
   shotSpawner: {fileID: 6432166012489198967}
@@ -386,7 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186cee79608faea4ebe94365dbaed19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 25
+  vida: 45
   muerto: 0
   hurt_duration: 1
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}

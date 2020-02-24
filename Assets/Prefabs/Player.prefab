@@ -294,9 +294,9 @@ MonoBehaviour:
   speednormal: 0.04
   municionspec: 0
   municionextr: 0
-  normalRate: 0.15
+  normalRate: 0.21
   specRate: 0.15
-  exploRate: 0.2
+  exploRate: 0.3
   changewepDelay: 0
   bulletPrefab: {fileID: 5611423884645366640, guid: 59bf4cbdac8320b42b4276e94d4d2553,
     type: 3}

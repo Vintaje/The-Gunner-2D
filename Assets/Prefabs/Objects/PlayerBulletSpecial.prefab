@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  damage: 3
+  damage: 2
   destroyTime: 0.8
   bulletExplo: {fileID: 8558135286446325947, guid: cd2fc235b624fdd459b292642959bffd,
     type: 3}

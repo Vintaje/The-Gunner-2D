@@ -9,7 +9,6 @@ public class ShooterEnemy : MonoBehaviour
     private float speed;
     public float distance;
     private bool right = true;
-    private bool detected = false;
     public Transform eyeDetection;
 
     

@@ -42,10 +42,11 @@ GameObject:
   - component: {fileID: 85292667467114769}
   - component: {fileID: 7032464338721678869}
   - component: {fileID: 5770019271704780815}
+  - component: {fileID: 1916084951815964549}
+  - component: {fileID: 583779934327231062}
   - component: {fileID: 1176093328715904439}
   - component: {fileID: 3238909128495423061}
   - component: {fileID: 1628007330}
-  - component: {fileID: 1916084951815964549}
   - component: {fileID: 8033221617123063512}
   - component: {fileID: 4919191342177809302}
   m_Layer: 0
@@ -131,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186cee79608faea4ebe94365dbaed19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 4
+  vida: 8
   muerto: 0
   hurt_duration: 1
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
@@ -158,6 +159,42 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6804776121634879124, guid: 8b7ebf5d47ed27544b2dcf2a10ff76ca,
     type: 3}
   shotSpawner: {fileID: 2377152447149242930}
+--- !u!114 &1916084951815964549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492184880359000804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731d6f2b4273f194396c315f8f998d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  distanceToShot: 5
+  distanceToTarget: 0
+  distance: 5
+  detected: 0
+  shot: 0
+  alert: {fileID: 0}
+  targetDetectY: 0.5
+--- !u!114 &583779934327231062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492184880359000804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6dc357194d01f4ea5684f09f7268c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 5048418303729830408, guid: db61ecaa024023c4d8a54713d77586aa, type: 3}
+  - {fileID: 2917980800304414503, guid: 028e54840b620a14bb84b6d1d313136b, type: 3}
+  dropRate: 25
 --- !u!95 &1176093328715904439
 Animator:
   serializedVersion: 3
@@ -299,26 +336,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1916084951815964549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1492184880359000804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 731d6f2b4273f194396c315f8f998d55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  distanceToShot: 5
-  distanceToTarget: 0
-  distance: 5
-  detected: 0
-  shot: 0
-  alert: {fileID: 0}
-  targetDetectY: 0.5
 --- !u!50 &8033221617123063512
 Rigidbody2D:
   serializedVersion: 4

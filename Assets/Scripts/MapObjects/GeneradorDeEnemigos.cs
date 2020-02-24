@@ -15,19 +15,14 @@ public class GeneradorDeEnemigos : MonoBehaviour
     public Vector3 izquierda, derecha;
     private bool activo;
     public int cantidad;
+    private bool iniciado;
 
     private EdgeCollider2D[] colliders;
     // Start is called before the first frame update
     void Start()
     {
-        
-
         colliders = GetComponents<EdgeCollider2D>();
 
-        foreach (EdgeCollider2D col in colliders)
-        {
-            col.enabled = false;
-        }
     }
 
     // Update is called once per frame
@@ -58,8 +53,9 @@ public class GeneradorDeEnemigos : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag.Equals("Player"))
+        if (other.gameObject.tag.Equals("Player") && !iniciado)
         {
+            iniciado = true;
             Invoke("inicio", 1.0f);
         }
     }

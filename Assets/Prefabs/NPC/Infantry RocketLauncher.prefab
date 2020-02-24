@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3572831456214514578}
   - component: {fileID: 3808476107823208211}
   - component: {fileID: 4659523627307980815}
+  - component: {fileID: 5168448529624695558}
   - component: {fileID: 3572831456214514589}
   - component: {fileID: 1522563723}
   - component: {fileID: 2549099562231465531}
@@ -167,6 +168,22 @@ MonoBehaviour:
   shot: 0
   alert: {fileID: 0}
   targetDetectY: 0.2
+--- !u!114 &5168448529624695558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3572831456214514583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6dc357194d01f4ea5684f09f7268c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 2917980800304414503, guid: 028e54840b620a14bb84b6d1d313136b, type: 3}
+  - {fileID: 5048418303729830408, guid: db61ecaa024023c4d8a54713d77586aa, type: 3}
+  dropRate: 20
 --- !u!61 &3572831456214514589
 BoxCollider2D:
   m_ObjectHideFlags: 0
