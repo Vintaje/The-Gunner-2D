@@ -176,8 +176,8 @@ GameObject:
   - component: {fileID: 3153768777711790017}
   - component: {fileID: 887235025}
   - component: {fileID: 887235026}
-  - component: {fileID: 1169997126}
   - component: {fileID: 1169997127}
+  - component: {fileID: 1169997126}
   - component: {fileID: 1543022748}
   - component: {fileID: 4786032580423918502}
   - component: {fileID: 1230844823076698207}
@@ -292,9 +292,12 @@ MonoBehaviour:
   speed: 0.04
   speedagachado: 0
   speednormal: 0.04
+  municionspec: 0
+  municionextr: 0
   normalRate: 0.15
   specRate: 0.15
   exploRate: 0.2
+  changewepDelay: 0
   bulletPrefab: {fileID: 5611423884645366640, guid: 59bf4cbdac8320b42b4276e94d4d2553,
     type: 3}
   bulletSpecialPrefab: {fileID: 6832578267709467496, guid: 9b8414d7db487364dba2a0810c1296ab,
@@ -647,7 +650,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &1169997126
+--- !u!82 &1169997127
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -657,7 +660,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c6e675806b3aee946b03f1ac31d14d82, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7cb9928d4a896d8429cce2949f542e8d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -743,7 +746,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &1169997127
+--- !u!82 &1169997126
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -753,9 +756,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7cb9928d4a896d8429cce2949f542e8d, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: c6e675806b3aee946b03f1ac31d14d82, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.94
   m_Pitch: 1
   Loop: 0
   Mute: 0

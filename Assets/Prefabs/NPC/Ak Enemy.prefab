@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6764519213566612926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.155, y: 0.218, z: 0}
+  m_LocalPosition: {x: 0.173, y: -0.131, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6764519214488474978}
@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 6764519214488474976}
   - component: {fileID: 6764519214488474991}
   - component: {fileID: 6764519214488474979}
+  - component: {fileID: 7502994316946384578}
   - component: {fileID: 6764519214488474980}
   - component: {fileID: 6764519214488474981}
   - component: {fileID: 6764519214488474982}
@@ -178,13 +179,32 @@ MonoBehaviour:
   normalspeed: 0.5
   distance: 2
   eyeDetection: {fileID: 6764519213566612927}
-  target: {fileID: 3153768777711790016, guid: 3c5e2d183fd3a2d4c91295112e7bf9ad, type: 3}
-  targetDetection: {fileID: 0}
-  fireRate: 2.5
+  timeTillHit: 1
+  projectile: 0
+  fireRate: 1.6
   bulletPrefab: {fileID: 1771085150099968606, guid: 06e9971e4cfcbcb469beb42ba3d645ec,
     type: 3}
   shotSpawner: {fileID: 6764519215448091347}
+--- !u!114 &7502994316946384578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6764519214488474990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731d6f2b4273f194396c315f8f998d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
   distanceToShot: 2
+  distanceToTarget: 0
+  distance: 2
+  detected: 0
+  shot: 0
+  alert: {fileID: 0}
+  targetDetectY: 0.2
 --- !u!50 &6764519214488474980
 Rigidbody2D:
   serializedVersion: 4
@@ -201,11 +221,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 954ff21e0e64259468332f68889ee760, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!82 &6764519214488474981
 AudioSource:
   m_ObjectHideFlags: 0
@@ -415,6 +435,7 @@ MonoBehaviour:
   hurt_duration: 2
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
   destroyed: 0
+  destroyTime: 1.5
 --- !u!1 &6764519215448091346
 GameObject:
   m_ObjectHideFlags: 0

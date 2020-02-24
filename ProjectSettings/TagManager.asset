@@ -24,6 +24,7 @@ TagManager:
   - Helicopter
   - SwitchButton
   - EnemyGenerator
+  - Medkit
   layers:
   - Default
   - TransparentFX

@@ -183,6 +183,8 @@ MonoBehaviour:
   muerto: 0
   hurt_duration: 1
   ghost: {fileID: 2046152516995497041, guid: 49a223b8450bd5445858a5f803ab0bc0, type: 3}
+  destroyed: 0
+  destroyTime: 1.5
 --- !u!114 &5780404758061249577
 MonoBehaviour:
   m_ObjectHideFlags: 0

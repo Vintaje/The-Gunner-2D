@@ -567,6 +567,20 @@ public class Player : MonoBehaviour
             collider.gameObject.SetActive(false);
             Destroy(collider.gameObject, 0.9f);
         }
+        if (collider.gameObject.tag.Equals("Medkit"))
+        {
+            GameObject tempText = Instantiate(text, (new Vector3(0.0f, 0.2f, 0.0f)) + collider.gameObject.transform.position, collider.gameObject.transform.rotation);
+            tempText.gameObject.GetComponent<TextMesh>().font.material.mainTexture.filterMode = FilterMode.Point;
+            human.vida += collider.gameObject.GetComponent<Medkit>().vida;
+            tempText.GetComponent<TextMesh>().text = " + " + collider.gameObject.GetComponent<Medkit>().vida + " HP";
+            if (human.vida > 10)
+            {
+                human.vida = 10;
+            }
+            pickup.Play();
+            collider.gameObject.SetActive(false);
+            Destroy(collider.gameObject, 0.3f);
+        }
         if (collider.gameObject.tag.Equals("Explosion"))
         {
 
