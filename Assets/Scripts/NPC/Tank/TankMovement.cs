@@ -33,7 +33,6 @@ public class TankMovement : MonoBehaviour
 
         if (dist < visionRadius)
         {
-
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
             Debug.DrawLine(transform.position, player.transform.position, Color.green);
             if (Time.time > nextFire)

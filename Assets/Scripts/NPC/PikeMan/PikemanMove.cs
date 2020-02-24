@@ -15,7 +15,7 @@ public class PikemanMove : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         oldPosition = transform.position.x;
-attack = GetComponent<AudioSource>();
+        attack = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,8 +29,8 @@ attack = GetComponent<AudioSource>();
             visionRadius = 3.5f;
             if (dist < 0.60f)
             {
+
                 animator.SetBool("attack", true);
-                attack.Play();
                 if (dist > 0.50f)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, transform.position.y, transform.position.z), fixedSpeed);
@@ -43,7 +43,7 @@ attack = GetComponent<AudioSource>();
 
                 animator.SetBool("attack", false);
 
-                
+
                 animator.SetBool("isPlayerVisible", true);
                 Debug.DrawLine(transform.position, player.transform.position, Color.red);
 
@@ -59,13 +59,13 @@ attack = GetComponent<AudioSource>();
 
         if (transform.position.x - 0.01f > oldPosition)
         {
-            transform.localScale = new Vector3(0.33f, 0.33f, 2);
+            transform.localScale = new Vector3(0.35f, 0.35f, 2);
 
         }
 
         if (transform.position.x + 0.01f < oldPosition)
         {
-            transform.localScale = new Vector3(-0.33f, 0.33f, 2);
+            transform.localScale = new Vector3(-0.35f, 0.35f, 2);
         }
         oldPosition = transform.position.x;
 
@@ -74,6 +74,10 @@ attack = GetComponent<AudioSource>();
     {
     }
 
+    public void AttackSound()
+    {
+        attack.Play();
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag.Equals("Bullet"))
