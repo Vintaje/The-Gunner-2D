@@ -242,6 +242,11 @@ public class Player : MonoBehaviour
                 running = false;
                 speed = speedagachado;
             }
+            else
+            {
+                agachado = false;
+                speed = speednormal;
+            }
 
 
             if (jumpButton.Pressed)
@@ -264,6 +269,11 @@ public class Player : MonoBehaviour
                 arriba = true;
                 running = false;
                 speed = 0;
+            }
+            else if(!agachado)
+            {
+                arriba = false;
+                speed = speednormal;
             }
 
 
@@ -384,6 +394,9 @@ public class Player : MonoBehaviour
                 arriba = true;
                 running = false;
                 speed = 0;
+            }else if(!agachado){
+                arriba = false;
+                speed = speednormal;
             }
 
 

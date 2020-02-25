@@ -74,9 +74,10 @@ public class Human : MonoBehaviour
         }
         if (other.gameObject.tag == "Explosion" && this.vida > 0)
         {
+            BlinkPlayer(2);
             this.vida -= other.gameObject.GetComponent<ObjectExplosion>().damage;
         }
-        
+
     }
 
     void BlinkPlayer(int numBlinks)

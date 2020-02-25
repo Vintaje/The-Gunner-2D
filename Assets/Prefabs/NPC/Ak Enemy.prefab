@@ -195,6 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalspeed: 0.5
   distance: 2
+  right: 1
   eyeDetection: {fileID: 6764519213566612927}
   timeTillHit: 1
   projectile: 0
@@ -234,7 +235,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -449,7 +450,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 4
   muerto: 0
-  hurt_duration: 2
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
   destroyed: 0
   destroyTime: 1.5

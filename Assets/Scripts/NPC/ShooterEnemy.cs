@@ -8,7 +8,7 @@ public class ShooterEnemy : MonoBehaviour
     private float fastspeed;
     private float speed;
     public float distance;
-    private bool right = true;
+    public bool right = true;
     public Transform eyeDetection;
 
     
@@ -30,7 +30,6 @@ public class ShooterEnemy : MonoBehaviour
     {
         nextFire = 0.0f;
         oldPosition = transform.position.x;
-        right = true;
         shot = GetComponents<AudioSource>()[0];
         speed = normalspeed;
         fastspeed = 2f * normalspeed;
@@ -49,7 +48,7 @@ public class ShooterEnemy : MonoBehaviour
 
             if (groundInfo.distance > 0.03f)
             {
-                GetComponent<Rigidbody2D>().gravityScale = 1;
+                GetComponent<Rigidbody2D>().gravityScale = 0.2f;
             }
             else
             {
@@ -58,7 +57,7 @@ public class ShooterEnemy : MonoBehaviour
             if (!detection.detected)
             {
                 speed = normalspeed;
-                if (groundInfo.collider == true && (groundInfo.collider.gameObject.tag.Equals("Floor") || groundInfo.collider.gameObject.tag.Equals("EnemyBullet")) && !detection.shot)
+                if (groundInfo.collider == true && (groundInfo.collider.gameObject.tag.Equals("Floor") || groundInfo.collider.gameObject.tag.Equals("EnemyBullet")|| groundInfo.collider.gameObject.tag.Equals("EnemyGenerator")|| groundInfo.collider.gameObject.tag.Equals("Medkit")|| groundInfo.collider.gameObject.tag.Equals("AmmoCrate")) && !detection.shot)
                 {
                     transform.Translate(Vector2.right * speed * Time.deltaTime);
                 }

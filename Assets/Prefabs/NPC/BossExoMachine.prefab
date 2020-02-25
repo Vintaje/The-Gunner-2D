@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 4843187826693500818}
   - component: {fileID: 3271259335736721313}
   - component: {fileID: 5384263193429860471}
+  - component: {fileID: 558446863}
+  - component: {fileID: 558446864}
   m_Layer: 0
   m_Name: BossExoMachine
   m_TagString: EnemyBullet
@@ -195,10 +197,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalspeed: 0.3
-  distance: 2
+  distance: 3
   target: {fileID: 0}
   fireRate: 1
-  patronRate: 10
+  patronRate: 13
   bulletPrefab: {fileID: 1050126247601993417, guid: 9da7895d5dad1dd449792b132e5c9e07,
     type: 3}
   shotSpawner: {fileID: 5767894274289902695}
@@ -206,7 +208,10 @@ MonoBehaviour:
   hommingMissile: {fileID: 5795066430245907464, guid: 00fe5c150c63ad7438190d77376ceaed,
     type: 3}
   bullet: {fileID: 1771085150099968606, guid: 06e9971e4cfcbcb469beb42ba3d645ec, type: 3}
-  distanceToShot: 0.5
+  distanceToShot: 1
+  numShots: 5
+  door: {fileID: 0}
+  death: 0
 --- !u!114 &5384263193429860471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,12 +224,123 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186cee79608faea4ebe94365dbaed19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 20
+  vida: 45
   muerto: 0
-  hurt_duration: 1
   ghost: {fileID: 6764519214488474990, guid: a33f691a0f2ba8f48b40030f05ce1844, type: 3}
   destroyed: 0
   destroyTime: 1.5
+--- !u!82 &558446863
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4843187826693500822}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 16584ebc68c18374eaf518cd912a7f76, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &558446864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4843187826693500822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6dc357194d01f4ea5684f09f7268c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 2917980800304414503, guid: 028e54840b620a14bb84b6d1d313136b, type: 3}
+  - {fileID: 5048418303729830408, guid: db61ecaa024023c4d8a54713d77586aa, type: 3}
+  dropRate: 100
 --- !u!1 &6827082714597075305
 GameObject:
   m_ObjectHideFlags: 0

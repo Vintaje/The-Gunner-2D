@@ -34,9 +34,14 @@ public class BossExoMachineMovement : MonoBehaviour
     private float distanceToTarget;
 
     private GameObject[] enemies;
+    public int numShots;
+
+    public GameObject door;
 
     //Script general
     Human human;
+
+    public bool death;
 
     // Start is called before the first frame update
     void Start()
@@ -87,9 +92,6 @@ public class BossExoMachineMovement : MonoBehaviour
                     StartCoroutine(BulletDelay(0.8f));
                     StartCoroutine(DoBlinks(0.9f));
                     nextFire = Time.time + fireRate;
-
-
-
                 }
 
                 if (Time.time > nextPatron && distanceToTarget < distanceToShot * 4 && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
@@ -97,8 +99,6 @@ public class BossExoMachineMovement : MonoBehaviour
                     nextPatron = Time.time + patronRate;
                     patron = true;
                     StartCoroutine(patronAtaque());
-
-
                 }
 
 
@@ -122,7 +122,7 @@ public class BossExoMachineMovement : MonoBehaviour
                 detected = false;
                 speed = normalspeed;
             }
-            else if (!detected)
+            else if (!detected && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
             {
 
                 detected = true;
@@ -141,6 +141,13 @@ public class BossExoMachineMovement : MonoBehaviour
                 right = false;
             }
             oldPosition = transform.position.x;
+        }
+
+        if (human.muerto && !death)
+        {
+            death = true;
+            GetComponents<AudioSource>()[0].Play();
+            Destroy(door);
         }
     }
 
@@ -173,21 +180,43 @@ public class BossExoMachineMovement : MonoBehaviour
 
     IEnumerator patronAtaque()
     {
-        for (int i = 0; i < 5; i++)
+        if (human.vida > 10)
         {
-
-            Instantiate(bullet, patronSpawner.position, patronSpawner.rotation);
-            yield return new WaitForSeconds(0.3f);
+            for (int i = 0; i < numShots; i++)
+            {
+                if (!human.muerto)
+                {
+                    Instantiate(bullet, patronSpawner.position, patronSpawner.rotation);
+                    yield return new WaitForSeconds(1.0f);
+                    Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
+                    yield return new WaitForSeconds(0.3f);
+                }
+            }
+            yield return new WaitForSeconds(1.5f);
+            for (int i = 0; i < numShots; i++)
+            {
+                if (!human.muerto)
+                {
+                    Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, 0.0f, 0.0f));
+                    yield return new WaitForSeconds(1.0f);
+                }
+            }
+            yield return new WaitForSeconds(1.5f);
+            patron = false;
         }
-        yield return new WaitForSeconds(1.5f);
-        for (int i = 0; i < 5; i++)
+        else
         {
-
-            Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
-            yield return new WaitForSeconds(1.0f);
+            if (!human.muerto)
+            {
+                for (int i = 0; i < numShots; i++)
+                {
+                    Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
+                    yield return new WaitForSeconds(1.2f);
+                    Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, 0.0f, 0.0f));
+                    yield return new WaitForSeconds(1.4f);
+                }
+            }
         }
-        yield return new WaitForSeconds(1.5f);
-        patron = false;
     }
 
     private void OnCollisionEnter2D(Collision2D other)

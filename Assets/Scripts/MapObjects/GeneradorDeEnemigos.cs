@@ -21,6 +21,8 @@ public class GeneradorDeEnemigos : MonoBehaviour
     public GameObject vehicle;
     public DropItem[] drops;
 
+    public bool right = true;
+
     private EdgeCollider2D[] colliders;
     // Start is called before the first frame update
     void Start()
@@ -118,8 +120,9 @@ public class GeneradorDeEnemigos : MonoBehaviour
             //toggle renderer
             if (cantidad >= 0)
             {
-                GameObject.Instantiate(enemigo_original, spawn.transform.position, transform.rotation).GetComponent<Rigidbody2D>().gravityScale = 1.0f;
-
+                GameObject enemy = GameObject.Instantiate(enemigo_original, spawn.transform.position, transform.rotation);
+                enemy.GetComponent<Rigidbody2D>().gravityScale = 1.0f;
+                enemy.GetComponent<ShooterEnemy>().right = right;
                 cantidad -= 1;
             }
 
