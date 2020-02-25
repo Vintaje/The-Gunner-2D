@@ -96,12 +96,15 @@ public class GeneradorDeEnemigos : MonoBehaviour
         if (helicoptero != null)
         {
             heli_state = GameObject.Instantiate(helicoptero, vehicle.transform.position, transform.rotation);
+            mainCamera.GetComponent<CameraFollow>().habilitado = false;
+        }else{
+            
         }
         foreach (EdgeCollider2D col in colliders)
         {
             col.enabled = true;
         }
-        mainCamera.GetComponent<CameraFollow>().habilitado = false;
+        
         activo = true;
 
         Spawner();

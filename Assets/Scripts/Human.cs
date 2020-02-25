@@ -36,9 +36,12 @@ public class Human : MonoBehaviour
                 {
                     GameObject temp_ghost = Instantiate(ghost, gameObject.transform.position, gameObject.transform.rotation);
                 }
-                if (gameObject.tag.Equals("EnemyBullet"))
+                if (gameObject.tag.Equals("EnemyBullet") && !gameObject.name.Equals("Gunman Boss"))
                 {
                     GetComponent<DropItem>().Spawn();
+                }
+                if(gameObject.name.Equals("Gunman Boss")){
+                    gameObject.GetComponent<BossGunman>().endGame();
                 }
                 Destroy(gameObject, destroyTime);
             }

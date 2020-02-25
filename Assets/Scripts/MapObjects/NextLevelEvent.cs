@@ -32,7 +32,7 @@ public class NextLevelEvent : MonoBehaviour
             PlayerPrefs.SetInt("Vida", human.vida);
             PlayerPrefs.SetInt("Spec", player.municionspec);
             PlayerPrefs.SetInt("Extra", player.municionextr);
-            
+            PlayerPrefs.SetInt("Intentos", player.intentos);
             SceneManager.LoadScene(nextScene);
         }
     }

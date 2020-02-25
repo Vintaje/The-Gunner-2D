@@ -206,9 +206,10 @@ public class BossExoMachineMovement : MonoBehaviour
         }
         else
         {
-            if (!human.muerto)
+
+            for (int i = 0; i < numShots; i++)
             {
-                for (int i = 0; i < numShots; i++)
+                if (!human.muerto)
                 {
                     Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
                     yield return new WaitForSeconds(1.2f);

@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
     private AudioSource no_ammo;
     private AudioSource change_weapon;
     private AudioSource[] sounds;
+
     //Sonidos Disparo
     private AudioSource normalweapon;
     private AudioSource specweapon;
@@ -79,6 +80,10 @@ public class Player : MonoBehaviour
     //Efectos
     public GameObject text;
 
+
+    //Intentos
+    public int intentos;
+    public GameObject intent;
 
     //Script general
     public Human human;
@@ -149,6 +154,7 @@ public class Player : MonoBehaviour
     //Update
     void Update()
     {
+        intent.GetComponent<Text>().text = "x " + intentos;
         life.GetComponent<HealthBar>().SetHealth(human.vida);
         if (plataforma == 2)
         {
@@ -165,6 +171,7 @@ public class Player : MonoBehaviour
     {
         ammospectext.GetComponent<Text>().text = municionspec + "";
         ammoextratext.GetComponent<Text>().text = municionextr + "";
+
         if (!human.muerto)
         {
 
@@ -270,7 +277,7 @@ public class Player : MonoBehaviour
                 running = false;
                 speed = 0;
             }
-            else if(!agachado)
+            else if (!agachado)
             {
                 arriba = false;
                 speed = speednormal;
@@ -394,7 +401,9 @@ public class Player : MonoBehaviour
                 arriba = true;
                 running = false;
                 speed = 0;
-            }else if(!agachado){
+            }
+            else if (!agachado)
+            {
                 arriba = false;
                 speed = speednormal;
             }
@@ -618,16 +627,40 @@ public class Player : MonoBehaviour
 
     public void playermuerto()
     {
-        PlayerPrefs.SetInt("Vida", 10);
-        PlayerPrefs.SetInt("Spec", 0);
-        PlayerPrefs.SetInt("Extra", 0);
-        GameObject temp_ghost = Instantiate(ghost, (new Vector3(0.0f, 0.1f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation);
-        footstep.Pause();
-        BlinkPlayer(3);
-        death.time = 0.65f;
-        death.Play();
-        animator.SetBool("Death", true);
-        Invoke("restart", 2);
+        if (intentos > 0)
+        {
+            intentos--;
+            PlayerPrefs.SetInt("Vida", 10);
+            PlayerPrefs.SetInt("Spec", 0);
+            PlayerPrefs.SetInt("Extra", 0);
+            PlayerPrefs.SetInt("Intentos", intentos);
+            GameObject temp_ghost = Instantiate(ghost, (new Vector3(0.0f, 0.1f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation);
+            footstep.Pause();
+            BlinkPlayer(3);
+            death.time = 0.65f;
+            death.Play();
+            animator.SetBool("Death", true);
+            Invoke("restart", 2);
+        }
+        if (intentos == 0)
+        {
+            PlayerPrefs.SetInt("Vida", 10);
+            PlayerPrefs.SetInt("Spec", 0);
+            PlayerPrefs.SetInt("Extra", 0);
+            
+            GameObject temp_ghost = Instantiate(ghost, (new Vector3(0.0f, 0.1f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation);
+            footstep.Pause();
+            BlinkPlayer(3);
+            death.time = 0.65f;
+            death.Play();
+            animator.SetBool("Death", true);
+            Invoke("gameover", 2);
+        }
+
+    }
+
+    void gameover(){
+        SceneManager.LoadScene("map1");
     }
 
     void BlinkPlayer(int numBlinks)
