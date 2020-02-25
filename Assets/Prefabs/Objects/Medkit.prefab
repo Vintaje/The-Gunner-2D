@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6119509499322473032}
   - component: {fileID: 3155015702998845131}
   - component: {fileID: 4655751763173780242}
+  - component: {fileID: 50262892468822858}
   m_Layer: 0
   m_Name: Medkit
   m_TagString: Medkit
@@ -140,3 +141,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10.68, y: 6.66}
   m_EdgeRadius: 0
+--- !u!50 &50262892468822858
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048418303729830408}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

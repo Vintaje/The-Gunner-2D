@@ -8,6 +8,7 @@ public class TankHeadShot : MonoBehaviour
     public int vida;
     private Bullet bullet;
     public GameObject ghost;
+    public DropItem spawn;
 
     private bool muerto;
 
@@ -16,6 +17,7 @@ public class TankHeadShot : MonoBehaviour
     void Start()
     {
         muerto = false;
+        spawn = GetComponent<DropItem>();
     }
 
     // Update is called once per frame
@@ -29,6 +31,7 @@ public class TankHeadShot : MonoBehaviour
             GetComponentInParent<BoxCollider2D>().size= new Vector2(0.80f, 0.12f);
             GameObject temp_ghost = Instantiate(ghost, gameObject.transform.position, gameObject.transform.rotation);
             gameObject.SetActive(false);
+            spawn.Spawn();
             Destroy(gameObject, 0.5f);
         }
     }
@@ -45,7 +48,6 @@ public class TankHeadShot : MonoBehaviour
 
                 //Damage received
                 vida -= bullet.damage;
-                Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage + " || Vidas Restantes: " + vida);
             }
         }
         if (other.gameObject.tag == "Explosion" && this.vida > 0)

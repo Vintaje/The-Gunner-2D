@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11fba8e941d8a4d46b074067bc020fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRadius: 5
+  visionRadius: 3
   speed: 0.5
   shotSpawner: {fileID: 1491386164}
   timeTillHit: 0.5
@@ -262,6 +262,7 @@ GameObject:
   - component: {fileID: 8318885344275579930}
   - component: {fileID: 8318885344275579929}
   - component: {fileID: 2062296971315665231}
+  - component: {fileID: 1086498663259340613}
   m_Layer: 0
   m_Name: DeathZone
   m_TagString: EnemyBullet
@@ -361,6 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 3
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
+  spawn: {fileID: 0}
 --- !u!82 &2062296971315665231
 AudioSource:
   m_ObjectHideFlags: 0
@@ -457,3 +459,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1086498663259340613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8318885344275579933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6dc357194d01f4ea5684f09f7268c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 5048418303729830408, guid: db61ecaa024023c4d8a54713d77586aa, type: 3}
+  - {fileID: 2917980800304414503, guid: 028e54840b620a14bb84b6d1d313136b, type: 3}
+  dropRate: 55

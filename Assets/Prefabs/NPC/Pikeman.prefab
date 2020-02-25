@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4310713093819236840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0073407996, y: -0.00432612, z: 1}
+  m_LocalPosition: {x: 0.0073407996, y: -0.00432612, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4310713094604245908}
@@ -83,7 +83,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bbf4890156e758f4e8bc581e21d5f0ab, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -182,9 +182,10 @@ GameObject:
   - component: {fileID: 4310713094604245907}
   - component: {fileID: 4310713094604245904}
   - component: {fileID: 4310713094604245918}
-  - component: {fileID: 4310713094604245905}
   - component: {fileID: 4310713094604245919}
   - component: {fileID: 956916787730882864}
+  - component: {fileID: 1391379457}
+  - component: {fileID: 1391379464}
   m_Layer: 0
   m_Name: Pikeman
   m_TagString: EnemyBullet
@@ -201,7 +202,7 @@ Transform:
   m_GameObject: {fileID: 4310713094604245916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.37, y: 0.18, z: 1}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children:
   - {fileID: 4310713093819236843}
   m_Father: {fileID: 0}
@@ -286,9 +287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186cee79608faea4ebe94365dbaed19d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 1
+  vida: 4
   muerto: 0
-  hurt_duration: 0
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
   destroyed: 0
   destroyTime: 0
@@ -329,44 +329,6 @@ CircleCollider2D:
   m_Offset: {x: 0.00000009031007, y: -0.71467483}
   serializedVersion: 2
   m_Radius: 0.20208511
---- !u!68 &4310713094604245905
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4310713094604245916}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.051000424, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.37442842, y: -0.17769337}
-  - {x: -0.38993466, y: -0.1644922}
-  - {x: -0.38453847, y: -0.14327078}
-  - {x: -0.39955342, y: -0.12712479}
-  - {x: -0.31060123, y: -0.13154347}
-  - {x: -0.31745073, y: -0.1291275}
-  - {x: -0.11988409, y: -0.18736738}
-  - {x: -0.10485396, y: -0.023359241}
-  - {x: 0.006046801, y: 0.08220167}
-  - {x: 0.24415869, y: 0.08390745}
-  - {x: 0.3673929, y: -0.031338315}
-  - {x: 0.3648375, y: -0.2997232}
-  - {x: 0.4961729, y: -0.6177122}
-  - {x: 0.49157974, y: -0.71106607}
-  - {x: 0.35220638, y: -0.7091016}
-  - {x: 0.2516938, y: -0.8096124}
-  - {x: -0.41270185, y: -0.783731}
-  - {x: -0.4044941, y: -0.39724797}
-  - {x: -0.44840539, y: -0.3281521}
-  - {x: -0.4342874, y: -0.12392275}
-  - {x: -0.39464128, y: -0.16200687}
-  - {x: -0.3736337, y: -0.17772804}
 --- !u!114 &4310713094604245919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionRadius: 5
-  speed: 1.5
+  speed: 1
   animator: {fileID: 4310713094604245906}
 --- !u!82 &956916787730882864
 AudioSource:
@@ -478,3 +440,56 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!60 &1391379457
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4310713094604245916}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.56, y: 1.9}
+    newSize: {x: 1.56, y: 1.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.5005608, y: -0.69348824}
+      - {x: 0.35454854, y: -0.27978098}
+      - {x: 0.27342662, y: 0.059097156}
+      - {x: -0.050620694, y: 0.09330136}
+      - {x: -0.13426815, y: -0.16691509}
+      - {x: -0.39874247, y: -0.15633486}
+      - {x: -0.43190548, y: -0.38065273}
+      - {x: -0.19707271, y: -0.46819454}
+      - {x: -0.38, y: -0.95}
+      - {x: 0.28, y: -0.95}
+      - {x: 0.32, y: -0.93}
+      - {x: 0.25735345, y: -0.70370716}
+--- !u!114 &1391379464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4310713094604245916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6dc357194d01f4ea5684f09f7268c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 5048418303729830408, guid: db61ecaa024023c4d8a54713d77586aa, type: 3}
+  - {fileID: 2917980800304414503, guid: 028e54840b620a14bb84b6d1d313136b, type: 3}
+  dropRate: 30

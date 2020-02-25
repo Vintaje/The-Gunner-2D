@@ -8,7 +8,6 @@ public class Human : MonoBehaviour
     // Start is called before the first frame update
     public int vida;
     public bool muerto;
-    public float hurt_duration;
     private Bullet bullet;
     public GameObject ghost;
 
@@ -37,7 +36,8 @@ public class Human : MonoBehaviour
                 {
                     GameObject temp_ghost = Instantiate(ghost, gameObject.transform.position, gameObject.transform.rotation);
                 }
-                if(gameObject.tag.Equals("EnemyBullet")){
+                if (gameObject.tag.Equals("EnemyBullet"))
+                {
                     GetComponent<DropItem>().Spawn();
                 }
                 Destroy(gameObject, destroyTime);
@@ -69,15 +69,14 @@ public class Human : MonoBehaviour
 
                 //Damage received
                 vida -= bullet.damage;
-                
+
             }
         }
         if (other.gameObject.tag == "Explosion" && this.vida > 0)
         {
             this.vida -= other.gameObject.GetComponent<ObjectExplosion>().damage;
-            Debug.Log(this.vida);
         }
-        Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage + " || Vidas Restantes: " + vida);
+        
     }
 
     void BlinkPlayer(int numBlinks)
