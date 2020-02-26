@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  damage: 1
+  damage: 0
   destroyTime: 2
   bulletExplo: {fileID: 2046152516995497041, guid: 057233687543d744e843b3f6ab4f96fd,
     type: 3}

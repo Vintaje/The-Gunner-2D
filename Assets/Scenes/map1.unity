@@ -101322,6 +101322,11 @@ PrefabInstance:
       propertyPath: seconds
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8554472112100635254, guid: 8ac9496d77321bd4e9f1939b94e27d0a,
+        type: 3}
+      propertyPath: cantidad
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8554472112100635256, guid: 8ac9496d77321bd4e9f1939b94e27d0a,
         type: 3}
       propertyPath: m_Name
