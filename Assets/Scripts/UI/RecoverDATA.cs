@@ -17,6 +17,7 @@ public class RecoverDATA : MonoBehaviour
             recoverPlayer.intentos = 3;
             recoverPlayer.municionspec = 0;
             recoverPlayer.municionextr = 0;
+            recoverPlayer.GetComponent<Human>().vida = 10;
         }
         else
         {

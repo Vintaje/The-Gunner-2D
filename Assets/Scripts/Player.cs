@@ -644,9 +644,7 @@ public class Player : MonoBehaviour
         }
         if (intentos == 0)
         {
-            PlayerPrefs.SetInt("Vida", 10);
-            PlayerPrefs.SetInt("Spec", 0);
-            PlayerPrefs.SetInt("Extra", 0);
+            PlayerPrefs.DeleteAll();
             
             GameObject temp_ghost = Instantiate(ghost, (new Vector3(0.0f, 0.1f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation);
             footstep.Pause();
