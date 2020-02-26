@@ -35,6 +35,7 @@ public class Human : MonoBehaviour
                 if (gameObject.name.Equals("BossExoMachine"))
                 {
                     GameObject temp_ghost = Instantiate(ghost, gameObject.transform.position, gameObject.transform.rotation);
+                    Destroy(gameObject.GetComponent<BossExoMachineMovement>().door);
                 }
                 if (gameObject.tag.Equals("EnemyBullet") && !gameObject.name.Equals("Gunman Boss"))
                 {

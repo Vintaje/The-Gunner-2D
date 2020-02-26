@@ -208,10 +208,11 @@ MonoBehaviour:
   hommingMissile: {fileID: 5795066430245907464, guid: 00fe5c150c63ad7438190d77376ceaed,
     type: 3}
   bullet: {fileID: 1771085150099968606, guid: 06e9971e4cfcbcb469beb42ba3d645ec, type: 3}
-  distanceToShot: 1
-  numShots: 5
-  door: {fileID: 0}
-  death: 0
+  distanceToShot: 3
+  numDisparos: 8
+  numBombs: 4
+  bossDetect: {fileID: 0}
+  timeTillHit: 0
 --- !u!114 &5384263193429860471
 MonoBehaviour:
   m_ObjectHideFlags: 0

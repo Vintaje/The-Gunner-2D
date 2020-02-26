@@ -33,15 +33,22 @@ public class BossExoMachineMovement : MonoBehaviour
     public float distanceToShot;
     private float distanceToTarget;
 
+
+    public int numDisparos;
+    public int numBombs;
+
     private GameObject[] enemies;
-    public int numShots;
+
+
+    public GameObject bossDetect;
 
     public GameObject door;
 
     //Script general
     Human human;
 
-    public bool death;
+    private bool newPatron;
+    private bool death;
 
     // Start is called before the first frame update
     void Start()
@@ -65,28 +72,19 @@ public class BossExoMachineMovement : MonoBehaviour
             Vector3 boss = new Vector3(transform.position.x, 0.0f, 0.0f);
             Vector3 targetx = new Vector3(target.position.x, 0.0f, 0.0f);
             distanceToTarget = Vector3.Distance(boss, targetx);
+            Debug.Log(distanceToTarget);
 
             if (!detected)
             {
                 attack = false;
-                run = false;
+
                 GetComponent<Animator>().SetBool("Attacking", attack);
-                GetComponent<Animator>().SetBool("Running", run);
 
             }
             else if (detected)
             {
-                if (distanceToTarget > distanceToShot && Mathf.Abs(transform.position.y - target.position.y) < 0.6f && !patron)
-                {
-                    run = true;
-                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(target.position.x, gameObject.transform.position.y, gameObject.transform.position.z), speed * Time.deltaTime);
-                }
-                else
-                {
-                    run = false;
-                }
-                GetComponent<Animator>().SetBool("Running", run);
-                if (Time.time > nextFire && distanceToTarget < distanceToShot && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
+
+                if (Time.time > nextFire && distanceToTarget < 0.05f)
                 {
                     GetComponent<Animator>().SetBool("Attacking", true);
                     StartCoroutine(BulletDelay(0.8f));
@@ -94,7 +92,7 @@ public class BossExoMachineMovement : MonoBehaviour
                     nextFire = Time.time + fireRate;
                 }
 
-                if (Time.time > nextPatron && distanceToTarget < distanceToShot * 4 && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
+                if (Time.time > nextPatron && distanceToTarget < distanceToShot && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
                 {
                     nextPatron = Time.time + patronRate;
                     patron = true;
@@ -102,13 +100,13 @@ public class BossExoMachineMovement : MonoBehaviour
                 }
 
 
-                if (transform.position.x < target.position.x && Mathf.Abs(transform.position.x - target.position.x) > 0.5f) // he's looking right
+                if (transform.position.x < target.position.x && distanceToTarget < -0.5f) // he's looking right
                 {
                     right = true;
                     transform.eulerAngles = new Vector3(0, 0, 0);
                 }
 
-                if (transform.position.x > target.position.x && Mathf.Abs(transform.position.x - target.position.x) > 0.5f) // he's looking left
+                if (transform.position.x > target.position.x && distanceToTarget > 0.5f) // he's looking left
                 {
                     right = false;
                     transform.eulerAngles = new Vector3(0, -180, 0);
@@ -122,24 +120,14 @@ public class BossExoMachineMovement : MonoBehaviour
                 detected = false;
                 speed = normalspeed;
             }
-            else if (!detected && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
+            else if (!detected)
             {
 
                 detected = true;
                 speed = fastspeed;
             }
 
-            if (transform.position.x > oldPosition && Mathf.Abs(oldPosition - transform.position.x) < 0.3f) // he's looking right
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                right = true;
-            }
 
-            if (transform.position.x < oldPosition && Mathf.Abs(oldPosition - transform.position.x) < 0.3f) // he's looking left
-            {
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                right = false;
-            }
             oldPosition = transform.position.x;
         }
 
@@ -147,7 +135,6 @@ public class BossExoMachineMovement : MonoBehaviour
         {
             death = true;
             GetComponents<AudioSource>()[0].Play();
-            Destroy(door);
         }
     }
 
@@ -168,6 +155,7 @@ public class BossExoMachineMovement : MonoBehaviour
     }
     IEnumerator BulletDelay(float seconds)
     {
+
         yield return new WaitForSeconds(seconds);
 
         GameObject tempBullet = Instantiate(bulletPrefab, shotSpawner.position, shotSpawner.rotation);
@@ -182,76 +170,99 @@ public class BossExoMachineMovement : MonoBehaviour
     {
         if (human.vida > 10)
         {
-            for (int i = 0; i < numShots; i++)
+            GetComponent<Animator>().SetBool("Attacking", false);
+            for (int i = 0; i < numDisparos; i++)
             {
                 if (!human.muerto)
                 {
-                    Instantiate(bullet, patronSpawner.position, patronSpawner.rotation);
-                    yield return new WaitForSeconds(1.0f);
-                    Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
-                    yield return new WaitForSeconds(0.3f);
+                    GameObject b = Instantiate(bullet, patronSpawner.position, patronSpawner.rotation);
+                    b.GetComponent<Bullet>().destroyTime = 1.5f;
+
+                    yield return new WaitForSeconds(0.25f);
                 }
             }
-            yield return new WaitForSeconds(1.5f);
-            for (int i = 0; i < numShots; i++)
+            yield return new WaitForSeconds(1.0f);
+            for (int i = 0; i < numBombs; i++)
             {
                 if (!human.muerto)
                 {
-                    Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, 0.0f, 0.0f));
+                    GameObject b = Instantiate(hommingMissile, patronSpawner.position - new Vector3(0.0f, 0.1f, 0.0f), patronSpawner.rotation);
+                    b.GetComponent<Bullet>().destroyTime = 1.5f;
+
                     yield return new WaitForSeconds(1.0f);
                 }
             }
             yield return new WaitForSeconds(1.5f);
-            patron = false;
+            for (int i = 0; i < numDisparos / 2; i++)
+            {
+                GameObject b = Instantiate(hommingMissile, patronSpawner.position - new Vector3(0.0f, 0.05f, 0.0f), patronSpawner.rotation);
+                b.GetComponent<Bullet>().destroyTime = 1.5f;
+
+                yield return new WaitForSeconds(1.0f);
+            }
+            yield return new WaitForSeconds(1.0f);
+            for (int i = 0; i < numBombs; i++)
+            {
+                if (!human.muerto)
+                {
+                    GameObject b = Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation);
+                    b.GetComponent<Bullet>().destroyTime = 1.5f;
+
+                    yield return new WaitForSeconds(0.25f);
+                }
+            }
+
+            yield return new WaitForSeconds(1.0f);
+
         }
         else
         {
-
-            for (int i = 0; i < numShots; i++)
+            if (!newPatron)
+            {
+                GetComponents<AudioSource>()[1].Play();
+                newPatron = true;
+            }
+            for (int i = 0; i < numDisparos; i++)
             {
                 if (!human.muerto)
                 {
-                    Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, -0.05f, 0.0f));
-                    yield return new WaitForSeconds(1.2f);
-                    Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation).transform.Translate(new Vector3(0.0f, 0.0f, 0.0f));
-                    yield return new WaitForSeconds(1.4f);
+                    GameObject b = Instantiate(bullet, patronSpawner.position, patronSpawner.rotation);
+                    b.GetComponent<Bullet>().destroyTime = 1.5f;
+
+                    yield return new WaitForSeconds(0.25f);
                 }
             }
-        }
-    }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "EnemyBullet")
-        {
-            GetComponent<Rigidbody2D>().isKinematic = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "EnemyBullet")
-        {
-            GetComponent<Rigidbody2D>().isKinematic = false;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag.Equals("LimiteEnemigos"))
-        {
-            if (right)
+            yield return new WaitForSeconds(0.5f);
+            for (int i = 0; i < numDisparos; i++)
             {
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                right = false;
+                if (!human.muerto)
+                {
+                    GameObject b = Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation);
+                    b.GetComponent<Bullet>().destroyTime = 1.5f;
+ 
+                    yield return new WaitForSeconds(0.25f);
+                }
             }
-            else
+            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
+            for (int i = 0; i < numDisparos; i++)
             {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                right = true;
+                if (!human.muerto)
+                {
+                    GameObject b = Instantiate(hommingMissile, patronSpawner.position, patronSpawner.rotation);
+                    b.GetComponent<Bullet>().destroyTime = 1.5f;
+
+                    yield return new WaitForSeconds(0.25f);
+                }
             }
+            yield return new WaitForSeconds(1.0f);
+
         }
+        patron = false;
     }
+
+
 
 
 }

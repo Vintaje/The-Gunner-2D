@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class NextLevelEvent : MonoBehaviour
 {
     public GameObject boss;
+    private bool end = false;
     public string nextScene;
     // Start is called before the first frame update
     void Start()
@@ -16,8 +17,9 @@ public class NextLevelEvent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (boss == null)
+        if (!end && (boss == null || boss.GetComponent<Human>().vida <= 0))
         {
+            end = true;
             GetComponent<Collider2D>().enabled = true;
         }
     }

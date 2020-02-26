@@ -51,7 +51,7 @@ public class BossDetect : MonoBehaviour
 
     IEnumerator closeCollider()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         GetComponent<Collider2D>().isTrigger = false;
         if (direccionWall == 1)
         {
@@ -63,7 +63,7 @@ public class BossDetect : MonoBehaviour
         }
         else if (direccionWall == 3)
         {
-            GetComponent<Collider2D>().offset = new Vector2(GetComponent<Collider2D>().offset.x, -1.0f);
+            GetComponent<Collider2D>().offset = new Vector2(GetComponent<Collider2D>().offset.x, -1.5f);
         }
     }
 }
