@@ -14,11 +14,14 @@ public class StartScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("Saltar")){
+            SceneManager.LoadScene("Start");
+        }
     }
 
 
-    IEnumerator startScene(){
+    IEnumerator startScene()
+    {
         yield return new WaitForSeconds(35.0f);
         SceneManager.LoadScene("Start");
     }
