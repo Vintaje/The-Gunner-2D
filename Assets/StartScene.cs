@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class StartScene : MonoBehaviour
 {
+    public string nextScene;
+    public float waitTime = 35.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,14 +17,14 @@ public class StartScene : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("Saltar")){
-            SceneManager.LoadScene("Start");
+            SceneManager.LoadScene(nextScene);
         }
     }
 
 
     IEnumerator startScene()
     {
-        yield return new WaitForSeconds(35.0f);
-        SceneManager.LoadScene("Start");
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene(nextScene);
     }
 }

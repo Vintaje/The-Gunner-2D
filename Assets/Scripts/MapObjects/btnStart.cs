@@ -18,6 +18,6 @@ public class btnStart : MonoBehaviour
     }
 
     public void empezar() {
-        SceneManager.LoadScene("transitionStartMap1");
+        SceneManager.LoadScene("StartStory");
      }
 }

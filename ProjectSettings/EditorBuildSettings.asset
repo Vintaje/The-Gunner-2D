@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Start.unity
     guid: bed66ea6a584e0f4199fe0b7d9f3f558
   - enabled: 1
+    path: Assets/Scenes/StartStory.unity
+    guid: e6e648cba8b177646b375f71e1ecb5b0
+  - enabled: 1
     path: Assets/Scenes/transitionStartMap1.unity
     guid: 43216a9bdbf33a240931c8040afb487d
   - enabled: 1
