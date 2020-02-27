@@ -20,11 +20,15 @@ public class Joybutton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     void Start()
     {
         Pressed = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Application.platform != RuntimePlatform.Android)
+        {
+            this.enabled = false;
+        }
     }
 }
