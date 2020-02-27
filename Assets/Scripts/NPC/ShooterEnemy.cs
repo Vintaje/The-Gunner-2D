@@ -91,7 +91,6 @@ public class ShooterEnemy : MonoBehaviour
                 if (Time.time > nextFire && detection.shot)
                 {
                     StartCoroutine(DoBlinks());
-                    Debug.Log("Disparando");
                     nextFire = Time.time + fireRate;
                 }
                 if (transform.position.x < detection.target.position.x) // he's looking right

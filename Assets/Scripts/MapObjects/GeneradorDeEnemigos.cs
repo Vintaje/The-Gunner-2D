@@ -48,13 +48,11 @@ public class GeneradorDeEnemigos : MonoBehaviour
 
             if (heli_state == null && mode == 1)
             {
-                Debug.Log("Acaba de ocurri algo");
                 activo = false;
                 mainCamera.GetComponent<CameraFollow>().habilitado = true;
 
                 Invoke("recuperarCamara", 1.0f);
                 Destroy(gameObject, 1.5f);
-                Debug.Log("Fase Terminada");
                 if(drops != null){
                     foreach(DropItem drop in drops){
                         drop.Spawn();
@@ -63,13 +61,11 @@ public class GeneradorDeEnemigos : MonoBehaviour
             }
             if (mode == 2 && cantidad <= 0)
             {
-                Debug.Log("Acaba de ocurri algo");
                 activo = false;
                 mainCamera.GetComponent<CameraFollow>().habilitado = true;
 
                 Invoke("recuperarCamara", 1.0f);
                 Destroy(gameObject, 1.5f);
-                Debug.Log("Fase Terminada");
             }
         }
 

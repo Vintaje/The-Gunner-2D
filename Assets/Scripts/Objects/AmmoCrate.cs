@@ -58,9 +58,7 @@ public class AmmoCrate : MonoBehaviour
                 cantidad = 3;
             }
         }
-        Debug.Log("Weapon " + weapon);
 
-        Debug.Log("Cantidad " + cantidad);
         if (weapon == 2)
         {
             GetComponent<Animator>().SetBool("Weapon 2", true);

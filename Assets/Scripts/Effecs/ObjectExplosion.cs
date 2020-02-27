@@ -16,7 +16,9 @@ public class ObjectExplosion : MonoBehaviour
         {
             gameObject.GetComponent<AudioSource>().Play();
         }
-        catch (UnityException ex) { }
+        catch (UnityException) { 
+
+        }
     }
 
     // Update is called once per frame

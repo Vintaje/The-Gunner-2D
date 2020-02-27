@@ -22,8 +22,6 @@ public class DropItem : MonoBehaviour
                 num = 0;
             }
             Instantiate(items[num], transform.position, Quaternion.identity);
-        }else{
-            Debug.Log("No dropea nada");
         }
     }
 }

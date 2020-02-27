@@ -41,10 +41,14 @@ public class Human : MonoBehaviour
                 {
                     GetComponent<DropItem>().Spawn();
                 }
-                if(gameObject.name.Equals("Gunman Boss")){
+                if (gameObject.name.Equals("Gunman Boss"))
+                {
                     gameObject.GetComponent<BossGunman>().endGame();
                 }
-                Destroy(gameObject, destroyTime);
+                if (destroyTime != -1)
+                {
+                    Destroy(gameObject, destroyTime);
+                }
             }
 
             if (!destroyed && gameObject.tag.Equals("Player"))

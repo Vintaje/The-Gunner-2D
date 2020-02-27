@@ -19,10 +19,6 @@ public class BossGunman : MonoBehaviour
     private bool detected = false;
     public Transform target;
 
-    public float fireRate;
-    private float nextFire;
-    private bool patron;
-
     public float patronRate;
     private float nextPatron;
     public GameObject bulletPrefab;
@@ -58,7 +54,6 @@ public class BossGunman : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nextFire = 0.0f;
         oldPosition = transform.position.x;
         right = true;
         speed = normalspeed;
@@ -77,7 +72,6 @@ public class BossGunman : MonoBehaviour
             Vector3 boss = new Vector3(transform.position.x, 0.0f, 0.0f);
             Vector3 targetx = new Vector3(target.position.x, 0.0f, 0.0f);
             distanceToTarget = Vector3.Distance(boss, targetx);
-            Debug.Log(distanceToTarget);
 
             if (!detected)
             {
@@ -94,7 +88,6 @@ public class BossGunman : MonoBehaviour
                 if (Time.time > nextPatron && distanceToTarget < distanceToShot * 4 && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
                 {
                     nextPatron = Time.time + patronRate;
-                    patron = true;
                     StartCoroutine(patronAtaque());
                 }
 
@@ -323,9 +316,6 @@ public class BossGunman : MonoBehaviour
                 animator.SetBool("Down", down);
             }
         }
-
-
-        patron = false;
 
     }
 

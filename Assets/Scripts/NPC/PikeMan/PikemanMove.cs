@@ -45,7 +45,6 @@ public class PikemanMove : MonoBehaviour
 
 
                 animator.SetBool("isPlayerVisible", true);
-                Debug.DrawLine(transform.position, player.transform.position, Color.red);
 
             }
 

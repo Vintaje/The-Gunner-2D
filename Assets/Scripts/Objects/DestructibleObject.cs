@@ -42,7 +42,6 @@ public class DestructibleObject : MonoBehaviour
 
             //Damage received
             vida -= bullet.damage;
-            Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage);
         }
     }
 
@@ -58,7 +57,6 @@ public class DestructibleObject : MonoBehaviour
             //Damage received
             vida -= bullet.damage;
             bullet.disable();
-            Debug.Log("Item " + gameObject.name + " damage received: " + bullet.damage);
         }
     }
 
@@ -79,8 +77,7 @@ public class DestructibleObject : MonoBehaviour
         }
 
         //make sure renderer is enabled when we exit
-        gameObject.GetComponent<Renderer>().enabled = true;
-        gameObject.GetComponent<Animator>().SetBool("Hit", false);
+        gameObject.GetComponent<Renderer>().enabled = true;  
     }
 
 }

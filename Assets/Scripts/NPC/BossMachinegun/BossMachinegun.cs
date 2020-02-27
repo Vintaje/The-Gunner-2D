@@ -19,7 +19,6 @@ public class BossMachinegun : MonoBehaviour
 
     public float fireRate;
     private float nextFire;
-    private bool patron;
 
     public float patronRate;
     private float nextPatron;
@@ -71,7 +70,6 @@ public class BossMachinegun : MonoBehaviour
             Vector3 boss = new Vector3(transform.position.x, 0.0f, 0.0f);
             Vector3 targetx = new Vector3(target.position.x, 0.0f, 0.0f);
             distanceToTarget = Vector3.Distance(boss, targetx);
-            Debug.Log(distanceToTarget);
 
             if (!detected)
             {
@@ -98,7 +96,6 @@ public class BossMachinegun : MonoBehaviour
                 if (Time.time > nextPatron && distanceToTarget < distanceToShot * 4 && Mathf.Abs(transform.position.y - target.position.y) < 0.6f)
                 {
                     nextPatron = Time.time + patronRate;
-                    patron = true;
                     StartCoroutine(patronAtaque());
                 }
 
@@ -254,7 +251,6 @@ public class BossMachinegun : MonoBehaviour
             }
             yield return new WaitForSeconds(1.0f);
         }
-        patron = false;
     }
 
 

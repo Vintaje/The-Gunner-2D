@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
     //Update
     void Update()
     {
-        intent.GetComponent<Text>().text = "x " + intentos;
+        intent.GetComponent<Text>().text = "x" + intentos;
         life.GetComponent<HealthBar>().SetHealth(human.vida);
         if (plataforma == 2)
         {
@@ -642,7 +642,7 @@ public class Player : MonoBehaviour
             animator.SetBool("Death", true);
             Invoke("restart", 2);
         }
-        if (intentos == 0)
+        if (intentos <= 0)
         {
             PlayerPrefs.DeleteAll();
             
@@ -652,13 +652,13 @@ public class Player : MonoBehaviour
             death.time = 0.65f;
             death.Play();
             animator.SetBool("Death", true);
-            Invoke("gameover", 2);
+            Invoke("gameover", 1);
         }
 
     }
 
     void gameover(){
-        SceneManager.LoadScene("map1");
+        SceneManager.LoadScene("GameOver");
     }
 
     void BlinkPlayer(int numBlinks)
