@@ -165,6 +165,7 @@ public class Player : MonoBehaviour
             androidPlatform();
         }
 
+       
     }
 
     void androidPlatform()
@@ -645,7 +646,7 @@ public class Player : MonoBehaviour
         if (intentos <= 0)
         {
             PlayerPrefs.DeleteAll();
-            
+
             GameObject temp_ghost = Instantiate(ghost, (new Vector3(0.0f, 0.1f, 0.0f)) + gameObject.transform.position, gameObject.transform.rotation);
             footstep.Pause();
             BlinkPlayer(3);

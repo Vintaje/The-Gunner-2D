@@ -16,9 +16,13 @@ public class StartScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Saltar")){
+        if (Input.GetButtonDown("Saltar") || Input.touchCount > 0)
+        {
             SceneManager.LoadScene(nextScene);
         }
+
+
+
     }
 
 

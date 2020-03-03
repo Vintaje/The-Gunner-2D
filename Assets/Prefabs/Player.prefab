@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 1089103079364660193}
   - component: {fileID: 2204165780352496166}
   - component: {fileID: 269768737}
+  - component: {fileID: 114865128995286614}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -314,6 +315,8 @@ MonoBehaviour:
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
   life: {fileID: 0}
   text: {fileID: 4901343218570307493, guid: be4ae85f9e3fecd4ab983040cf48ec62, type: 3}
+  intentos: 0
+  intent: {fileID: 0}
   human: {fileID: 0}
 --- !u!61 &3153768777711790019
 BoxCollider2D:
@@ -1336,10 +1339,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 10
   muerto: 0
-  hurt_duration: 2
   ghost: {fileID: 2417173065769693692, guid: 06563ba7879531045a0c6cc461b2a7a1, type: 3}
   destroyed: 0
   destroyTime: 4
+--- !u!114 &114865128995286614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3153768777711790016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd2588081ebebc49ac722bba71ed75b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9058939334466873389
 GameObject:
   m_ObjectHideFlags: 0
